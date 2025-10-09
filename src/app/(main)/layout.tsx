@@ -26,11 +26,11 @@ const socials = [
     icon: "icon-[ri--twitter-x-fill]",
     alt: "Follow Steven Frady on X (formally Twitter)",
   },
-  {
-    link: "https://bsky.app/profile/slowjamsteve.bsky.social",
-    icon: "icon-[ri--bluesky-fill]",
-    alt: "Follow Steven Frady on Bluesky",
-  },
+  // {
+  //   link: "https://bsky.app/profile/slowjamsteve.bsky.social",
+  //   icon: "icon-[ri--bluesky-fill]",
+  //   alt: "Follow Steven Frady on Bluesky",
+  // },
   {
     link: "https://www.linkedin.com/in/stevenfrady",
     icon: "icon-[ri--linkedin-box-fill]",
