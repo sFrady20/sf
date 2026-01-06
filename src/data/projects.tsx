@@ -9,6 +9,21 @@ export const categories = [
       results. Here, you'll see projects where my skills and those of my
       peers come together to build practical, impactful solutions.`,
     projects: [
+      // {
+      //   id: "linq",
+      //   label: "LINQ",
+      //   year: "2025",
+      //   description: ``,
+      //   platforms: ["web", "mobile"],
+      //   languages: ["Typescript"],
+      //   frameworks: ["React", "React-Native", "Next.js", "Tailwind", "Shadcn"],
+      //   links: [
+      //     {
+      //       link: "https://linq.dj/",
+      //       icon: "icon-[ri--external-link-fill]",
+      //     },
+      //   ],
+      // },
       {
         id: "griddy",
         label: "District Athletics",
@@ -203,6 +218,26 @@ export const categories = [
       </>
     ),
     projects: [
+      // {
+      //   id: "pin-map",
+      //   label: "USAA Pin Map",
+      //   description: ``,
+      //   year: "2025",
+      //   hasVideo: true,
+      //   platforms: ["desktop"],
+      //   languages: ["C#"],
+      //   frameworks: ["React", "Electron", "Vite"],
+      // },
+      // {
+      //   id: "wonderdome",
+      //   label: "Walmart Wonderdome",
+      //   description: ``,
+      //   year: "2025",
+      //   hasVideo: true,
+      //   platforms: ["desktop"],
+      //   languages: ["Typescript"],
+      //   frameworks: ["React", "Electron", "Vite"],
+      // },
       {
         id: "swag-shop",
         label: "Spin To Win",
@@ -210,7 +245,7 @@ export const categories = [
         year: "2024",
         hasVideo: true,
         platforms: ["desktop"],
-        languages: ["C#"],
+        languages: ["Typescript"],
         frameworks: ["React", "Electron", "Vite"],
       },
       {
