@@ -32,7 +32,7 @@ export default async function () {
       <section className="md:pb-[60px]">
         <div className="container md:max-w-[620px]">
           <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance">
-            I am a developer with over 9 years of experience, specializing in
+            I am a developer with over 10 years of experience, specializing in
             web and mobile development. My work is focused on creating
             user-centric solutions, with a commitment to continuous learning and
             innovation in the tech field.

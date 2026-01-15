@@ -32,7 +32,7 @@ float quarticInOut(float t) {
 }
 
 float map(vec2 p, float t) {
-  return smoothstep(0., 1., (sin(p.x * 20. + t) * 0.5 + 0.5) + cos(p.y * 20. + t));
+  //return smoothstep(0., 1., (sin(p.x * 20. + t) * 0.5 + 0.5) + cos(p.y * 20. + t));
   return pow(simplex3D(vec3(p.xy * 10., t)) * 0.5 + 0.5, 0.5);
 }
 
