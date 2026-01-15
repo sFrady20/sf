@@ -146,10 +146,10 @@ export const categories = [
         languages: ["Python", "C#"],
         frameworks: ["Unity", "OpenAI"],
         links: [
-          {
-            link: "https://brainwavebroadcasting.tv/",
-            icon: "icon-[ri--external-link-fill]",
-          },
+          // {
+          //   link: "https://brainwavebroadcasting.tv/",
+          //   icon: "icon-[ri--external-link-fill]",
+          // },
           // {
           //   link: "https://www.youtube.com/@BrainwaveBroadcasting",
           //   icon: "icon-[ri--youtube-fill]",
