@@ -20,11 +20,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export default async function () {
+export default async function HomePage() {
   return (
     <>
       <section className="mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
         <div className="container @container">
+          <h1 className="sr-only">Steven Frady - Creative Full-Stack Developer</h1>
           <Frady className={"w-full h-[20cqw]"} />
         </div>
       </section>
@@ -67,7 +68,7 @@ export default async function () {
                 {x.projects.map((x, i) => (
                   <AccordionItem value={x.id} key={`${x.id}`}>
                     <div className="relative w-full aspect-square md:hidden rounded-lg overflow-hidden">
-                      {(x as any).hasVideo ? (
+                      {x.hasVideo ? (
                         <video
                           muted
                           autoPlay
@@ -146,7 +147,7 @@ export default async function () {
                             alt={`${x.label}`}
                             className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
                           />
-                          {(x as any).hasVideo && (
+                          {x.hasVideo && (
                             <video
                               muted
                               autoPlay
@@ -165,19 +166,19 @@ export default async function () {
                           {x.description}
                         </p>
                         <div className="grid grid-cols-3 gap-4">
-                          <div className="flex flex-col col-span-4 md:col-span-1">
+                          <div className="flex flex-col col-span-3 md:col-span-1">
                             <div className="text-xs opacity-60">Languages</div>
                             <div className="text-xs">
                               {x.languages?.join(", ")}
                             </div>
                           </div>
-                          <div className="flex flex-col col-span-4 md:col-span-1">
+                          <div className="flex flex-col col-span-3 md:col-span-1">
                             <div className="text-xs opacity-60">Frameworks</div>
                             <div className="text-xs">
                               {x.frameworks?.join(", ")}
                             </div>
                           </div>
-                          <div className="flex flex-col col-span-4 md:col-span-1">
+                          <div className="flex flex-col col-span-3 md:col-span-1">
                             <div className="text-xs opacity-60">Platforms</div>
                             <div className="flex flex-row items-center gap-2">
                               {x.platforms?.includes("web") && (

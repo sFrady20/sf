@@ -75,12 +75,4 @@ export const shaderData: Record<string, { title: string; subtitle: string }> = {
     title: "Op Art",
     subtitle: "Genuary 2025, Day 19",
   },
-  // "genuary/2025/20": {
-  //   title: "Generative Architecture",
-  //   subtitle: "Genuary 2025, Day 20",
-  // },
-  // "genuary/2025/22": {
-  //   title: "Gradients Only",
-  //   subtitle: "Genuary 2025, Day 22",
-  // },
 };

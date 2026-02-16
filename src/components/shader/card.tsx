@@ -95,7 +95,7 @@ export function ShaderCard(props: ShaderCardProps) {
                   href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}
                   target={"_blank"}
                   className="pointer-events-auto cursor-alias text-[white]"
-                  aria-label={`View souce code for shader titled "${title}"`}
+                  aria-label={`View source code for shader titled "${title}"`}
                 >
                   <i className="icon-[ri--github-fill] text-lg" />
                 </Link>

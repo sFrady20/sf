@@ -1,7 +1,32 @@
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { ReactNode } from "react";
 
-export const categories = [
+interface ProjectLink {
+  link: string;
+  icon: string;
+}
+
+interface Project {
+  id: string;
+  label: string;
+  year: string;
+  description: string;
+  platforms: string[];
+  languages: string[];
+  frameworks: string[];
+  hasVideo?: boolean;
+  links?: ProjectLink[];
+}
+
+interface Category {
+  id: string;
+  title: string;
+  intro: string | ReactNode;
+  projects: Project[];
+}
+
+export const categories: Category[] = [
   {
     id: "apps",
     title: "Apps",

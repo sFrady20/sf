@@ -24,13 +24,8 @@ const socials = [
   {
     link: "https://x.com/slowjamsteve",
     icon: "icon-[ri--twitter-x-fill]",
-    alt: "Follow Steven Frady on X (formally Twitter)",
+    alt: "Follow Steven Frady on X (formerly Twitter)",
   },
-  // {
-  //   link: "https://bsky.app/profile/slowjamsteve.bsky.social",
-  //   icon: "icon-[ri--bluesky-fill]",
-  //   alt: "Follow Steven Frady on Bluesky",
-  // },
   {
     link: "https://www.linkedin.com/in/stevenfrady",
     icon: "icon-[ri--linkedin-box-fill]",
@@ -43,7 +38,7 @@ const socials = [
   },
 ];
 
-export default async function (props: {
+export default async function MainLayout(props: {
   children?: ReactNode;
   modal?: ReactNode;
 }) {
@@ -85,7 +80,7 @@ export default async function (props: {
                   </Link>
                 </Button>
               </div>
-              <div className="flex-row justify-center items-center gap-6 flex-1 hidden md:flex">
+              <nav aria-label="Social links" className="flex-row justify-center items-center gap-6 flex-1 hidden md:flex">
                 {socials.map((x, i) => (
                   <Button
                     key={i}
@@ -99,7 +94,7 @@ export default async function (props: {
                     </Link>
                   </Button>
                 ))}
-              </div>
+              </nav>
               <div className="flex-1 flex flex-row items-center justify-end gap-2 md:gap-4">
                 <MusicButton src="/music/lets-connect.mp3" />
                 <ColorSchemeToggle colorScheme={colorScheme} />
@@ -107,6 +102,7 @@ export default async function (props: {
                   variant={"ghost"}
                   size={"icon"}
                   className="md:hidden rounded-full"
+                  aria-label="Toggle menu"
                 >
                   <i className="icon-[ri--menu-fill]" />
                 </MenuToggle>
@@ -147,13 +143,6 @@ export default async function (props: {
             >
               <Link href={"/#apps"}>Apps</Link>
             </MenuToggle>
-            {/* <MenuToggle
-                className="h-auto text-3xl md:text-5xl"
-                variant={"ghost"}
-                asChild
-              >
-                <Link href={"/#tools"}>Tools</Link>
-              </MenuToggle> */}
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
               variant={"ghost"}
@@ -177,7 +166,9 @@ export default async function (props: {
             </MenuToggle>
           </Menu>
 
-          {children}
+          <main>
+            {children}
+          </main>
 
           {modal}
 
@@ -191,17 +182,16 @@ export default async function (props: {
                   </p>
                   <div className="text-xs">© {new Date().getFullYear()}</div>
                 </div>
-                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
+                <nav aria-label="Site navigation" className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
                   {[
                     { link: "/", label: "Home" },
                     { link: "/#apps", label: "Apps" },
-                    // { link: "/#tools", label: "Tools" },
                     { link: "/#oss", label: "OSS" },
                     { link: "/#freelance", label: "Freelance" },
                     { link: "/shaders", label: "Shaders" },
                     { link: "/tools", label: "Tools" },
                   ].map((x, i) => (
-                    <div key={i} className=" col-span-1">
+                    <div key={i} className="col-span-1">
                       <Link
                         href={x.link}
                         className="hover:underline text-sm font-title"
@@ -210,16 +200,16 @@ export default async function (props: {
                       </Link>
                     </div>
                   ))}
-                </div>
-                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
+                </nav>
+                <nav aria-label="External links" className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
                   {[
                     {
                       link: "https://www.linkedin.com/in/stevenfrady/",
                       label: "LinkedIn",
                     },
                     {
-                      link: "https://twitter.com/slowjamsteve",
-                      label: "X (Formally Twitter)",
+                      link: "https://x.com/slowjamsteve",
+                      label: "X (Formerly Twitter)",
                     },
                     {
                       link: "https://peerlist.io/sfrady20",
@@ -237,14 +227,6 @@ export default async function (props: {
                       link: "https://soundcloud.com/sultan-zabu",
                       label: "SoundCloud",
                     },
-                    // {
-                    //   link: "https://www.producthunt.com/@sfrady20",
-                    //   label: "Product Hunt",
-                    // },
-                    // {
-                    //   link: "https://calendly.com/sfrady20",
-                    //   label: "Calendly",
-                    // },
                   ].map((x, i) => (
                     <div key={i} className="col-span-1">
                       <Link
@@ -256,11 +238,10 @@ export default async function (props: {
                       </Link>
                     </div>
                   ))}
-                </div>
+                </nav>
                 <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1 opacity-60">
                   <Link
                     href={"mailto:sfrady20@gmail.com"}
-                    download
                     className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
                     target="_blank"
                   >
@@ -269,7 +250,6 @@ export default async function (props: {
                   </Link>
                   <Link
                     href={"https://resume.stevenfrady.com"}
-                    download
                     className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
                     target="_blank"
                   >
@@ -278,7 +258,6 @@ export default async function (props: {
                   </Link>
                   <Link
                     href={"https://venmo.com/?txn=pay&recipients=sfrady"}
-                    download
                     className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
                     target="_blank"
                   >

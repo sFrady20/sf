@@ -91,7 +91,8 @@ export const Shader = function (props: ShaderProps) {
         uniforms.pointer.value[0] = e.clientX - bounds.x;
         uniforms.pointer.value[1] = -e.clientY + bounds.y + bounds.height;
 
-        uniforms.pointers.value[e.pointerId - 1].set(
+        const pointerIndex = Math.max(0, Math.min(e.pointerId - 1, 9));
+        uniforms.pointers.value[pointerIndex].set(
           e.clientX - bounds.x,
           -e.clientY + bounds.y + bounds.height
         );
