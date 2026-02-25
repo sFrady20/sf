@@ -1,5 +1,7 @@
+@reference "../../globals.css";
+
 .container {
-  @apply border rounded transition-all overflow-hidden grid border-foreground/30 focus-within:bg-foreground/10 text-sm shadow-sm transition-colors focus-within:outline-none focus-within:ring-1 focus-within:ring-foreground/30 disabled:cursor-not-allowed disabled:opacity-50;
+  @apply border rounded-sm transition-all overflow-hidden grid border-foreground/30 focus-within:bg-foreground/10 text-sm shadow-xs transition-colors focus-within:outline-hidden focus-within:ring-1 focus-within:ring-foreground/30 disabled:cursor-not-allowed disabled:opacity-50;
 }
 .container:focus-within {
 }
@@ -21,7 +23,7 @@
 .control,
 .container::after {
   /* Identical styling required!! */
-  @apply rounded w-full p-[0.5rem] bg-[transparent] border-0;
+  @apply rounded-sm w-full p-[0.5rem] bg-[transparent] border-0;
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
 }

@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 export default async function App(props: { children?: ReactNode }) {
   const { children } = props;
 
-  const cookieJar = cookies();
+  const cookieJar = await cookies();
   const colorScheme = cookieJar.get("color-scheme");
 
   return (
@@ -33,8 +33,8 @@ export default async function App(props: { children?: ReactNode }) {
           fonts.display.variable,
           fonts.title.variable,
           fonts.body.variable,
-          "bg-background text-foreground font-body selection:bg-foreground selection:text-background flex flex-col min-h-[100svh]",
-          colorScheme?.value || "dark"
+          "bg-background text-foreground font-body selection:bg-foreground selection:text-background flex flex-col min-h-svh",
+          colorScheme?.value || "dark",
         )}
       >
         {children}

@@ -1,3 +1,5 @@
+@reference "../../globals.css";
+
 @property --value {
   initial-value: 0;
   syntax: "<number>";

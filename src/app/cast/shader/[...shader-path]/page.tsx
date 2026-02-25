@@ -2,18 +2,16 @@ import { Shader } from "@/components/shader";
 import { notFound } from "next/navigation";
 
 export default async function (props: {
-  params: { ["shader-path"]: string[] };
+  params: Promise<{ ["shader-path"]: string[] }>;
 }) {
-  const { params } = props;
+  const { "shader-path": shaderPathSegments } = await props.params;
 
   let frag: string;
-  const shaderPath = params["shader-path"].join("/");
+  const shaderPath = shaderPathSegments.join("/");
 
   try {
     frag = (
-      await import(
-        `raw-loader!glslify-loader!@/shaders/${shaderPath}.frag.glsl`
-      )
+      await import(`@/shaders/${shaderPath}.frag.glsl`)
     ).default;
   } catch (err: any) {
     console.error(err);

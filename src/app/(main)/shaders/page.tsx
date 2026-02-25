@@ -7,9 +7,7 @@ export default async function ShadersPage() {
       Object.keys(shaderData).map(async (shaderId) => [
         shaderId,
         (
-          await import(
-            `raw-loader!glslify-loader!@/shaders/${shaderId}.frag.glsl`
-          )
+          await import(`@/shaders/${shaderId}.frag.glsl`)
         ).default,
       ])
     )

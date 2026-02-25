@@ -1,6 +1,8 @@
 import React, { ReactNode, useRef } from "react";
-import { MeshProps, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 import { Mesh, PerspectiveCamera } from "three";
+
+type MeshProps = React.ComponentPropsWithRef<"mesh">;
 
 const Slice = (
   props: { children?: ReactNode; distance?: number } & MeshProps

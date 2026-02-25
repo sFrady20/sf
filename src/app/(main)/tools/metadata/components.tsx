@@ -356,7 +356,7 @@ export const FMTExport = function (props: ButtonProps) {
         }
 
         const zipped = zipSync(unzipped);
-        const zippedUrl = URL.createObjectURL(new Blob([zipped]));
+        const zippedUrl = URL.createObjectURL(new Blob([new Uint8Array(zipped)]));
 
         const a = document.createElement("a");
         a.href = zippedUrl;

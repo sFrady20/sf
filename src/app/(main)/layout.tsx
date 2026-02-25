@@ -44,7 +44,7 @@ export default async function MainLayout(props: {
 }) {
   const { children, modal } = props;
 
-  const cookieJar = cookies();
+  const cookieJar = await cookies();
   const colorScheme = cookieJar.get("color-scheme")?.value || "dark";
 
   return (

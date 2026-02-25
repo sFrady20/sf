@@ -1,5 +1,7 @@
+@reference "../../globals.css";
+
 .container {
-  @apply border rounded bg-foreground/5 transition-all overflow-hidden grid;
+  @apply border rounded-sm bg-foreground/5 transition-all overflow-hidden grid;
 }
 .container:hover {
   @apply bg-foreground/10;
@@ -22,7 +24,7 @@
 .control,
 .container::after {
   /* Identical styling required!! */
-  @apply rounded w-full p-[0.5rem] bg-[transparent] border-0;
+  @apply rounded-sm w-full p-[0.5rem] bg-[transparent] border-0;
   /* Place on top of each other */
   grid-area: 1 / 1 / 2 / 2;
 }

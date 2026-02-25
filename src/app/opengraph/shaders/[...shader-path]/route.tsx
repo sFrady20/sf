@@ -10,13 +10,13 @@ export const GET = async function (
   {
     params,
   }: {
-    params: { ["shader-path"]: string[] };
+    params: Promise<{ ["shader-path"]: string[] }>;
   }
 ) {
-  const shaderPath = params["shader-path"];
+  const { "shader-path": shaderPath } = await params;
   const data = shaderData[shaderPath.join("/")];
 
-  const headersList = headers();
+  const headersList = await headers();
 
   return new ImageResponse(
     (

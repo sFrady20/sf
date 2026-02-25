@@ -1,11 +1,30 @@
-const config = {
+import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+
+const config: NextConfig = {
   experimental: {
     mdxRs: true,
   },
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: [{ loader: "@svgr/webpack", options: { icon: true } }],
+        as: "*.js",
+      },
+      "*.glsl": {
+        loaders: ["raw-loader", "glslify-loader"],
+        as: "*.js",
+      },
+      "*.txt": {
+        loaders: ["raw-loader"],
+        as: "*.js",
+      },
+    },
+  },
   webpack: (config, { isServer }) => {
     // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg")
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
+      rule.test?.test?.(".svg"),
     );
 
     config.module.rules.push(
@@ -19,9 +38,11 @@ const config = {
       {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
-        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
+        resourceQuery: {
+          not: [...fileLoaderRule.resourceQuery.not, /url/],
+        }, // exclude if *.svg?url
         use: [{ loader: "@svgr/webpack", options: { icon: true } }],
-      }
+      },
     );
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
@@ -51,6 +72,6 @@ const config = {
   },
 };
 
-const withMDX = require("@next/mdx")();
+const withMDX = createMDX();
 
-module.exports = withMDX(config);
+export default withMDX(config);

@@ -8,7 +8,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {...props}
         className={cn(
           "text-5xl font-title my-[1em] font-bold",
-          props.className
+          props.className,
         )}
       />
     ),
@@ -17,7 +17,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {...props}
         className={cn(
           "text-4xl font-title my-[1em] font-bold",
-          props.className
+          props.className,
         )}
       />
     ),
@@ -34,7 +34,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     code: (props: any) => (
       <code
         {...props}
-        className={cn("bg-foreground/10 px-2 py-1 rounded-sm", props.className)}
+        className={cn("bg-foreground/10 px-2 py-1 rounded-xs", props.className)}
       />
     ),
     ...components,

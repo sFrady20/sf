@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { shaderData } from "@/data/shaders";
 import { Metadata } from "next";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { ["shader-path"]: string[] };
+  params: Promise<{ ["shader-path"]: string[] }>;
 }): Promise<Metadata | undefined> {
-  const data = shaderData[params["shader-path"].join("/")];
+  const { "shader-path": shaderPath } = await params;
+  const data = shaderData[shaderPath.join("/")];
   if (!data) return undefined;
 
   const title = `${data.title}${
@@ -23,16 +26,16 @@ export async function generateMetadata({
     title,
     openGraph: {
       title,
-      url: `/shaders/${params["shader-path"].join("/")}`,
+      url: `/shaders/${shaderPath.join("/")}`,
       images: [
         {
           alt: title,
           type: "image/png",
           width: 1200,
           height: 630,
-          url: `https://stevenfrady.com/opengraph/shaders/${params[
-            "shader-path"
-          ].join("/")}`,
+          url: `https://stevenfrady.com/opengraph/shaders/${shaderPath.join(
+            "/",
+          )}`,
         },
       ],
     },
@@ -46,9 +49,9 @@ export async function generateMetadata({
           type: "image/png",
           width: 1200,
           height: 630,
-          url: `https://stevenfrady.com/opengraph/shaders/${params[
-            "shader-path"
-          ].join("/")}`,
+          url: `https://stevenfrady.com/opengraph/shaders/${shaderPath.join(
+            "/",
+          )}`,
         },
       ],
     },
@@ -56,21 +59,21 @@ export async function generateMetadata({
 }
 
 export default async function (props: {
-  params: { ["shader-path"]: string[] };
+  params: Promise<{ ["shader-path"]: string[] }>;
 }) {
-  const { params } = props;
+  const { "shader-path": shaderPathSegments } = await props.params;
 
   let frag: string, code: string;
-  const shaderPath = params["shader-path"].join("/");
+  const shaderPath = shaderPathSegments.join("/");
 
   try {
-    code = (await import(`raw-loader!@/shaders/${shaderPath}.frag.glsl`))
-      .default;
-    frag = (
-      await import(
-        `raw-loader!glslify-loader!@/shaders/${shaderPath}.frag.glsl`
-      )
-    ).default;
+    // Raw source code for display
+    code = readFileSync(
+      join(process.cwd(), "src/shaders", `${shaderPath}.frag.glsl`),
+      "utf-8",
+    );
+    // Processed (glslified) code for rendering
+    frag = (await import(`@/shaders/${shaderPath}.frag.glsl`)).default;
   } catch (err: any) {
     console.error(err);
     return notFound();
@@ -80,9 +83,9 @@ export default async function (props: {
     <div className="relative">
       <Shader
         frag={typeof frag === "string" ? frag : ""}
-        className="h-[100svh] sticky top-0"
+        className="h-svh sticky top-0"
       />
-      <div className="bg-[#011627]/90 text-[white] relative z-[1] backdrop-blur-md">
+      <div className="bg-[#011627]/90 text-[white] relative z-1 backdrop-blur-md">
         <div className="container grid grid-cols-3 gap-x-20 gap-y-[60px] py-[100px]">
           <div className="col-span-3 xl:col-span-2 break-all ">
             <CodeExpander>
