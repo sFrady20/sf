@@ -1,11 +1,11 @@
 import "@/globals.css";
-import "@/components/analytics";
 import { ReactNode } from "react";
 import { Metadata } from "next";
 import { Viewport } from "next/types";
 import { cn } from "@/utils/cn";
 import { fonts } from "@/utils/fonts";
 import { cookies } from "next/headers";
+import { GoogleAnalytics } from "@/components/analytics";
 
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
@@ -38,6 +38,7 @@ export default async function App(props: { children?: ReactNode }) {
         )}
       >
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );
