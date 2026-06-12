@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import { useCastSender } from "@/components/cast/sender";
 import { useCanvasRecorder } from "@/utils/use-canvas-recorder";
 
@@ -41,7 +41,7 @@ export const CodeExpander = forwardRef<HTMLDivElement, CodeExpanderProps>(
           {children}
         </div>
         <Button
-          variant={"ghost"}
+          material={"ghost"}
           className="gap-1 w-full"
           onClick={() => {
             setExpanded((x) => !x);
@@ -79,7 +79,7 @@ export function CastButton(props: {
   return (
     <Button
       ref={ref}
-      variant={"ghost"}
+      material={"ghost"}
       className="gap-2"
       onClick={async (e) => {
         const session = await sender.refreshSession();
@@ -112,7 +112,7 @@ export const RecordButton = function ({
 
   return (
     <Button
-      variant={"ghost"}
+      material={"ghost"}
       className="group flex flex-row gap-2"
       data-enabled={isRecording}
       onClick={() => {

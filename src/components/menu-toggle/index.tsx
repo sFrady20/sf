@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { ReactNode } from "react";
-import { Button, ButtonProps } from "../ui/button";
+import { Button, ButtonProps } from "earthling-ui/button";
 import { useApp } from "@/app/(main)/context";
 
 export default function (props: { children: ReactNode } & ButtonProps) {

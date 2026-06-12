@@ -1,5 +1,6 @@
-import { ShaderCard } from "@/components/shader";
-import { Button } from "@/components/ui/button";
+﻿import { Shader, ShaderCard } from "@/components/shader";
+import { Button } from "earthling-ui/button";
+import heroFrag from "@/shaders/hero.frag.glsl";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "@/shaders/genuary/2024/13.frag.glsl";
 import frag5 from "@/shaders/genuary/2024/10.frag.glsl";
@@ -23,8 +24,14 @@ import {
 export default async function HomePage() {
   return (
     <>
-      <section className="mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
-        <div className="container @container">
+      <section className="relative mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
+        <Shader
+          frag={heroFrag}
+          transparent
+          aria-hidden
+          className="absolute inset-0 bg-transparent opacity-50 mix-blend-soft-light pointer-events-none [mask-image:radial-gradient(ellipse_75%_70%_at_50%_50%,black,transparent)]"
+        />
+        <div className="container @container relative">
           <h1 className="sr-only">Steven Frady - Creative Full-Stack Developer</h1>
           <Frady className={"w-full h-[20cqw]"} />
         </div>
@@ -107,8 +114,8 @@ export default async function HomePage() {
                             {x.links?.map((xx, i) => (
                               <Button
                                 key={i}
-                                variant={"ghost"}
-                                size={"icon"}
+                                material={"ghost"}
+                                shape={"icon"}
                                 asChild
                               >
                                 <Link
@@ -254,7 +261,7 @@ export default async function HomePage() {
             />
           </div>
           <div className="flex flex-row items-center justify-end lg:px-10">
-            <Button variant={"ghost"} className="gap-1" asChild>
+            <Button material={"ghost"} className="gap-1" asChild>
               <Link href={"/shaders"}>
                 <div>More Shaders</div>
                 <i className="icon-[ri--arrow-right-up-line] text-lg" />

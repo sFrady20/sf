@@ -1,4 +1,4 @@
-import Intro from "./intro.mdx";
+﻿import Intro from "./intro.mdx";
 import {
   PaletteEditor,
   PaletteExamples,
@@ -7,7 +7,7 @@ import {
   SavedPalettes,
 } from "./components";
 import { Metadata } from "next";
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default async function (props: {
     <div className="py-[100px] md:pt-[132px] flex-1">
       <div className="container flex flex-col max-w-[1000px]">
         <div>
-          <Button variant={"ghost"} className="gap-2 -ml-4" asChild>
+          <Button material={"ghost"} className="gap-2 -ml-4" asChild>
             <Link href="/tools">
               <i className="icon-[ri--arrow-left-line]" />
               <div>More tools</div>

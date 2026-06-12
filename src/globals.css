@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "earthling-ui";
 @plugin "@iconify/tailwind4";
 
 /*
@@ -57,52 +58,12 @@
   }
 }
 
-@theme inline {
-  --font-body: var(--font-body);
-  --font-display: var(--font-display);
+/*
+ * earthling-ui provides the semantic color scheme (primary through bad)
+ * via oklch css vars. site-specific additions live here.
+ */
+@theme {
   --font-title: var(--font-title);
-
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-
-  --color-primary: hsl(var(--primary));
-  --color-primary-subtle: hsl(var(--primary-subtle));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-subtle: hsl(var(--secondary-subtle));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-
-  --color-tertiary: hsl(var(--tertiary));
-  --color-tertiary-subtle: hsl(var(--tertiary-subtle));
-  --color-tertiary-foreground: hsl(var(--tertiary-foreground));
-
-  --color-muted: hsl(var(--muted));
-  --color-muted-subtle: hsl(var(--muted-subtle));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-
-  --color-accent: hsl(var(--accent));
-  --color-accent-subtle: hsl(var(--accent-subtle));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-
-  --color-popover: hsl(var(--popover));
-  --color-popover-subtle: hsl(var(--popover-subtle));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-
-  --color-card: hsl(var(--card));
-  --color-card-subtle: hsl(var(--card-subtle));
-  --color-card-foreground: hsl(var(--card-foreground));
-
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-subtle: hsl(var(--destructive-subtle));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
 }
 
 /*
@@ -246,46 +207,126 @@
 /*
  * Custom dark mode variant (class-based)
  */
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.theme-dark *));
 
 /*
- * Base styles
+ * color schemes — earthling-ui style theme utilities.
+ * light is the :root default, the rest toggle via theme-* class on body.
  */
 @layer base {
   :root {
-    --background: 20 3% 76%;
-    --foreground: 0 0% 15%;
-    --ring: 0 0% 9%;
-    --radius: 0.65rem;
     --timing-fn: cubic-bezier(0.455, 0.19, 0, 0.985);
-  }
 
-  .dark {
-    --background: 0 0% 9%;
-    --foreground: 0 0% 89%;
-    --ring: 0 0% 89%;
-  }
+    --radius-control: 999px;
 
-  .favorite {
-    --background: 170 60% 3%;
-    --foreground: 170 40% 60%;
-    --ring: 0 0% 89%;
-  }
+    --color-background: oklch(0.815 0.004 67);
+    --color-foreground: oklch(0.27 0 0);
 
-  .holiday {
-    --background: 5 95% 20%;
-    --foreground: 5.75 0% 90%;
-    --ring: 0 0% 89%;
+    --color-surface: oklch(0.85 0.004 67);
+    --color-outline: oklch(0.2 0 0);
+    --color-light: oklch(1 0 0 / 0.2);
+    --color-shadow: oklch(0.25 0 0);
+
+    --color-primary: oklch(0.27 0 0);
+    --color-primary-foreground: oklch(0.93 0.002 67);
+
+    --color-secondary: oklch(0.45 0 0);
+    --color-secondary-foreground: oklch(0.95 0 0);
+
+    --color-tertiary: oklch(0.45 0 0);
+    --color-tertiary-foreground: oklch(0.95 0 0);
+
+    --color-neutral: oklch(0.75 0.004 67);
+    --color-neutral-foreground: oklch(0.27 0 0);
+
+    --color-muted: oklch(0.75 0.004 67);
+    --color-muted-foreground: oklch(0.45 0 0);
+
+    --color-good: oklch(0.6 0.17 140);
+    --color-good-foreground: oklch(0.98 0 0);
+
+    --color-caution: oklch(0.6 0.2 90);
+    --color-caution-foreground: oklch(0.98 0 0);
+
+    --color-bad: oklch(0.55 0.2 30);
+    --color-bad-foreground: oklch(0.98 0 0);
   }
 }
 
+@utility theme-dark {
+  --color-background: oklch(0.205 0 0);
+  --color-foreground: oklch(0.916 0 0);
+
+  --color-surface: oklch(0.25 0 0);
+  --color-outline: oklch(0.916 0 0);
+
+  --color-primary: oklch(0.916 0 0);
+  --color-primary-foreground: oklch(0.205 0 0);
+
+  --color-secondary: oklch(0.35 0 0);
+  --color-secondary-foreground: oklch(0.95 0 0);
+
+  --color-tertiary: oklch(0.35 0 0);
+  --color-tertiary-foreground: oklch(0.95 0 0);
+
+  --color-neutral: oklch(0.35 0 0);
+  --color-neutral-foreground: oklch(0.95 0 0);
+
+  --color-muted: oklch(0.3 0 0);
+  --color-muted-foreground: oklch(0.6 0 0);
+}
+
+@utility theme-favorite {
+  --color-background: oklch(0.17 0.025 185);
+  --color-foreground: oklch(0.76 0.07 180);
+
+  --color-surface: oklch(0.22 0.03 185);
+  --color-outline: oklch(0.76 0.07 180);
+
+  --color-primary: oklch(0.76 0.07 180);
+  --color-primary-foreground: oklch(0.17 0.025 185);
+
+  --color-secondary: oklch(0.3 0.04 185);
+  --color-secondary-foreground: oklch(0.8 0.07 180);
+
+  --color-tertiary: oklch(0.3 0.04 185);
+  --color-tertiary-foreground: oklch(0.8 0.07 180);
+
+  --color-neutral: oklch(0.28 0.035 185);
+  --color-neutral-foreground: oklch(0.8 0.07 180);
+
+  --color-muted: oklch(0.25 0.03 185);
+  --color-muted-foreground: oklch(0.6 0.05 180);
+}
+
+@utility theme-holiday {
+  --color-background: oklch(0.3 0.12 30);
+  --color-foreground: oklch(0.93 0 0);
+
+  --color-surface: oklch(0.35 0.12 30);
+  --color-outline: oklch(0.93 0 0);
+
+  --color-primary: oklch(0.93 0 0);
+  --color-primary-foreground: oklch(0.3 0.12 30);
+
+  --color-secondary: oklch(0.4 0.12 30);
+  --color-secondary-foreground: oklch(0.95 0 0);
+
+  --color-tertiary: oklch(0.4 0.12 30);
+  --color-tertiary-foreground: oklch(0.95 0 0);
+
+  --color-neutral: oklch(0.4 0.12 30);
+  --color-neutral-foreground: oklch(0.95 0 0);
+
+  --color-muted: oklch(0.38 0.1 30);
+  --color-muted-foreground: oklch(0.7 0.05 30);
+}
+
 @layer base {
-  * {
-    border-color: hsl(var(--foreground) / 0.3);
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
     transition: background-color 0.66s var(--timing-fn),
@@ -299,19 +340,19 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: var(--color-background);
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: hsl(var(--foreground));
+  background-color: var(--color-foreground);
   border-radius: 20px;
-  border: 1px solid hsl(var(--background));
+  border: 1px solid var(--color-background);
 }
 
 /* Firefox scrollbar */
 body {
   scrollbar-width: thin;
-  scrollbar-color: hsl(var(--foreground)) hsl(var(--background));
+  scrollbar-color: var(--color-foreground) var(--color-background);
 }
 
 /* Reduced motion */
@@ -332,6 +373,6 @@ body {
 
 /* Focus styles */
 *:focus-visible {
-  outline: 2px solid hsl(var(--ring));
+  outline: 2px solid var(--color-outline);
   outline-offset: 2px;
 }

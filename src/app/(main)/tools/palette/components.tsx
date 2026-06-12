@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Shader } from "@/components/shader";
 import { Vector2, Vector3 } from "three";
@@ -19,7 +19,7 @@ import exampleFrag3 from "@/shaders/palette-generator/example-3.frag.glsl";
 import exampleFrag4 from "@/shaders/palette-generator/example-4.frag.glsl";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import { immer } from "zustand/middleware/immer";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
@@ -157,7 +157,7 @@ export const PaletteEditor = function () {
     <div className="flex flex-col gap-6">
       <div className="flex flex-row gap-2 justify-end">
         <Button
-          variant={"outline"}
+          material={"outline"}
           onClick={() => {
             updatePalette((x) => {
               for (let i = 0; i < x.length; i++) {
@@ -268,7 +268,7 @@ export const PaletteExport = function () {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-2 justify-end">
-        <CopyToClipboard variant={"outline"} content={code}>
+        <CopyToClipboard material={"outline"} content={code}>
           <CopyToClipboardIcon />
           <div>Copy To Clipboard</div>
         </CopyToClipboard>
@@ -290,7 +290,7 @@ export const SavedPalettes = function () {
     <div className="flex flex-col gap-2">
       <div>
         <Button
-          variant={"outline"}
+          material={"outline"}
           onClick={() => {
             localStore.setState((x) => {
               x.savedPalettes.push(palette);
@@ -356,8 +356,8 @@ const SavedPalette = function (props: {
         }}
       />
       <Button
-        variant={"ghost"}
-        size="icon"
+        material={"ghost"}
+        shape="icon"
         onClick={() => {
           onDelete?.();
         }}

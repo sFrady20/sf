@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   ComponentPropsWithoutRef,
@@ -8,10 +8,10 @@ import {
   useState,
 } from "react";
 import { Howl } from "howler";
-import { Button } from "../ui/button";
+import { Button } from "earthling-ui/button";
 import { useAnimationFrame } from "framer-motion";
 import { cn } from "@/utils/cn";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "earthling-ui/tooltip";
 
 export const MusicButton = forwardRef<
   ElementRef<"div">,
@@ -60,7 +60,7 @@ export const MusicButton = forwardRef<
           style={{
             ...style,
             transitionDuration: "0.66s",
-            background: `conic-gradient(hsl(var(--foreground)) ${
+            background: `conic-gradient(var(--color-foreground) ${
               progress * 360 - 1
             }deg, transparent ${progress * 360}deg)`,
           }}
@@ -74,8 +74,8 @@ export const MusicButton = forwardRef<
             style={{ transitionDuration: "0.66s" }}
           >
             <Button
-              variant={isPlaying ? "outline" : "default"}
-              size={"icon"}
+              material={isPlaying ? "outline" : "ghost"}
+              shape={"icon"}
               style={{ transitionDuration: "0.66s" }}
               className={cn(
                 "relative text-lg hover:bg-foreground/30 border rounded-full transition-[background-color,_border] ease-[var(--timing-fn)]",

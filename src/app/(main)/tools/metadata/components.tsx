@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { FileInput } from "@/components/file-input";
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button, ButtonProps } from "earthling-ui/button";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { ComponentProps, useEffect, useState } from "react";
@@ -161,8 +161,8 @@ export const FMTFilePreview = function () {
           </div>
           <div className="">
             <Button
-              variant={"ghost"}
-              size={"icon"}
+              material={"ghost"}
+              shape={"icon"}
               onClick={() => {
                 fmtStore.setState((x) => {
                   x.image = null;
@@ -334,7 +334,7 @@ export const FMTExport = function (props: ButtonProps) {
 
   return (
     <Button
-      variant={"outline"}
+      material={"outline"}
       disabled={isEmpty || isProcessing}
       {...props}
       className={cn("gap-2", props.className)}

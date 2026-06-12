@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Shader } from "./component";
-import { Button } from "../ui/button";
+import { Button } from "earthling-ui/button";
 import { HTMLAttributes, useState } from "react";
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
@@ -90,9 +90,9 @@ export function ShaderCard(props: ShaderCardProps) {
         <div className="flex flex-row">
           {shaderPath && (
             <>
-              <Button variant={"ghost"} asChild>
+              <Button material={"ghost"} asChild>
                 <Link
-                  href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}
+                  href={`https://github.com/sFrady20/sf26/blob/main/src/shaders/${shaderPath}.frag.glsl`}
                   target={"_blank"}
                   className="pointer-events-auto cursor-alias text-[white]"
                   aria-label={`View source code for shader titled "${title}"`}
@@ -100,7 +100,7 @@ export function ShaderCard(props: ShaderCardProps) {
                   <i className="icon-[ri--github-fill] text-lg" />
                 </Link>
               </Button>
-              <Button variant={"ghost"} asChild>
+              <Button material={"ghost"} asChild>
                 <Link
                   href={`/shaders/${shaderPath}`}
                   className="pointer-events-auto cursor-zoom-in text-[white]"

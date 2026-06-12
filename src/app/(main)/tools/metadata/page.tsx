@@ -1,6 +1,6 @@
-import Intro from "./intro.mdx";
+﻿import Intro from "./intro.mdx";
 import { Metadata } from "next";
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import Link from "next/link";
 import {
   FMTDescriptionInput,
@@ -25,7 +25,7 @@ export default async function () {
         <div className="grid grid-cols-12 md:gap-[40px] gap-y-10">
           <div className="col-span-12 md:col-span-6">
             <div>
-              <Button variant={"ghost"} className="gap-2 -ml-4" asChild>
+              <Button material={"ghost"} className="gap-2 -ml-4" asChild>
                 <Link href="/tools">
                   <i className="icon-[ri--arrow-left-line]" />
                   <div>More tools</div>

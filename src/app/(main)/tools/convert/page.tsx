@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+﻿import { Button } from "earthling-ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -20,7 +20,7 @@ export default async function () {
       <div className="py-[100px] md:pt-[132px] flex-1">
         <div className="container flex flex-col">
           <div>
-            <Button variant={"ghost"} className="gap-2 -ml-4" asChild>
+            <Button material={"ghost"} className="gap-2 -ml-4" asChild>
               <Link href="/tools">
                 <i className="icon-[ri--arrow-left-line]" />
                 <div>More tools</div>

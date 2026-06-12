@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+﻿import { Badge } from "earthling-ui/badge";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -34,21 +34,36 @@ export const categories: Category[] = [
       results. Here, you'll see projects where my skills and those of my
       peers come together to build practical, impactful solutions.`,
     projects: [
-      // {
-      //   id: "linq",
-      //   label: "LINQ",
-      //   year: "2025",
-      //   description: ``,
-      //   platforms: ["web", "mobile"],
-      //   languages: ["Typescript"],
-      //   frameworks: ["React", "React-Native", "Next.js", "Tailwind", "Shadcn"],
-      //   links: [
-      //     {
-      //       link: "https://linq.dj/",
-      //       icon: "icon-[ri--external-link-fill]",
-      //     },
-      //   ],
-      // },
+      {
+        id: "slowjam",
+        label: "Slowjam",
+        year: "2026",
+        description: `Slowjam is my official electronic music DJ site. Beyond the music, the site itself is the showcase — a fully custom Next.js build with realtime WebGL visuals, custom audio players, and a design language built around motion. It's where my development work and music production meet.`,
+        platforms: ["web"],
+        languages: ["Typescript"],
+        frameworks: ["React", "Next.js", "Tailwind", "WebGL"],
+        links: [
+          {
+            link: "https://www.slowjam.dj/",
+            icon: "icon-[ri--external-link-fill]",
+          },
+        ],
+      },
+      {
+        id: "linq",
+        label: "LINQ",
+        year: "2026",
+        description: `LINQ is a platform I built for DJs and producers in the local music scene. It connects artists with venues and each other — profiles, mixes, and event bookings in one place — giving a scattered community a shared home base.`,
+        platforms: ["web", "mobile"],
+        languages: ["Typescript"],
+        frameworks: ["React", "React-Native", "Next.js", "Tailwind", "Shadcn"],
+        links: [
+          {
+            link: "https://linq.dj/",
+            icon: "icon-[ri--external-link-fill]",
+          },
+        ],
+      },
       {
         id: "griddy",
         label: "District Athletics",

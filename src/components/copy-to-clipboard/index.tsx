@@ -1,5 +1,5 @@
-import { Component, ComponentProps, useState } from "react";
-import { Button } from "../ui/button";
+﻿import { Component, ComponentProps, useState } from "react";
+import { Button } from "earthling-ui/button";
 import { cn } from "@/utils/cn";
 
 export const CopyToClipboard = ({

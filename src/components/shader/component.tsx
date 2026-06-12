@@ -16,6 +16,8 @@ export interface ShaderProps extends HTMLAttributes<HTMLDivElement> {
   paused?: boolean;
   seed?: number;
   uniforms?: Record<string, IUniform<any>>;
+  //lets frags with alpha composite over the page
+  transparent?: boolean;
 }
 
 export const Shader = function (props: ShaderProps) {
@@ -25,6 +27,7 @@ export const Shader = function (props: ShaderProps) {
     className,
     seed,
     uniforms: uniformsProp = {},
+    transparent,
     ...rest
   } = props;
 
@@ -108,6 +111,7 @@ export const Shader = function (props: ShaderProps) {
             <Slice key={frag}>
               <shaderMaterial
                 fragmentShader={frag}
+                transparent={transparent}
                 uniforms={uniforms}
                 onUpdate={() => {}}
                 onBeforeRender={() => {

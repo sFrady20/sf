@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 import { GoogleAnalytics } from "@/components/analytics";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.stevenfrady.com"),
   title: "Steven Frady - Creative Full-Stack Developer",
   description:
     "I am a developer with over 10 years of experience, specializing in web and mobile development. My work is focused on creating user-centric solutions, with a commitment to continuous learning and innovation in the tech field.",
@@ -18,6 +19,14 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#171717" },
     { media: "(prefers-color-scheme: light)", color: "#c4c1c0" },
   ],
+};
+
+//literal class names so tailwind's scanner generates the theme utilities
+const themeClasses: Record<string, string> = {
+  dark: "theme-dark",
+  light: "theme-light",
+  favorite: "theme-favorite",
+  holiday: "theme-holiday",
 };
 
 export default async function App(props: { children?: ReactNode }) {
@@ -34,7 +43,7 @@ export default async function App(props: { children?: ReactNode }) {
           fonts.title.variable,
           fonts.body.variable,
           "bg-background text-foreground font-body selection:bg-foreground selection:text-background flex flex-col min-h-svh",
-          colorScheme?.value || "dark",
+          themeClasses[colorScheme?.value || "dark"] || "theme-dark",
         )}
       >
         {children}

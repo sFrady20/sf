@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import { ComponentProps } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "earthling-ui/tooltip";
 import { setColorScheme } from "@/actions/set-color-scheme";
 import { useRouter } from "next/navigation";
 
@@ -21,8 +21,8 @@ export function ColorSchemeToggle(
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
-          size="icon"
-          variant="ghost"
+          shape="icon"
+          material="ghost"
           aria-label="Change theme"
           {...rest}
           onClick={async () => {

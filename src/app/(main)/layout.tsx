@@ -1,8 +1,8 @@
-import "@/components/analytics";
+﻿import "@/components/analytics";
 import { ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import Link from "next/link";
 import { AppProvider } from "./context";
 import MenuToggle from "@/components/menu-toggle";
@@ -10,8 +10,9 @@ import Menu from "@/components/menu";
 import Frady from "@/app/frady.svg";
 import { CastSenderProvider } from "@/components/cast/sender";
 import { MusicButton } from "@/components/music-button";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "earthling-ui/tooltip";
 import { ColorSchemeToggle } from "@/components/mode-toggle";
+import { PageTransition } from "@/components/transition";
 import { cookies } from "next/headers";
 import maskStyles from "./mask.module.css";
 
@@ -51,7 +52,7 @@ export default async function MainLayout(props: {
     <CastSenderProvider>
       <AppProvider>
         <TooltipProvider delayDuration={300}>
-          {/* <Sunlight /> */}
+          <PageTransition />
 
           <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-none">
             <header className="flex flex-row justify-between items-center h-[50px] rounded-full px-2 relative pointer-events-auto">
@@ -64,7 +65,7 @@ export default async function MainLayout(props: {
               />
               <div className="flex-1 flex flex-row items-center justify-start">
                 <Button
-                  variant={"ghost"}
+                  material={"ghost"}
                   className="gap-3 pl-1 rounded-full"
                   asChild
                 >
@@ -76,7 +77,7 @@ export default async function MainLayout(props: {
                       className="rounded-full"
                       alt="Steven Frady"
                     />
-                    <h1>SF25</h1>
+                    <h1>SF26</h1>
                   </Link>
                 </Button>
               </div>
@@ -84,9 +85,9 @@ export default async function MainLayout(props: {
                 {socials.map((x, i) => (
                   <Button
                     key={i}
-                    size={"icon"}
+                    shape={"icon"}
                     className="rounded-full"
-                    variant={"ghost"}
+                    material={"ghost"}
                     asChild
                   >
                     <Link href={x.link} target="_blank" aria-label={x.alt}>
@@ -99,8 +100,8 @@ export default async function MainLayout(props: {
                 <MusicButton src="/music/lets-connect.mp3" />
                 <ColorSchemeToggle colorScheme={colorScheme} />
                 <MenuToggle
-                  variant={"ghost"}
-                  size={"icon"}
+                  material={"ghost"}
+                  shape={"icon"}
                   className="md:hidden rounded-full"
                   aria-label="Toggle menu"
                 >
@@ -116,9 +117,9 @@ export default async function MainLayout(props: {
                 {socials.map((x, i) => (
                   <Button
                     key={i}
-                    size={"icon"}
+                    shape={"icon"}
                     className="rounded-full"
-                    variant={"ghost"}
+                    material={"ghost"}
                     asChild
                   >
                     <Link href={x.link} target="_blank" aria-label={x.alt}>
@@ -131,35 +132,35 @@ export default async function MainLayout(props: {
           >
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
-              variant={"ghost"}
+              material={"ghost"}
               asChild
             >
               <Link href={"/"}>Home</Link>
             </MenuToggle>
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
-              variant={"ghost"}
+              material={"ghost"}
               asChild
             >
               <Link href={"/#apps"}>Apps</Link>
             </MenuToggle>
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
-              variant={"ghost"}
+              material={"ghost"}
               asChild
             >
               <Link href={"/#oss"}>OSS</Link>
             </MenuToggle>
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
-              variant={"ghost"}
+              material={"ghost"}
               asChild
             >
               <Link href={"/#freelance"}>Freelance</Link>
             </MenuToggle>
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
-              variant={"ghost"}
+              material={"ghost"}
               asChild
             >
               <Link href={"/shaders"}>Shaders</Link>

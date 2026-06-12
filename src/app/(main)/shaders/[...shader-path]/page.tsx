@@ -2,7 +2,7 @@ import { Code } from "@/components/code";
 import { Shader } from "@/components/shader";
 import { notFound } from "next/navigation";
 import { CastButton, CodeExpander, RecordButton } from "./components";
-import { Button } from "@/components/ui/button";
+import { Button } from "earthling-ui/button";
 import Link from "next/link";
 import { shaderData } from "@/data/shaders";
 import { Metadata } from "next";
@@ -96,16 +96,16 @@ export default async function (props: {
           </div>
           <div className="col-span-1 row-start-1 xl:col-start-3">
             <div className="md:sticky top-[120px] flex flex-col items-start gap-2">
-              <Button variant={"ghost"} className="gap-2" asChild>
+              <Button material={"ghost"} className="gap-2" asChild>
                 <Link
-                  href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}
+                  href={`https://github.com/sFrady20/sf26/blob/main/src/shaders/${shaderPath}.frag.glsl`}
                   target="_blank"
                 >
                   <i className="icon-[ri--github-fill]" />
                   <div>View source on GitHub</div>
                 </Link>
               </Button>
-              <Button variant={"ghost"} className="gap-2" asChild>
+              <Button material={"ghost"} className="gap-2" asChild>
                 <Link href={`/shaders`}>
                   <i className="icon-[ri--arrow-go-back-fill]" />
                   <div>More shaders</div>
@@ -119,7 +119,7 @@ export default async function (props: {
                 <div>Cast to ChromeCast</div>
               </CastButton>
               {/*
-              <Button variant={"ghost"} className="gap-2" asChild>
+              <Button material={"ghost"} className="gap-2" asChild>
                 <Link href={`/shaders`}>
                   <i className="icon-[ri--screenshot-2-fill]" />
                   <div>Screenshot</div>
