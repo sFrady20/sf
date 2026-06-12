@@ -6,6 +6,7 @@ import { Shader } from "@/components/shader";
 import Frady from "@/app/frady.svg";
 import { cn } from "@/utils/cn";
 import frag from "@/shaders/wordmark.frag.glsl";
+import convert from "color-convert";
 
 const blank = () => {
   const t = new DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1);
@@ -61,13 +62,21 @@ export function HeroWordmark(props: { className?: string }) {
   //tint follows the theme foreground
   useEffect(() => {
     const read = () => {
-      const c = getComputedStyle(document.body).color.match(/[\d.]+/g);
-      if (c) uniforms.tint.value.set(+c[0] / 255, +c[1] / 255, +c[2] / 255);
+      const c = getComputedStyle(document.body).getPropertyValue(
+        "--color-foreground",
+      );
+
+      const labC = c.match(/[\d.\-]+/g);
+      const rgbC = convert.lab.rgb(labC as any);
+
+      if (c)
+        uniforms.tint.value.set(+rgbC[0] / 255, +rgbC[1] / 255, +rgbC[2] / 255);
+
+      console.log({ c, labC, rgbC });
     };
     read();
     const observer = new MutationObserver(() => {
-      //wait out the theme transition before sampling
-      setTimeout(read, 700);
+      read();
     });
     observer.observe(document.body, {
       attributes: true,
@@ -78,21 +87,21 @@ export function HeroWordmark(props: { className?: string }) {
 
   return (
     //svgr icon mode squares the svg's intrinsic size, so own the aspect here
-    <div className={cn("relative w-full aspect-[369/91]", className)}>
-      <Frady
+    <div className={cn("relative w-full aspect-369/91", className)}>
+      {/* <Frady
         className={cn(
-          "absolute inset-0 w-full h-full transition-opacity duration-700",
-          ready && "opacity-0"
+          "absolute inset-0 w-full h-full transition-opacity",
+          ready && "opacity-0",
         )}
-      />
+      /> */}
       <Shader
         frag={frag}
         transparent
         aria-hidden
         uniforms={uniforms}
         className={cn(
-          "absolute inset-x-[-4%] inset-y-[-18%] bg-transparent opacity-0 transition-opacity duration-700",
-          ready && "opacity-100"
+          "absolute inset-x-[-8%] inset-y-[-36%] bg-transparent opacity-0 transition-opacity",
+          ready && "opacity-100",
         )}
       />
     </div>

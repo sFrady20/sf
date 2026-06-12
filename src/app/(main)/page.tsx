@@ -9,9 +9,9 @@ import Link from "next/link";
 import { HeroWordmark } from "@/components/hero-wordmark";
 import { categories } from "@/data/projects";
 import { experienceList } from "@/data/experience";
-import { ProjectCategorySection } from "./components";
+import { Marquee, ProjectCategorySection } from "./components";
 
-const marqueeItems = [
+const techItems = [
   "React",
   "GLSL",
   "Three.js",
@@ -24,19 +24,29 @@ const marqueeItems = [
   "Tailwind",
 ];
 
+const brandItems = [
+  "AT&T",
+  "Coca-Cola",
+  "Verizon",
+  "Capital One",
+  "Buick",
+  "Mountain Dew",
+  "Visible",
+];
+
 export default async function HomePage() {
-  const marqueeRow = marqueeItems.map((x) => `${x} · `).join("");
+  const years = new Date().getFullYear() - 2013 - 1;
 
   return (
     <>
-      <section className="relative flex flex-col justify-center min-h-svh pt-[100px] pb-[60px]">
-        <Shader
+      <section className="relative flex flex-col justify-center pt-[100px] pb-[60px] md:min-h-svh">
+        {/* <Shader
           frag={heroFrag}
           transparent
           aria-hidden
           className="absolute inset-0 bg-transparent pointer-events-none"
-        />
-        <div className="container relative z-[1] flex flex-col items-center gap-10">
+        /> */}
+        <div className="container relative z-1 flex flex-col items-center gap-10 mt-16 mb-6">
           <h1 className="sr-only">
             Steven Frady - Creative Full-Stack Developer
           </h1>
@@ -44,24 +54,24 @@ export default async function HomePage() {
           <div className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 font-title text-xs uppercase tracking-widest opacity-70">
             <div>Creative Full-Stack Developer</div>
             <div className="w-1 h-1 rounded-full bg-foreground/40 max-md:hidden" />
-            <div>Atlanta, GA</div>
+            <div>{years}+ years</div>
             <div className="w-1 h-1 rounded-full bg-foreground/40 max-md:hidden" />
-            <div>10+ years</div>
+            <div>Fairfax, VA</div>
           </div>
           <p className="max-w-[620px] text-center text-xs md:text-sm lg:leading-relaxed font-title text-balance opacity-80">
-            I am a developer with over 10 years of experience, specializing in
-            web and mobile development. My work is focused on creating
-            user-centric solutions, with a commitment to continuous learning
-            and innovation in the tech field.
+            I am a developer with over {years} years of experience, specializing
+            in web and mobile development. My work is focused on creating
+            user-centric solutions, with a commitment to continuous learning and
+            innovation in the tech field.
           </p>
           <div className="flex flex-row flex-wrap items-center justify-center gap-4">
-            <Badge
+            {/* <Badge
               scheme={"primary"}
               className="flex flex-row items-center gap-3"
             >
               <div className="shadow-xl shadow-[#00FF00] w-2 h-2 bg-[#00FF00] rounded-full drop-shadow-[0_0_5px_rgba(0,255,0,1)]" />
               <div>Open for work</div>
-            </Badge>
+            </Badge> */}
             <Button material={"outline"} size={"sm"} asChild>
               <Link href="mailto:sfrady20@gmail.com" target="_blank">
                 <i className="icon-[ri--mail-fill]" />
@@ -85,15 +95,7 @@ export default async function HomePage() {
         </a>
       </section>
 
-      <div
-        aria-hidden
-        className="overflow-hidden whitespace-nowrap py-[40px] select-none"
-      >
-        <div className="inline-block animate-[marquee_40s_linear_infinite] font-title uppercase text-5xl md:text-7xl opacity-[0.06] leading-none">
-          {marqueeRow}
-          {marqueeRow}
-        </div>
-      </div>
+      <Marquee items={techItems} />
 
       {categories
         .filter((x) => !["tools"].includes(x.id))
@@ -107,6 +109,8 @@ export default async function HomePage() {
             projects={x.projects}
           />
         ))}
+
+      <Marquee items={brandItems} reverse />
 
       <section className="py-[60px] reveal" id="experience">
         <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
@@ -144,7 +148,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-[60px] lg:pb-0 flex flex-col gap-2 reveal" id="shaders">
+      <section
+        className="py-[60px] lg:pb-0 flex flex-col gap-2 reveal"
+        id="shaders"
+      >
         <div className="max-lg:sm:container flex flex-col gap-4">
           <div className="container lg:px-10 flex flex-row items-end justify-between pb-2">
             <div className="flex flex-col gap-2">
@@ -153,9 +160,9 @@ export default async function HomePage() {
               </div>
               <h2 className="text-2xl md:text-3xl font-title">Shaders</h2>
             </div>
-            <Button material={"ghost"} className="gap-1" asChild>
+            <Button material={"ghost"} className="gap-1 font-title" asChild>
               <Link href={"/shaders"}>
-                <div>All 150+ shaders</div>
+                <div>All shaders</div>
                 <i className="icon-[ri--arrow-right-up-line] text-lg" />
               </Link>
             </Button>

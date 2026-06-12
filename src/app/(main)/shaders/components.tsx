@@ -17,15 +17,16 @@ export function ShadersGallery(props: { entries: ShaderEntry[] }) {
   const [year, setYear] = useState<string>("all");
 
   const years = useMemo(
-    () =>
-      [...new Set(entries.map((e) => e.id.split("/")[1]))].sort().reverse(),
-    [entries]
+    () => [...new Set(entries.map((e) => e.id.split("/")[1]))].sort().reverse(),
+    [entries],
   );
 
   const filtered = useMemo(
     () =>
-      year === "all" ? entries : entries.filter((e) => e.id.split("/")[1] === year),
-    [entries, year]
+      year === "all"
+        ? entries
+        : entries.filter((e) => e.id.split("/")[1] === year),
+    [entries, year],
   );
 
   return (
@@ -38,6 +39,7 @@ export function ShadersGallery(props: { entries: ShaderEntry[] }) {
             material={year === y ? "paper" : "outline"}
             aria-pressed={year === y}
             onClick={() => setYear(y)}
+            className="font-title"
           >
             {y === "all" ? `All (${entries.length})` : y}
           </Button>

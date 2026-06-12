@@ -49,6 +49,6 @@ void main(){
     float g=noise(vec3(uv*90.,time*2.))*.05;
     float wash=noise(vec3(uv*2.5,time*.3))*.06;
 
-    gl_FragColor=vec4(tint+g+wash,covered);
+    gl_FragColor=vec4(clamp(tint+g+wash,0.,1.),covered);
   }
 }

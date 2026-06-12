@@ -33,6 +33,26 @@ export function RouterLink(props: RouterLinkProps) {
   );
 }
 
+//giant ghost-type ticker. decorative only, hence aria-hidden
+export function Marquee(props: { items: string[]; reverse?: boolean }) {
+  const { items, reverse } = props;
+  const row = items.map((x) => `${x} · `).join("");
+  return (
+    <div
+      aria-hidden
+      className="overflow-hidden whitespace-nowrap py-[40px] select-none"
+    >
+      <div
+        className="inline-block animate-[marquee_40s_linear_infinite] font-title uppercase text-5xl md:text-7xl opacity-[0.06] leading-none"
+        style={reverse ? { animationDirection: "reverse" } : undefined}
+      >
+        {row}
+        {row}
+      </div>
+    </div>
+  );
+}
+
 const platformIcons: Record<string, { icon: string; label: string }> = {
   web: { icon: "icon-[ri--global-fill]", label: "Web" },
   desktop: { icon: "icon-[ri--computer-fill]", label: "Desktop" },
@@ -62,7 +82,7 @@ function ProjectMedia(props: { project: ProjectData; className?: string }) {
         alt={`${p.label}`}
         className={cn(
           "absolute left-0 top-0 w-full h-full z-[1] object-cover",
-          className
+          className,
         )}
       />
       {p.hasVideo && (
@@ -74,7 +94,7 @@ function ProjectMedia(props: { project: ProjectData; className?: string }) {
           src={`/projects/${p.id}.webm`}
           className={cn(
             "absolute left-0 top-0 w-full h-full z-[2] object-cover",
-            className
+            className,
           )}
         />
       )}
@@ -143,7 +163,7 @@ export function ProjectCategorySection(props: {
             <div className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
               {intro}
             </div>
-            <ProjectPreview project={hovered} />
+            {/* <ProjectPreview project={hovered} /> */}
           </div>
         </div>
         <Accordion
@@ -208,7 +228,7 @@ export function ProjectCategorySection(props: {
                         >
                           {tech}
                         </Badge>
-                      )
+                      ),
                     )}
                   </div>
                   {!!p.links?.length && (

@@ -40,28 +40,26 @@ vec3 prism(float k){
 
 void main(){
   vec2 uv=fitUv(gl_FragCoord.xy/resolution.xy);
-
+  
   //pointer tilt, resting at center until the mouse shows up
-  vec2 m=pointer==vec2(0.)
-    ?vec2(0.)
-    :clamp(pointer/resolution-.5,vec2(-.5),vec2(.5));
-
+  vec2 m=vec2(0.);
+  
   float t=time*.15;
-
+  
   //big slow lens blobs - a normal field, not grit
   float n1=noise(vec3(uv*vec2(1.4,2.8)+seed*10.,t));
   float n2=noise(vec3(uv*vec2(1.4,2.8)+4.2+seed*10.,t+3.));
   vec2 N=vec2(n1,n2);
-
+  
   //refraction bend: subtle, nudged by the pointer
   vec2 bend=N*.005+m*.012;
-
+  
   //dispersion: same bend, increasing index per channel
   float aR=glyph(uv+bend*.75);
   float aG=glyph(uv+bend*1.1);
   float aB=glyph(uv+bend*1.5);
   float body=aG;
-
+  
   //mild extrusion sliding away from the pointer
   vec2 dir=normalize(vec2(.3,-1.)+m*1.2)*.0038;
   float depth=0.;
@@ -69,23 +67,25 @@ void main(){
     depth=max(depth,glyph(uv+bend+dir*float(i))*(1.-float(i)*.14));
   }
   float back=depth*(1.-body);
-
+  
   //prismatic sheen where the lens actually separates the channels
   float disp=clamp(abs(aR-aB)*2.5,0.,1.);
   vec3 iri=prism(n1*.35+uv.x*.5+t*.6);
-
+  
   //glass shading: faces angled by the lens catch light
   float shade=.86+N.x*.1+N.y*.05;
   float glint=pow(max(0.,1.-abs(N.x+N.y)),6.)*.22;
-
+  
   vec3 col=tint*shade*body+tint*.25*back;
   col+=iri*disp*.4;
   col+=glint*body;
-
+  
   //soft prismatic halo just outside the glyph edge
   float halo=max(max(aR,aB)-body,0.);
   col+=iri*halo*.5;
-
+  
   float alpha=clamp(body+back*.8+halo*.55,0.,1.);
-  gl_FragColor=vec4(col,alpha);
+  //clamp! rgb past 1 makes invalid premultiplied pixels and the
+  //compositor renders the overflow as complement-color garbage
+  gl_FragColor=vec4(clamp(col,0.,1.),alpha);
 }

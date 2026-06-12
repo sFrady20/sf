@@ -59,7 +59,7 @@ export default async function MainLayout(props: {
               <div
                 className={cn(
                   "absolute inset-[-80px] bg-background/30 backdrop-blur-lg transition-[background-color] ease-[var(--timing-fn)] z-[-1] pointer-events-none",
-                  maskStyles.root
+                  maskStyles.root,
                 )}
                 style={{ transitionDuration: "0.66s" }}
               />
@@ -77,11 +77,14 @@ export default async function MainLayout(props: {
                       className="rounded-full"
                       alt="Steven Frady"
                     />
-                    <h1>SF26</h1>
+                    <h1 className="font-title">SF26</h1>
                   </Link>
                 </Button>
               </div>
-              <nav aria-label="Social links" className="flex-row justify-center items-center gap-6 flex-1 hidden md:flex">
+              <nav
+                aria-label="Social links"
+                className="flex-row justify-center items-center gap-6 flex-1 hidden md:flex"
+              >
                 {socials.map((x, i) => (
                   <Button
                     key={i}
@@ -167,9 +170,7 @@ export default async function MainLayout(props: {
             </MenuToggle>
           </Menu>
 
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
 
           {modal}
 
@@ -183,7 +184,10 @@ export default async function MainLayout(props: {
                   </p>
                   <div className="text-xs">© {new Date().getFullYear()}</div>
                 </div>
-                <nav aria-label="Site navigation" className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
+                <nav
+                  aria-label="Site navigation"
+                  className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
+                >
                   {[
                     { link: "/", label: "Home" },
                     { link: "/#apps", label: "Apps" },
@@ -203,7 +207,10 @@ export default async function MainLayout(props: {
                     </div>
                   ))}
                 </nav>
-                <nav aria-label="External links" className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
+                <nav
+                  aria-label="External links"
+                  className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
+                >
                   {[
                     {
                       link: "https://www.linkedin.com/in/stevenfrady/",
@@ -212,14 +219,6 @@ export default async function MainLayout(props: {
                     {
                       link: "https://x.com/slowjamsteve",
                       label: "X (Formerly Twitter)",
-                    },
-                    {
-                      link: "https://www.slowjam.dj/",
-                      label: "Slowjam",
-                    },
-                    {
-                      link: "https://linq.dj/",
-                      label: "LINQ",
                     },
                     {
                       link: "https://peerlist.io/sfrady20",
@@ -236,6 +235,14 @@ export default async function MainLayout(props: {
                     {
                       link: "https://soundcloud.com/sultan-zabu",
                       label: "SoundCloud",
+                    },
+                    {
+                      link: "https://www.slowjam.dj/",
+                      label: "SlowJamSteve",
+                    },
+                    {
+                      link: "https://linq.dj/@slowjamsteve",
+                      label: "LINQ",
                     },
                   ].map((x, i) => (
                     <div key={i} className="col-span-1">
