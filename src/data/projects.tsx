@@ -1,5 +1,4 @@
-﻿import { Badge } from "earthling-ui/badge";
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ReactNode } from "react";
 
 interface ProjectLink {
@@ -242,19 +241,16 @@ export const categories: Category[] = [
           that showcase my ability to meet diverse client needs with precision
           and creativity.
         </p>
-        <div className="mt-10 flex flex-row items-center justify-start gap-3">
-          <Badge className="flex flex-row items-center gap-4">
-            <div className="shadow-xl shadow-[#00FF00] w-2 h-2 bg-[#00FF00] rounded-full drop-shadow-[0_0_5px_rgba(0,255,0,1)]" />
-            <div>Open for work</div>
-          </Badge>
+        <p className="mt-4">
           <Link
             className="underline"
             href="mailto:sfrady20@gmail.com"
             target="_blank"
           >
-            Email Me
-          </Link>
-        </div>
+            Email me
+          </Link>{" "}
+          — I'm currently open for work.
+        </p>
       </>
     ),
     projects: [

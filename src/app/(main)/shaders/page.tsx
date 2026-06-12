@@ -1,33 +1,47 @@
-import { ShaderCard } from "@/components/shader";
 import { shaderData } from "@/data/shaders";
+import { ShadersGallery, type ShaderEntry } from "./components";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Shaders - Steven Frady",
+  description:
+    "A growing collection of GLSL fragment shaders from Genuary and beyond.",
+};
 
 export default async function ShadersPage() {
-  const frags = Object.fromEntries(
-    await Promise.all(
-      Object.keys(shaderData).map(async (shaderId) => [
-        shaderId,
-        (
-          await import(`@/shaders/${shaderId}.frag.glsl`)
-        ).default,
-      ])
-    )
+  const entries: ShaderEntry[] = await Promise.all(
+    Object.entries(shaderData)
+      .reverse()
+      .map(async ([id, shader]) => ({
+        id,
+        title: shader.title,
+        subtitle: shader.subtitle,
+        frag: (await import(`@/shaders/${id}.frag.glsl`)).default,
+      }))
   );
 
   return (
-    <div className="grid grid-cols-12 w-full mt-[100px] md:mt-[132px]">
-      <h1 className="sr-only">Shaders</h1>
-      {Object.entries(shaderData)
-        .reverse()
-        .map(([shaderId, shader]) => (
-          <ShaderCard
-            key={shaderId}
-            frag={frags[shaderId]}
-            title={shader.title}
-            subtitle={shader.subtitle}
-            shaderPath={shaderId}
-            className="col-span-12 md:col-span-6 xl:col-span-4 relative"
-          />
-        ))}
+    <div className="flex flex-col w-full mt-[100px] md:mt-[132px] gap-10">
+      <div className="container flex flex-col gap-4">
+        <div className="font-title text-xs uppercase tracking-widest opacity-50">
+          daily glsl, every genuary
+        </div>
+        <h1 className="text-3xl md:text-5xl font-title">Shaders</h1>
+        <p className="text-sm md:text-base opacity-80 max-w-[620px] text-balance">
+          Fragment shaders written one-a-day for{" "}
+          <a
+            href="https://genuary.art"
+            target="_blank"
+            className="underline"
+            rel="noreferrer"
+          >
+            Genuary
+          </a>{" "}
+          since 2022. Hover to play, fullscreen for the good stuff, source on
+          GitHub for the curious.
+        </p>
+      </div>
+      <ShadersGallery entries={entries} />
     </div>
   );
 }

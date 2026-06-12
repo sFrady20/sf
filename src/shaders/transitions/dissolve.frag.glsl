@@ -37,12 +37,18 @@ void main(){
 
     gl_FragColor=vec4(pg.rgb,pg.a*a);
   }else{
-    //two-phase curtain: cover left->right, reveal left->right
-    float edge=(noise(vec3(uv.y*4.,uv.x*2.,time*.5)))*.12;
+    //two-phase curtain: cover left->right, reveal left->right.
+    //tint is the theme FOREGROUND so it actually reads against the page.
+    float edge=(noise(vec3(uv.y*5.,uv.x*2.,time*.6)))*.1;
     float q1=smoothstep(0.,1.,clamp(p*2.,0.,1.));
     float q2=smoothstep(0.,1.,clamp(p*2.-1.,0.,1.));
     float x=uv.x+edge;
-    float covered=step(x,q1*1.2)*(1.-step(x,q2*1.2-.1));
-    gl_FragColor=vec4(tint,covered);
+    float covered=step(x,q1*1.18)*(1.-step(x,q2*1.18-.06));
+
+    //grain + a slow drift so the curtain isn't a flat slab
+    float g=noise(vec3(uv*90.,time*2.))*.05;
+    float wash=noise(vec3(uv*2.5,time*.3))*.06;
+
+    gl_FragColor=vec4(tint+g+wash,covered);
   }
 }

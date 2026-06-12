@@ -1,6 +1,6 @@
 /*
-slow monochrome smoke for the hero. meant to sit behind the wordmark
-with css blending so it works on every theme.
+slow monochrome smoke for the hero. fade + falloff live in here since
+it renders on the shared stage where css masks can't reach it.
 */
 
 uniform float time;
@@ -27,5 +27,10 @@ void main(){
   n=n*.5+.5;
 
   float v=smoothstep(.3,.9,n);
-  gl_FragColor=vec4(vec3(v),v);
+
+  //soft radial falloff so it dies out before the section edges
+  vec2 c=(uv-.5)*vec2(1.35,1.45);
+  float mask=1.-smoothstep(.35,1.,length(c)*1.4);
+
+  gl_FragColor=vec4(vec3(1.),v*mask*.16);
 }

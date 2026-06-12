@@ -189,6 +189,7 @@ export default async function MainLayout(props: {
                     { link: "/#apps", label: "Apps" },
                     { link: "/#oss", label: "OSS" },
                     { link: "/#freelance", label: "Freelance" },
+                    { link: "/#experience", label: "Experience" },
                     { link: "/shaders", label: "Shaders" },
                     { link: "/tools", label: "Tools" },
                   ].map((x, i) => (
@@ -211,6 +212,14 @@ export default async function MainLayout(props: {
                     {
                       link: "https://x.com/slowjamsteve",
                       label: "X (Formerly Twitter)",
+                    },
+                    {
+                      link: "https://www.slowjam.dj/",
+                      label: "Slowjam",
+                    },
+                    {
+                      link: "https://linq.dj/",
+                      label: "LINQ",
                     },
                     {
                       link: "https://peerlist.io/sfrady20",

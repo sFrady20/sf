@@ -1,4 +1,4 @@
-import { Shader } from "@/components/shader";
+import { ShaderCanvas } from "@/components/shader";
 import { notFound } from "next/navigation";
 
 export default async function (props: {
@@ -19,7 +19,7 @@ export default async function (props: {
   }
 
   return (
-    <Shader
+    <ShaderCanvas
       frag={typeof frag === "string" ? frag : ""}
       className="fixed left-0 top-0 w-full h-full"
     />

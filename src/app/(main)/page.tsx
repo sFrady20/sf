@@ -1,239 +1,165 @@
-﻿import { Shader, ShaderCard } from "@/components/shader";
+import { Shader, ShaderCard } from "@/components/shader";
+import { Badge } from "earthling-ui/badge";
 import { Button } from "earthling-ui/button";
 import heroFrag from "@/shaders/hero.frag.glsl";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "@/shaders/genuary/2024/13.frag.glsl";
 import frag5 from "@/shaders/genuary/2024/10.frag.glsl";
 import Link from "next/link";
-import Frady from "@/app/frady.svg";
-import { cn } from "@/utils/cn";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardInner,
-  HoverCardTrigger,
-} from "@/components/hover-card";
+import { HeroWordmark } from "@/components/hero-wordmark";
 import { categories } from "@/data/projects";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { experienceList } from "@/data/experience";
+import { ProjectCategorySection } from "./components";
+
+const marqueeItems = [
+  "React",
+  "GLSL",
+  "Three.js",
+  "Next.js",
+  "Typescript",
+  "WebGL",
+  "Unity",
+  "Electron",
+  "React Native",
+  "Tailwind",
+];
 
 export default async function HomePage() {
+  const marqueeRow = marqueeItems.map((x) => `${x} · `).join("");
+
   return (
     <>
-      <section className="relative mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
+      <section className="relative flex flex-col justify-center min-h-svh pt-[100px] pb-[60px]">
         <Shader
           frag={heroFrag}
           transparent
           aria-hidden
-          className="absolute inset-0 bg-transparent opacity-50 mix-blend-soft-light pointer-events-none [mask-image:radial-gradient(ellipse_75%_70%_at_50%_50%,black,transparent)]"
+          className="absolute inset-0 bg-transparent pointer-events-none"
         />
-        <div className="container @container relative">
-          <h1 className="sr-only">Steven Frady - Creative Full-Stack Developer</h1>
-          <Frady className={"w-full h-[20cqw]"} />
-        </div>
-      </section>
-
-      <section className="md:pb-[60px]">
-        <div className="container md:max-w-[620px]">
-          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance">
+        <div className="container relative z-[1] flex flex-col items-center gap-10">
+          <h1 className="sr-only">
+            Steven Frady - Creative Full-Stack Developer
+          </h1>
+          <HeroWordmark />
+          <div className="flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 font-title text-xs uppercase tracking-widest opacity-70">
+            <div>Creative Full-Stack Developer</div>
+            <div className="w-1 h-1 rounded-full bg-foreground/40 max-md:hidden" />
+            <div>Atlanta, GA</div>
+            <div className="w-1 h-1 rounded-full bg-foreground/40 max-md:hidden" />
+            <div>10+ years</div>
+          </div>
+          <p className="max-w-[620px] text-center text-xs md:text-sm lg:leading-relaxed font-title text-balance opacity-80">
             I am a developer with over 10 years of experience, specializing in
             web and mobile development. My work is focused on creating
-            user-centric solutions, with a commitment to continuous learning and
-            innovation in the tech field.
+            user-centric solutions, with a commitment to continuous learning
+            and innovation in the tech field.
           </p>
+          <div className="flex flex-row flex-wrap items-center justify-center gap-4">
+            <Badge
+              scheme={"primary"}
+              className="flex flex-row items-center gap-3"
+            >
+              <div className="shadow-xl shadow-[#00FF00] w-2 h-2 bg-[#00FF00] rounded-full drop-shadow-[0_0_5px_rgba(0,255,0,1)]" />
+              <div>Open for work</div>
+            </Badge>
+            <Button material={"outline"} size={"sm"} asChild>
+              <Link href="mailto:sfrady20@gmail.com" target="_blank">
+                <i className="icon-[ri--mail-fill]" />
+                <div>Email me</div>
+              </Link>
+            </Button>
+            <Button material={"ghost"} size={"sm"} asChild>
+              <Link href="https://resume.stevenfrady.com" target="_blank">
+                <i className="icon-[ri--download-cloud-fill]" />
+                <div>Resume</div>
+              </Link>
+            </Button>
+          </div>
         </div>
+        <a
+          href="#apps"
+          aria-label="Scroll to projects"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[1] opacity-50 hover:opacity-100 transition-opacity"
+        >
+          <i className="icon-[ri--arrow-down-line] text-2xl animate-bounce block" />
+        </a>
       </section>
+
+      <div
+        aria-hidden
+        className="overflow-hidden whitespace-nowrap py-[40px] select-none"
+      >
+        <div className="inline-block animate-[marquee_40s_linear_infinite] font-title uppercase text-5xl md:text-7xl opacity-[0.06] leading-none">
+          {marqueeRow}
+          {marqueeRow}
+        </div>
+      </div>
 
       {categories
         .filter((x) => !["tools"].includes(x.id))
-        .flatMap((x, i) => [
-          <section key={i} className="py-[60px]" id={x.id}>
-            <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
-              <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
-                <div className="sticky top-[160px] flex flex-col gap-6">
-                  <h2 className="text-xl font-title">{x.title}</h2>
-                  {typeof x.intro === "string" ? (
-                    <p className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
-                      {x.intro}
-                    </p>
-                  ) : (
-                    <div className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
-                      {x.intro}
-                    </div>
-                  )}
+        .map((x, i) => (
+          <ProjectCategorySection
+            key={x.id}
+            index={i + 1}
+            id={x.id}
+            title={x.title}
+            intro={x.intro}
+            projects={x.projects}
+          />
+        ))}
+
+      <section className="py-[60px] reveal" id="experience">
+        <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
+          <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
+            <div className="sticky top-[120px] flex flex-col gap-6">
+              <div className="font-title text-xs uppercase tracking-widest opacity-50">
+                04 / the day jobs
+              </div>
+              <h2 className="text-2xl md:text-3xl font-title">Experience</h2>
+              <p className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
+                The studios, agencies, and teams where I've sharpened the craft
+                — from interactive installations to enterprise frontends.
+              </p>
+            </div>
+          </div>
+          <div className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1 flex flex-col">
+            {[...experienceList].reverse().map((e, i) => (
+              <div
+                key={i}
+                className="flex flex-row gap-5 items-baseline py-4 border-b border-foreground/10 last:border-b-0"
+              >
+                <div className="w-[110px] shrink-0 font-title text-sm opacity-70">
+                  {e.years.join(" - ")}
+                </div>
+                <div className="flex flex-col gap-1">
+                  <div className="text-sm sm:text-base font-title">
+                    {e.place}
+                  </div>
+                  <div className="text-xs opacity-70">{e.position}</div>
+                  <div className="text-xs opacity-50">{e.location}</div>
                 </div>
               </div>
-              <Accordion
-                type="single"
-                collapsible={true}
-                className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1"
-              >
-                {x.projects.map((x, i) => (
-                  <AccordionItem value={x.id} key={`${x.id}`}>
-                    <div className="relative w-full aspect-square md:hidden rounded-lg overflow-hidden">
-                      {x.hasVideo ? (
-                        <video
-                          muted
-                          autoPlay
-                          playsInline
-                          loop
-                          src={`/projects/${x.id}.webm`}
-                          className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
-                        />
-                      ) : (
-                        <img
-                          src={`/projects/${x.id}.webp`}
-                          width={400}
-                          height={400}
-                          alt={`${x.label}`}
-                          className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
-                        />
-                      )}
-                    </div>
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5 rounded-md items-center p-4 -mx-4 cursor-default">
-                          <div className="flex flex-row items-center opacity-60 text-xs font-title">
-                            {(i + 1)
-                              .toString()
-                              .padStart(2, "0")
-                              .split("")
-                              .map((x, i) => (
-                                <div key={i}>{x}</div>
-                              ))}
-                          </div>
-                          <div className="w-[40px] font-title">{x.year}</div>
-                          <div className="col-span-2 flex-1 text-sm sm:text-md font-title">
-                            {x.label}
-                          </div>
-                          <div className="text-right flex flex-row items-center">
-                            {x.links?.map((xx, i) => (
-                              <Button
-                                key={i}
-                                material={"ghost"}
-                                shape={"icon"}
-                                asChild
-                              >
-                                <Link
-                                  href={xx.link}
-                                  target="_blank"
-                                  title={xx.link}
-                                >
-                                  <i className={cn(xx.icon)} />
-                                </Link>
-                              </Button>
-                            ))}
-                          </div>
-                        </AccordionTrigger>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden lg:block z-[10] left-[40%] top-1/2">
-                        <HoverCardInner
-                          className="absolute left-0 top-0 w-full h-full"
-                          variants={{
-                            initial: { translateX: "-100%", opacity: 0 },
-                            animate: {
-                              translateX: 0,
-                              opacity: 1,
-                              transition: { ease: "easeOut" },
-                            },
-                            exit: {
-                              translateX: "100%",
-                              opacity: 0,
-                              transition: { ease: "easeIn" },
-                            },
-                          }}
-                        >
-                          <img
-                            src={`/projects/${x.id}.webp`}
-                            width={400}
-                            height={400}
-                            alt={`${x.label}`}
-                            className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
-                          />
-                          {x.hasVideo && (
-                            <video
-                              muted
-                              autoPlay
-                              playsInline
-                              loop
-                              src={`/projects/${x.id}.webm`}
-                              className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
-                            />
-                          )}
-                        </HoverCardInner>
-                      </HoverCardContent>
-                    </HoverCard>
-                    <AccordionContent className="lg:hidden">
-                      <div className="py-4 flex flex-col gap-6">
-                        <p className="leading-relaxed text-xs md:text-xs">
-                          {x.description}
-                        </p>
-                        <div className="grid grid-cols-3 gap-4">
-                          <div className="flex flex-col col-span-3 md:col-span-1">
-                            <div className="text-xs opacity-60">Languages</div>
-                            <div className="text-xs">
-                              {x.languages?.join(", ")}
-                            </div>
-                          </div>
-                          <div className="flex flex-col col-span-3 md:col-span-1">
-                            <div className="text-xs opacity-60">Frameworks</div>
-                            <div className="text-xs">
-                              {x.frameworks?.join(", ")}
-                            </div>
-                          </div>
-                          <div className="flex flex-col col-span-3 md:col-span-1">
-                            <div className="text-xs opacity-60">Platforms</div>
-                            <div className="flex flex-row items-center gap-2">
-                              {x.platforms?.includes("web") && (
-                                <>
-                                  <i
-                                    className="icon-[ri--global-fill] text-xl"
-                                    title="Web"
-                                  />
-                                  <div className="sr-only">Web</div>
-                                </>
-                              )}
-                              {x.platforms?.includes("desktop") && (
-                                <>
-                                  <i
-                                    className="icon-[ri--computer-fill] text-xl"
-                                    title="Desktop"
-                                  />
-                                  <div className="sr-only">Desktop</div>
-                                </>
-                              )}
-                              {x.platforms?.includes("mobile") && (
-                                <>
-                                  <i
-                                    className="icon-[ri--smartphone-fill] text-xl"
-                                    title="Mobile"
-                                  />
-                                  <div className="sr-only">Mobile</div>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </section>,
-          <div
-            key={`sep-${i}`}
-            className="container w-full h-[1px] bg-foreground/10"
-          />,
-        ])
-        .slice(0, -1)}
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <section className="py-[60px] lg:py-0 flex flex-col gap-2" id="shaders">
-        <div className="max-lg:sm:container flex flex-col lg:flex-col-reverse gap-4">
+      <section className="py-[60px] lg:pb-0 flex flex-col gap-2 reveal" id="shaders">
+        <div className="max-lg:sm:container flex flex-col gap-4">
+          <div className="container lg:px-10 flex flex-row items-end justify-between pb-2">
+            <div className="flex flex-col gap-2">
+              <div className="font-title text-xs uppercase tracking-widest opacity-50">
+                05 / daily glsl
+              </div>
+              <h2 className="text-2xl md:text-3xl font-title">Shaders</h2>
+            </div>
+            <Button material={"ghost"} className="gap-1" asChild>
+              <Link href={"/shaders"}>
+                <div>All 150+ shaders</div>
+                <i className="icon-[ri--arrow-right-up-line] text-lg" />
+              </Link>
+            </Button>
+          </div>
           <div className="grid grid-cols-3">
             <ShaderCard
               className="col-span-3 lg:col-span-1"
@@ -259,14 +185,6 @@ export default async function HomePage() {
               subtitle={"Genuary 2024 - Day 10"}
               shaderPath="genuary/2024/10"
             />
-          </div>
-          <div className="flex flex-row items-center justify-end lg:px-10">
-            <Button material={"ghost"} className="gap-1" asChild>
-              <Link href={"/shaders"}>
-                <div>More Shaders</div>
-                <i className="icon-[ri--arrow-right-up-line] text-lg" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>

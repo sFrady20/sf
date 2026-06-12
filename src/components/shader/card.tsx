@@ -66,7 +66,7 @@ export function ShaderCard(props: ShaderCardProps) {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex flex-row absolute left-0 bottom-0 w-full items-center justify-between pointer-events-none p-4">
+      <div className="flex flex-row absolute left-0 bottom-0 z-[2] w-full items-center justify-between pointer-events-none p-4">
         <div className="flex flex-col">
           <div
             className="text-[white] leading-none font-title"

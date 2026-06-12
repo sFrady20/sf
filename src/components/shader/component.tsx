@@ -125,3 +125,7 @@ export const Shader = function (props: ShaderProps) {
     </div>
   );
 };
+
+//same thing, kept as a named export for callsites that want to be explicit
+//about owning their own canvas (transition overlay, cast receiver)
+export const ShaderCanvas = Shader;

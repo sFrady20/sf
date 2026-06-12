@@ -9,7 +9,7 @@ import {
   Texture,
   Vector3,
 } from "three";
-import { Shader } from "@/components/shader";
+import { ShaderCanvas } from "@/components/shader";
 import frag from "@/shaders/transitions/dissolve.frag.glsl";
 
 //html-in-canvas is chromium-behind-a-flag for now, hence the sniff
@@ -74,11 +74,11 @@ async function capturePage(): Promise<Texture | null> {
   }
 }
 
-//theme background color -> wipe tint
+//theme foreground -> wipe tint. background would be invisible against itself
 function getTint() {
-  const bg = getComputedStyle(document.body).backgroundColor;
-  const m = bg.match(/[\d.]+/g);
-  if (!m) return new Vector3(0, 0, 0);
+  const fg = getComputedStyle(document.body).color;
+  const m = fg.match(/[\d.]+/g);
+  if (!m) return new Vector3(1, 1, 1);
   return new Vector3(+m[0] / 255, +m[1] / 255, +m[2] / 255);
 }
 
@@ -120,7 +120,7 @@ export function PageTransition() {
   const finish = () => {
     const u = uniforms.current;
     const hold = u.hasSnapshot.value > 0.5 ? 0 : 0.5;
-    animate(hold, 1, u.hasSnapshot.value > 0.5 ? 1000 : 420, () => {
+    animate(hold, 1, u.hasSnapshot.value > 0.5 ? 1000 : 520, () => {
       if (u.page.value instanceof CanvasTexture) u.page.value.dispose();
       u.page.value = blank();
       setPhase({ name: "idle" });
@@ -153,9 +153,12 @@ export function PageTransition() {
       u.hasSnapshot.value = 0;
       setOverlayKey((k) => k + 1);
       setPhase({ name: "covering", href });
-      animate(0, 0.5, 420, () => {
-        setPhase({ name: "waiting" });
-        router.push(href);
+      animate(0, 0.5, 520, () => {
+        //hold a beat fully covered so the swap never flashes
+        setTimeout(() => {
+          setPhase({ name: "waiting" });
+          router.push(href);
+        }, 80);
       });
     }
   };
@@ -206,7 +209,7 @@ export function PageTransition() {
       aria-hidden
       className="fixed inset-0 z-[100] pointer-events-none"
     >
-      <Shader
+      <ShaderCanvas
         key={overlayKey}
         frag={frag}
         transparent
