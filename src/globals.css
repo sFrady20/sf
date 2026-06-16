@@ -361,9 +361,6 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
   body {
     overflow-x: hidden;
     font-feature-settings:
@@ -417,3 +414,4 @@ body {
   outline: 2px solid var(--color-outline);
   outline-offset: 2px;
 }
+

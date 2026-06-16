@@ -17,7 +17,7 @@ export default async function ShadersPage() {
         title: shader.title,
         subtitle: shader.subtitle,
         frag: (await import(`@/shaders/${id}.frag.glsl`)).default,
-      }))
+      })),
   );
 
   return (
@@ -28,7 +28,7 @@ export default async function ShadersPage() {
         </div>
         <h1 className="text-3xl md:text-5xl font-title">Shaders</h1>
         <p className="text-sm md:text-base opacity-80 max-w-[620px] text-balance">
-          Fragment shaders written one-a-day for{" "}
+          Fragment shaders written for{" "}
           <a
             href="https://genuary.art"
             target="_blank"

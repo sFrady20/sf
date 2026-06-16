@@ -1,7 +1,7 @@
 "use client";
 
 import { useApp } from "@/app/(main)/context";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { ReactNode } from "react";
 
 export default function (props: { children?: ReactNode; socials?: ReactNode }) {

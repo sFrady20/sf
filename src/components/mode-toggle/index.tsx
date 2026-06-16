@@ -2,7 +2,7 @@
 
 import { Button } from "earthling-ui/button";
 import { ComponentProps } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/utils/cn";
 import { Tooltip, TooltipContent, TooltipTrigger } from "earthling-ui/tooltip";
 import { setColorScheme } from "@/actions/set-color-scheme";

@@ -5,7 +5,7 @@ import { Shader } from "./component";
 import { Button } from "earthling-ui/button";
 import { HTMLAttributes, useState } from "react";
 import { cn } from "@/utils/cn";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useIntersectionObserver } from "usehooks-ts";
 
 export interface ShaderCardProps extends HTMLAttributes<HTMLDivElement> {

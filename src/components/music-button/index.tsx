@@ -9,7 +9,7 @@ import {
 } from "react";
 import { Howl } from "howler";
 import { Button } from "earthling-ui/button";
-import { useAnimationFrame } from "framer-motion";
+import { useAnimationFrame } from "motion/react";
 import { cn } from "@/utils/cn";
 import { Tooltip, TooltipContent, TooltipTrigger } from "earthling-ui/tooltip";
 

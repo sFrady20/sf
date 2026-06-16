@@ -9,7 +9,11 @@ import Link from "next/link";
 import { HeroWordmark } from "@/components/hero-wordmark";
 import { categories } from "@/data/projects";
 import { experienceList } from "@/data/experience";
-import { Marquee, ProjectCategorySection } from "./components";
+import {
+  Marquee,
+  ProjectCategorySection,
+  ProjectShowcase,
+} from "./components";
 
 const techItems = [
   "React",
@@ -89,28 +93,13 @@ export default async function HomePage() {
         <a
           href="#apps"
           aria-label="Scroll to projects"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[1] opacity-50 hover:opacity-100 transition-opacity"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-1 opacity-50 hover:opacity-100 transition-opacity"
         >
           <i className="icon-[ri--arrow-down-line] text-2xl animate-bounce block" />
         </a>
       </section>
 
       <Marquee items={techItems} />
-
-      {categories
-        .filter((x) => !["tools"].includes(x.id))
-        .map((x, i) => (
-          <ProjectCategorySection
-            key={x.id}
-            index={i + 1}
-            id={x.id}
-            title={x.title}
-            intro={x.intro}
-            projects={x.projects}
-          />
-        ))}
-
-      <Marquee items={brandItems} reverse />
 
       <section className="py-[60px] reveal" id="experience">
         <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
@@ -147,6 +136,25 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <Marquee items={brandItems} reverse />
+
+      <ProjectShowcase>
+        {categories
+          .filter((x) => !["tools"].includes(x.id))
+          .map((x, i) => (
+            <ProjectCategorySection
+              key={x.id}
+              index={i + 1}
+              id={x.id}
+              title={x.title}
+              intro={x.intro}
+              projects={x.projects}
+            />
+          ))}
+      </ProjectShowcase>
+
+      <Marquee items={techItems} />
 
       <section
         className="py-[60px] lg:pb-0 flex flex-col gap-2 reveal"

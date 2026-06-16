@@ -40,10 +40,18 @@ export const experienceList = [
       "https://media.licdn.com/dms/image/C4E0BAQFue8v4GQMPIg/company-logo_100_100/0/1659325137123?e=1687392000&v=beta&t=RjmXzAYLTwvUiV1cxPHItuqEZ18QEWfziqw4kg8Jd_o",
   },
   {
-    years: [2020, "Present"],
+    years: [2020, 2023],
     place: "NCR Corporation",
     position: "Senior Frontend Developer · Full-time",
     location: "Remote - Atlanta, GA",
+    avatar:
+      "https://media.licdn.com/dms/image/C560BAQGrAioIRG6gVQ/company-logo_100_100/0/1656677471716?e=1687392000&v=beta&t=KXr_h3XxM1Chyb0pQVR53vxtCUHlYU--8yRTWttSlTI",
+  },
+  {
+    years: [2023, "Present"],
+    place: "Rugged Logic",
+    position: "Senior Frontend Developer · Full-time",
+    location: "Chantilly, VA",
     avatar:
       "https://media.licdn.com/dms/image/C560BAQGrAioIRG6gVQ/company-logo_100_100/0/1656677471716?e=1687392000&v=beta&t=KXr_h3XxM1Chyb0pQVR53vxtCUHlYU--8yRTWttSlTI",
   },

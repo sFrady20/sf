@@ -12,9 +12,9 @@ import { CastSenderProvider } from "@/components/cast/sender";
 import { MusicButton } from "@/components/music-button";
 import { TooltipProvider } from "earthling-ui/tooltip";
 import { ColorSchemeToggle } from "@/components/mode-toggle";
-import { PageTransition } from "@/components/transition";
 import { cookies } from "next/headers";
 import maskStyles from "./mask.module.css";
+import { RouteTransition } from "@/components/transition";
 
 const socials = [
   {
@@ -52,13 +52,11 @@ export default async function MainLayout(props: {
     <CastSenderProvider>
       <AppProvider>
         <TooltipProvider delayDuration={300}>
-          <PageTransition />
-
-          <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-none">
+          <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-40 pointer-events-none">
             <header className="flex flex-row justify-between items-center h-[50px] rounded-full px-2 relative pointer-events-auto">
               <div
                 className={cn(
-                  "absolute inset-[-80px] bg-background/30 backdrop-blur-lg transition-[background-color] ease-[var(--timing-fn)] z-[-1] pointer-events-none",
+                  "absolute inset-[-80px] bg-background/30 backdrop-blur-lg transition-[background-color] ease-(--timing-fn) z-[-1] pointer-events-none",
                   maskStyles.root,
                 )}
                 style={{ transitionDuration: "0.66s" }}
@@ -170,7 +168,9 @@ export default async function MainLayout(props: {
             </MenuToggle>
           </Menu>
 
-          <main>{children}</main>
+          <main>
+            <RouteTransition>{children}</RouteTransition>
+          </main>
 
           {modal}
 
@@ -190,10 +190,10 @@ export default async function MainLayout(props: {
                 >
                   {[
                     { link: "/", label: "Home" },
+                    { link: "/#experience", label: "Experience" },
                     { link: "/#apps", label: "Apps" },
                     { link: "/#oss", label: "OSS" },
                     { link: "/#freelance", label: "Freelance" },
-                    { link: "/#experience", label: "Experience" },
                     { link: "/shaders", label: "Shaders" },
                     { link: "/tools", label: "Tools" },
                   ].map((x, i) => (

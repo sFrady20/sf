@@ -30,20 +30,22 @@ export function ShadersGallery(props: { entries: ShaderEntry[] }) {
   );
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="container flex flex-row flex-wrap items-center gap-2">
-        {["all", ...years].map((y) => (
-          <Button
-            key={y}
-            size={"sm"}
-            material={year === y ? "paper" : "outline"}
-            aria-pressed={year === y}
-            onClick={() => setYear(y)}
-            className="font-title"
-          >
-            {y === "all" ? `All (${entries.length})` : y}
-          </Button>
-        ))}
+    <div className="flex flex-col">
+      <div className="bg-surface p-8 transition-colors duration-500 ease-in-out">
+        <div className="container flex flex-row flex-wrap items-center gap-2 ">
+          {["all", ...years].map((y) => (
+            <Button
+              key={y}
+              size={"sm"}
+              material={year === y ? "paper" : "outline"}
+              aria-pressed={year === y}
+              onClick={() => setYear(y)}
+              className="font-title"
+            >
+              {y === "all" ? `All (${entries.length})` : y}
+            </Button>
+          ))}
+        </div>
       </div>
       <div className="grid grid-cols-12 w-full">
         {filtered.map((e) => (
