@@ -39,6 +39,17 @@ const socials = [
   },
 ];
 
+//shared nav, used by the mobile menu and the footer
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#apps", label: "Apps" },
+  { href: "/#oss", label: "OSS" },
+  { href: "/#freelance", label: "Freelance" },
+  { href: "/shaders", label: "Shaders" },
+  { href: "/tools", label: "Tools" },
+];
+
 export default async function MainLayout(props: {
   children?: ReactNode;
   modal?: ReactNode;
@@ -113,60 +124,21 @@ export default async function MainLayout(props: {
           </div>
 
           <Menu
-            socials={
-              <>
-                {socials.map((x, i) => (
-                  <Button
-                    key={i}
-                    shape={"icon"}
-                    className="rounded-full"
-                    material={"ghost"}
-                    asChild
-                  >
-                    <Link href={x.link} target="_blank" aria-label={x.alt}>
-                      <i className={cn("text-lg", x.icon)} />
-                    </Link>
-                  </Button>
-                ))}
-              </>
-            }
-          >
-            <MenuToggle
-              className="h-auto text-3xl md:text-5xl"
-              material={"ghost"}
-              asChild
-            >
-              <Link href={"/"}>Home</Link>
-            </MenuToggle>
-            <MenuToggle
-              className="h-auto text-3xl md:text-5xl"
-              material={"ghost"}
-              asChild
-            >
-              <Link href={"/#apps"}>Apps</Link>
-            </MenuToggle>
-            <MenuToggle
-              className="h-auto text-3xl md:text-5xl"
-              material={"ghost"}
-              asChild
-            >
-              <Link href={"/#oss"}>OSS</Link>
-            </MenuToggle>
-            <MenuToggle
-              className="h-auto text-3xl md:text-5xl"
-              material={"ghost"}
-              asChild
-            >
-              <Link href={"/#freelance"}>Freelance</Link>
-            </MenuToggle>
-            <MenuToggle
-              className="h-auto text-3xl md:text-5xl"
-              material={"ghost"}
-              asChild
-            >
-              <Link href={"/shaders"}>Shaders</Link>
-            </MenuToggle>
-          </Menu>
+            links={navLinks}
+            socials={socials.map((x, i) => (
+              <Button
+                key={i}
+                shape={"icon"}
+                className="rounded-full"
+                material={"ghost"}
+                asChild
+              >
+                <Link href={x.link} target="_blank" aria-label={x.alt}>
+                  <i className={cn("text-lg", x.icon)} />
+                </Link>
+              </Button>
+            ))}
+          />
 
           <main>
             <RouteTransition>{children}</RouteTransition>
@@ -188,18 +160,10 @@ export default async function MainLayout(props: {
                   aria-label="Site navigation"
                   className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
                 >
-                  {[
-                    { link: "/", label: "Home" },
-                    { link: "/#experience", label: "Experience" },
-                    { link: "/#apps", label: "Apps" },
-                    { link: "/#oss", label: "OSS" },
-                    { link: "/#freelance", label: "Freelance" },
-                    { link: "/shaders", label: "Shaders" },
-                    { link: "/tools", label: "Tools" },
-                  ].map((x, i) => (
+                  {navLinks.map((x, i) => (
                     <div key={i} className="col-span-1">
                       <Link
-                        href={x.link}
+                        href={x.href}
                         className="hover:underline text-sm font-title"
                       >
                         {x.label}

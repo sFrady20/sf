@@ -1,7 +1,5 @@
-import { Shader, ShaderCard } from "@/components/shader";
-import { Badge } from "earthling-ui/badge";
+import { ShaderCard } from "@/components/shader";
 import { Button } from "earthling-ui/button";
-import heroFrag from "@/shaders/hero.frag.glsl";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "@/shaders/genuary/2024/13.frag.glsl";
 import frag5 from "@/shaders/genuary/2024/10.frag.glsl";
@@ -9,12 +7,25 @@ import Link from "next/link";
 import { HeroWordmark } from "@/components/hero-wordmark";
 import { categories } from "@/data/projects";
 import { experienceList } from "@/data/experience";
-import {
-  Marquee,
-  ProjectCategorySection,
-  ProjectShowcase,
-} from "./components";
+import { Marquee, ProjectCategorySection, ProjectShowcase } from "./components";
 
+//areas of practice, pulled from the project + experience history
+const skillItems = [
+  "Frontend",
+  "Backend",
+  "Full-Stack",
+  "AI",
+  "Mobile",
+  "Desktop Apps",
+  "Game Dev",
+  "Creative Coding",
+  "Shaders",
+  "3D Graphics",
+  "Interactive Installations",
+  "Design Systems",
+];
+
+//tools + frameworks
 const techItems = [
   "React",
   "GLSL",
@@ -28,12 +39,18 @@ const techItems = [
   "Tailwind",
 ];
 
-const brandItems = [
+//companies worked at + brands built for
+const companyItems = [
+  "NCR",
   "AT&T",
+  "Rugged Logic",
   "Coca-Cola",
+  "U.Group",
   "Verizon",
   "Capital One",
+  "Brightline Interactive",
   "Buick",
+  "If/Then",
   "Mountain Dew",
   "Visible",
 ];
@@ -99,7 +116,7 @@ export default async function HomePage() {
         </a>
       </section>
 
-      <Marquee items={techItems} />
+      <Marquee items={skillItems} />
 
       <section className="py-[60px] reveal" id="experience">
         <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
@@ -137,7 +154,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <Marquee items={brandItems} reverse />
+      <Marquee items={techItems} reverse />
 
       <ProjectShowcase>
         {categories
@@ -154,7 +171,7 @@ export default async function HomePage() {
           ))}
       </ProjectShowcase>
 
-      <Marquee items={techItems} />
+      <Marquee items={companyItems} />
 
       <section
         className="py-[60px] lg:pb-0 flex flex-col gap-2 reveal"

@@ -54,10 +54,10 @@ export function Marquee(props: { items: string[]; reverse?: boolean }) {
   return (
     <div
       aria-hidden
-      className="overflow-hidden whitespace-nowrap py-[40px] select-none bg-surface duration-500 ease-in-out transition-colors"
+      className="overflow-hidden whitespace-nowrap py-[20px] sm:py-[28px] xl:py-[36px] select-none bg-surface duration-500 ease-in-out transition-colors"
     >
       <div
-        className="inline-block animate-[marquee_40s_linear_infinite] font-title uppercase text-5xl md:text-6xl opacity-[0.1] leading-none"
+        className="inline-block animate-[marquee_40s_linear_infinite] font-title uppercase text-3xl sm:text-5xl xl:text-6xl opacity-[0.1] leading-none"
         style={reverse ? { animationDirection: "reverse" } : undefined}
       >
         {row}
@@ -192,7 +192,9 @@ export function ProjectShowcase({ children }: { children: ReactNode }) {
       const idx = order.current.indexOf(activeId);
       const rotate = reduce
         ? 0
-        : ROTATIONS[((idx % ROTATIONS.length) + ROTATIONS.length) % ROTATIONS.length];
+        : ROTATIONS[
+            ((idx % ROTATIONS.length) + ROTATIONS.length) % ROTATIONS.length
+          ];
       setTarget({ id: activeId, project: reg.project, x, y, rotate });
     };
     compute();

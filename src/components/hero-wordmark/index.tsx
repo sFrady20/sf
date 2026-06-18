@@ -87,7 +87,9 @@ export function HeroWordmark(props: { className?: string }) {
 
   return (
     //svgr icon mode squares the svg's intrinsic size, so own the aspect here
-    <div className={cn("relative w-full aspect-369/91", className)}>
+    <div
+      className={cn("relative max-w-[75vw] w-full aspect-369/91", className)}
+    >
       {/* <Frady
         className={cn(
           "absolute inset-0 w-full h-full transition-opacity",
