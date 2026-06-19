@@ -2,6 +2,9 @@
 @import "earthling-ui";
 @plugin "@iconify/tailwind4";
 
+/* theme classes are applied dynamically (js + cookies), so safelist them all */
+@source inline("theme-light theme-dark theme-alien theme-synthwave theme-ember theme-matrix theme-vapor theme-gold theme-custom theme-holiday-valentine theme-holiday-independence theme-holiday-halloween theme-holiday-christmas");
+
 /*
  * Theme configuration (migrated from tailwind.config.ts)
  *
@@ -265,29 +268,41 @@
     --color-light: oklch(1 0 0 / 0.2);
     --color-shadow: oklch(0.25 0 0);
 
+    /* accent tracks primary; each scheme's -accent tracks its own base, so
+       themes below only need to override the bases + foregrounds */
+    --color-accent: var(--color-primary);
+
     --color-primary: oklch(0.27 0 0);
     --color-primary-foreground: oklch(0.93 0.002 67);
+    --color-primary-accent: var(--color-primary);
 
     --color-secondary: oklch(0.45 0 0);
     --color-secondary-foreground: oklch(0.95 0 0);
+    --color-secondary-accent: var(--color-secondary);
 
     --color-tertiary: oklch(0.45 0 0);
     --color-tertiary-foreground: oklch(0.95 0 0);
+    --color-tertiary-accent: var(--color-tertiary);
 
     --color-neutral: oklch(0.75 0.004 67);
     --color-neutral-foreground: oklch(0.27 0 0);
+    --color-neutral-accent: var(--color-neutral);
 
     --color-muted: oklch(0.75 0.004 67);
     --color-muted-foreground: oklch(0.45 0 0);
+    --color-muted-accent: var(--color-muted);
 
     --color-good: oklch(0.6 0.17 140);
     --color-good-foreground: oklch(0.98 0 0);
+    --color-good-accent: var(--color-good);
 
     --color-caution: oklch(0.6 0.2 90);
     --color-caution-foreground: oklch(0.98 0 0);
+    --color-caution-accent: var(--color-caution);
 
     --color-bad: oklch(0.55 0.2 30);
     --color-bad-foreground: oklch(0.98 0 0);
+    --color-bad-accent: var(--color-bad);
   }
 }
 
@@ -314,7 +329,7 @@
   --color-muted-foreground: oklch(0.6 0 0);
 }
 
-@utility theme-favorite {
+@utility theme-alien {
   --color-background: oklch(0.17 0.025 185);
   --color-foreground: oklch(0.76 0.07 180);
 
@@ -337,27 +352,161 @@
   --color-muted-foreground: oklch(0.6 0.05 180);
 }
 
-@utility theme-holiday {
-  --color-background: oklch(0.3 0.12 30);
-  --color-foreground: oklch(0.93 0 0);
+/* heavy themes — expressive, more liberties taken */
 
-  --color-surface: oklch(0.35 0.12 30);
-  --color-outline: oklch(0.93 0 0);
+@utility theme-synthwave {
+  --color-background: oklch(0.18 0.06 300);
+  --color-foreground: oklch(0.9 0.05 320);
+  --color-surface: oklch(0.23 0.06 300);
+  --color-outline: oklch(0.9 0.05 320);
+  --color-primary: oklch(0.7 0.2 330);
+  --color-primary-foreground: oklch(0.18 0.06 300);
+  --color-secondary: oklch(0.72 0.13 220);
+  --color-secondary-foreground: oklch(0.18 0.06 300);
+  --color-tertiary: oklch(0.72 0.13 220);
+  --color-tertiary-foreground: oklch(0.18 0.06 300);
+  --color-neutral: oklch(0.33 0.05 300);
+  --color-neutral-foreground: oklch(0.92 0.04 320);
+  --color-muted: oklch(0.28 0.04 300);
+  --color-muted-foreground: oklch(0.65 0.05 320);
+}
 
-  --color-primary: oklch(0.93 0 0);
-  --color-primary-foreground: oklch(0.3 0.12 30);
+@utility theme-ember {
+  --color-background: oklch(0.17 0.03 40);
+  --color-foreground: oklch(0.9 0.04 70);
+  --color-surface: oklch(0.22 0.03 40);
+  --color-outline: oklch(0.9 0.04 70);
+  --color-primary: oklch(0.68 0.19 50);
+  --color-primary-foreground: oklch(0.17 0.03 40);
+  --color-secondary: oklch(0.62 0.18 25);
+  --color-secondary-foreground: oklch(0.98 0.02 60);
+  --color-tertiary: oklch(0.62 0.18 25);
+  --color-tertiary-foreground: oklch(0.98 0.02 60);
+  --color-neutral: oklch(0.32 0.03 40);
+  --color-neutral-foreground: oklch(0.92 0.03 70);
+  --color-muted: oklch(0.27 0.02 40);
+  --color-muted-foreground: oklch(0.66 0.04 60);
+}
 
-  --color-secondary: oklch(0.4 0.12 30);
-  --color-secondary-foreground: oklch(0.95 0 0);
+@utility theme-matrix {
+  --color-background: oklch(0.15 0.02 150);
+  --color-foreground: oklch(0.85 0.15 150);
+  --color-surface: oklch(0.2 0.02 150);
+  --color-outline: oklch(0.85 0.15 150);
+  --color-primary: oklch(0.78 0.2 150);
+  --color-primary-foreground: oklch(0.15 0.02 150);
+  --color-secondary: oklch(0.7 0.1 160);
+  --color-secondary-foreground: oklch(0.15 0.02 150);
+  --color-tertiary: oklch(0.7 0.1 160);
+  --color-tertiary-foreground: oklch(0.15 0.02 150);
+  --color-neutral: oklch(0.3 0.03 150);
+  --color-neutral-foreground: oklch(0.88 0.12 150);
+  --color-muted: oklch(0.25 0.02 150);
+  --color-muted-foreground: oklch(0.6 0.08 150);
+}
 
-  --color-tertiary: oklch(0.4 0.12 30);
-  --color-tertiary-foreground: oklch(0.95 0 0);
+@utility theme-vapor {
+  --color-background: oklch(0.22 0.06 310);
+  --color-foreground: oklch(0.92 0.04 340);
+  --color-surface: oklch(0.27 0.06 310);
+  --color-outline: oklch(0.92 0.04 340);
+  --color-primary: oklch(0.78 0.12 350);
+  --color-primary-foreground: oklch(0.22 0.06 310);
+  --color-secondary: oklch(0.8 0.1 200);
+  --color-secondary-foreground: oklch(0.22 0.06 310);
+  --color-tertiary: oklch(0.8 0.1 200);
+  --color-tertiary-foreground: oklch(0.22 0.06 310);
+  --color-neutral: oklch(0.36 0.05 310);
+  --color-neutral-foreground: oklch(0.93 0.04 340);
+  --color-muted: oklch(0.31 0.04 310);
+  --color-muted-foreground: oklch(0.68 0.05 340);
+}
 
-  --color-neutral: oklch(0.4 0.12 30);
-  --color-neutral-foreground: oklch(0.95 0 0);
+@utility theme-gold {
+  --color-background: oklch(0.16 0.005 90);
+  --color-foreground: oklch(0.86 0.08 90);
+  --color-surface: oklch(0.21 0.008 90);
+  --color-outline: oklch(0.86 0.08 90);
+  --color-primary: oklch(0.78 0.13 90);
+  --color-primary-foreground: oklch(0.16 0.005 90);
+  --color-secondary: oklch(0.6 0.04 90);
+  --color-secondary-foreground: oklch(0.97 0.02 90);
+  --color-tertiary: oklch(0.6 0.04 90);
+  --color-tertiary-foreground: oklch(0.97 0.02 90);
+  --color-neutral: oklch(0.3 0.01 90);
+  --color-neutral-foreground: oklch(0.9 0.06 90);
+  --color-muted: oklch(0.25 0.008 90);
+  --color-muted-foreground: oklch(0.62 0.04 90);
+}
 
-  --color-muted: oklch(0.38 0.1 30);
-  --color-muted-foreground: oklch(0.7 0.05 30);
+/* holiday presets — auto-applied under System on their dates */
+
+@utility theme-holiday-valentine {
+  --color-background: oklch(0.2 0.05 350);
+  --color-foreground: oklch(0.92 0.03 350);
+  --color-surface: oklch(0.25 0.05 350);
+  --color-outline: oklch(0.92 0.03 350);
+  --color-primary: oklch(0.72 0.17 0);
+  --color-primary-foreground: oklch(0.2 0.05 350);
+  --color-secondary: oklch(0.82 0.1 345);
+  --color-secondary-foreground: oklch(0.2 0.05 350);
+  --color-tertiary: oklch(0.82 0.1 345);
+  --color-tertiary-foreground: oklch(0.2 0.05 350);
+  --color-neutral: oklch(0.34 0.05 350);
+  --color-neutral-foreground: oklch(0.93 0.03 350);
+  --color-muted: oklch(0.29 0.04 350);
+  --color-muted-foreground: oklch(0.7 0.05 350);
+}
+
+@utility theme-holiday-independence {
+  --color-background: oklch(0.22 0.05 255);
+  --color-foreground: oklch(0.96 0 0);
+  --color-surface: oklch(0.27 0.05 255);
+  --color-outline: oklch(0.96 0 0);
+  --color-primary: oklch(0.55 0.2 25);
+  --color-primary-foreground: oklch(0.98 0 0);
+  --color-secondary: oklch(0.6 0.14 255);
+  --color-secondary-foreground: oklch(0.98 0 0);
+  --color-tertiary: oklch(0.6 0.14 255);
+  --color-tertiary-foreground: oklch(0.98 0 0);
+  --color-neutral: oklch(0.35 0.05 255);
+  --color-neutral-foreground: oklch(0.96 0 0);
+  --color-muted: oklch(0.3 0.04 255);
+  --color-muted-foreground: oklch(0.72 0.03 255);
+}
+
+@utility theme-holiday-halloween {
+  --color-background: oklch(0.17 0.02 40);
+  --color-foreground: oklch(0.86 0.1 60);
+  --color-surface: oklch(0.22 0.03 40);
+  --color-outline: oklch(0.86 0.1 60);
+  --color-primary: oklch(0.68 0.2 50);
+  --color-primary-foreground: oklch(0.17 0.02 40);
+  --color-secondary: oklch(0.5 0.14 300);
+  --color-secondary-foreground: oklch(0.97 0.02 300);
+  --color-tertiary: oklch(0.5 0.14 300);
+  --color-tertiary-foreground: oklch(0.97 0.02 300);
+  --color-neutral: oklch(0.3 0.03 40);
+  --color-neutral-foreground: oklch(0.88 0.08 60);
+  --color-muted: oklch(0.25 0.02 40);
+  --color-muted-foreground: oklch(0.62 0.06 60);
+}
+
+@utility theme-holiday-christmas {
+  --color-background: oklch(0.2 0.05 150);
+  --color-foreground: oklch(0.94 0.02 145);
+  --color-surface: oklch(0.25 0.05 150);
+  --color-outline: oklch(0.94 0.02 145);
+  --color-primary: oklch(0.55 0.2 25);
+  --color-primary-foreground: oklch(0.98 0 0);
+  --color-secondary: oklch(0.6 0.14 150);
+  --color-secondary-foreground: oklch(0.98 0 0);
+  --color-tertiary: oklch(0.6 0.14 150);
+  --color-tertiary-foreground: oklch(0.98 0 0);
+  --color-neutral: oklch(0.33 0.05 150);
+  --color-neutral-foreground: oklch(0.94 0.02 145);
+  --color-muted: oklch(0.28 0.04 150);
+  --color-muted-foreground: oklch(0.7 0.04 150);
 }
 
 @layer base {

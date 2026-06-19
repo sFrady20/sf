@@ -11,8 +11,7 @@ import Frady from "@/app/frady.svg";
 import { CastSenderProvider } from "@/components/cast/sender";
 import { MusicButton } from "@/components/music-button";
 import { TooltipProvider } from "earthling-ui/tooltip";
-import { ColorSchemeToggle } from "@/components/mode-toggle";
-import { cookies } from "next/headers";
+import { ThemePicker } from "@/components/theme-picker";
 import maskStyles from "./mask.module.css";
 import { RouteTransition } from "@/components/transition";
 
@@ -55,9 +54,6 @@ export default async function MainLayout(props: {
   modal?: ReactNode;
 }) {
   const { children, modal } = props;
-
-  const cookieJar = await cookies();
-  const colorScheme = cookieJar.get("color-scheme")?.value || "dark";
 
   return (
     <CastSenderProvider>
@@ -110,7 +106,7 @@ export default async function MainLayout(props: {
               </nav>
               <div className="flex-1 flex flex-row items-center justify-end gap-2 md:gap-4">
                 <MusicButton src="/music/lets-connect.mp3" />
-                <ColorSchemeToggle colorScheme={colorScheme} />
+                <ThemePicker />
                 <MenuToggle
                   material={"ghost"}
                   shape={"icon"}

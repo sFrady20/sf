@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { CanvasTexture, DataTexture, Texture, Vector3 } from "three";
 import { Shader } from "@/components/shader";
-import Frady from "@/app/frady.svg";
 import { cn } from "@/utils/cn";
 import frag from "@/shaders/wordmark.frag.glsl";
 import convert from "color-convert";
+import { useTheme } from "../theme-provider";
+import { BASE_THEMES, NAMED_THEMES } from "@/lib/theme";
 
 const blank = () => {
   const t = new DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1);
@@ -59,31 +60,19 @@ export function HeroWordmark(props: { className?: string }) {
     };
   }, []);
 
+  const theme = useTheme();
+
   //tint follows the theme foreground
   useEffect(() => {
-    const read = () => {
-      const c = getComputedStyle(document.body).getPropertyValue(
-        "--color-foreground",
-      );
-
-      const labC = c.match(/[\d.\-]+/g);
-      const rgbC = convert.lab.rgb(labC as any);
-
-      if (c)
-        uniforms.tint.value.set(+rgbC[0] / 255, +rgbC[1] / 255, +rgbC[2] / 255);
-
-      console.log({ c, labC, rgbC });
-    };
-    read();
-    const observer = new MutationObserver(() => {
-      read();
-    });
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
-  }, []);
+    const selectedTheme = [...BASE_THEMES, ...NAMED_THEMES].find(
+      (t) => t.id === theme.selection,
+    );
+    const oklch = selectedTheme?.fg.match(/[\d.\-]+/g)?.map(Number);
+    if (!oklch) return;
+    const rgbC = convert.oklch.rgb([oklch[0] * 100, oklch[1] * 100, oklch[2]]);
+    if (selectedTheme?.fg)
+      uniforms.tint.value.set(+rgbC[0] / 255, +rgbC[1] / 255, +rgbC[2] / 255);
+  }, [theme.selection]);
 
   return (
     //svgr icon mode squares the svg's intrinsic size, so own the aspect here

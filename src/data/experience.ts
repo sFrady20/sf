@@ -24,20 +24,20 @@ export const experienceList = [
       "https://media.licdn.com/dms/image/C4D0BAQEmiLU3y87Tww/company-logo_100_100/0/1600204177328?e=1687392000&v=beta&t=L8yWxWhNezEuPiWmo1VICC5vXhrtpm8q219_CX904No",
   },
   {
-    years: [2018, 2020],
-    place: "U.Group",
-    position: "Frontend Developer · Full-time",
-    location: "Remote - Crystal City, VA",
-    avatar:
-      "https://media.licdn.com/dms/image/C4E0BAQHcuOFn6ln0mg/company-logo_100_100/0/1549989824485?e=1687392000&v=beta&t=CXhqaw8O9WfgWLpd3lXrFtK3IBIDvV7W0GC5hMEy398",
-  },
-  {
     years: [2018],
     place: "Brightline Interactive",
     position: "Full-stack Developer · Contract",
     location: "Alexandria, VA",
     avatar:
       "https://media.licdn.com/dms/image/C4E0BAQFue8v4GQMPIg/company-logo_100_100/0/1659325137123?e=1687392000&v=beta&t=RjmXzAYLTwvUiV1cxPHItuqEZ18QEWfziqw4kg8Jd_o",
+  },
+  {
+    years: [2018, 2020],
+    place: "U.Group",
+    position: "Frontend Developer · Full-time",
+    location: "Crystal City, VA",
+    avatar:
+      "https://media.licdn.com/dms/image/C4E0BAQHcuOFn6ln0mg/company-logo_100_100/0/1549989824485?e=1687392000&v=beta&t=CXhqaw8O9WfgWLpd3lXrFtK3IBIDvV7W0GC5hMEy398",
   },
   {
     years: [2020, 2023],
