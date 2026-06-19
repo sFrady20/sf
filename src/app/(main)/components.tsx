@@ -294,7 +294,7 @@ export function ProjectCategorySection(props: {
 
   return (
     <section className="py-[60px] reveal" id={id}>
-      <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
+      <div className="container flex flex-col lg:grid grid-cols-12 gap-10">
         <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
           <div className="sticky top-[120px] flex flex-col gap-6">
             <div className="font-title text-xs uppercase tracking-widest opacity-50">
@@ -321,9 +321,6 @@ export function ProjectCategorySection(props: {
               ref={(el) => ctx?.register(p, el)}
               className="border-b border-foreground/10 last:border-b-0"
             >
-              <div className="relative w-full aspect-square md:hidden rounded-lg overflow-hidden">
-                <ProjectMedia project={p} />
-              </div>
               <AccordionTrigger
                 className="group text-left justify-start flex-1 flex flex-row gap-5 hover:bg-foreground/5 rounded-md items-center p-4 -mx-4 cursor-pointer"
                 onPointerEnter={() => ctx?.hover(p.id)}
@@ -356,6 +353,10 @@ export function ProjectCategorySection(props: {
               </AccordionTrigger>
               <AccordionContent>
                 <div className="py-4 flex flex-col gap-6">
+                  {/* desktop gets the flying card; smaller screens see it here */}
+                  <div className="relative w-full aspect-video lg:hidden rounded-xl overflow-hidden ring-1 ring-foreground/10">
+                    <ProjectMedia project={p} />
+                  </div>
                   <p className="leading-relaxed text-sm opacity-90">
                     {p.description}
                   </p>

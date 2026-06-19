@@ -119,7 +119,7 @@ export default async function HomePage() {
       <Marquee items={skillItems} />
 
       <section className="py-[60px] reveal" id="experience">
-        <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
+        <div className="container flex flex-col lg:grid grid-cols-12 gap-10">
           <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
             <div className="sticky top-[120px] flex flex-col gap-6">
               <div className="font-title text-xs uppercase tracking-widest opacity-50">
@@ -177,8 +177,8 @@ export default async function HomePage() {
         className="py-[60px] lg:pb-0 flex flex-col gap-2 reveal"
         id="shaders"
       >
-        <div className="max-lg:sm:container flex flex-col gap-4">
-          <div className="container lg:px-10 flex flex-row items-end justify-between pb-2">
+        <div className="flex flex-col gap-4">
+          <div className="container flex flex-row items-end justify-between pb-2">
             <div className="flex flex-col gap-2">
               <div className="font-title text-xs uppercase tracking-widest opacity-50">
                 05 / daily glsl

@@ -106,7 +106,11 @@ export function ThemePicker() {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="w-80">
+      <PopoverContent
+        align="end"
+        collisionPadding={16}
+        style={{ width: "min(20rem, calc(100vw - 2rem))" }}
+      >
         {view === "list" ? (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
