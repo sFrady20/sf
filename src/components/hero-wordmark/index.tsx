@@ -69,6 +69,7 @@ export function HeroWordmark(props: { className?: string }) {
     );
     const oklch = selectedTheme?.fg.match(/[\d.\-]+/g)?.map(Number);
     if (!oklch) return;
+    //@ts-ignore
     const rgbC = convert.oklch.rgb([oklch[0] * 100, oklch[1] * 100, oklch[2]]);
     if (selectedTheme?.fg)
       uniforms.tint.value.set(+rgbC[0] / 255, +rgbC[1] / 255, +rgbC[2] / 255);
