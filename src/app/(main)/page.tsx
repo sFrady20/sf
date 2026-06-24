@@ -123,7 +123,7 @@ export default async function HomePage() {
           <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
             <div className="sticky top-[120px] flex flex-col gap-6">
               <div className="font-title text-xs uppercase tracking-widest opacity-50">
-                04 / the day jobs
+                01 / the day jobs
               </div>
               <h2 className="text-2xl md:text-3xl font-title">Experience</h2>
               <p className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
@@ -162,7 +162,7 @@ export default async function HomePage() {
           .map((x, i) => (
             <ProjectCategorySection
               key={x.id}
-              index={i + 1}
+              index={i + 1 + 1}
               id={x.id}
               title={x.title}
               intro={x.intro}
