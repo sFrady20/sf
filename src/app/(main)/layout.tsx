@@ -14,6 +14,7 @@ import { TooltipProvider } from "earthling-ui/tooltip";
 import { ThemePicker } from "@/components/theme-picker";
 import maskStyles from "./mask.module.css";
 import { RouteTransition } from "@/components/transition";
+import { CommandPalette } from "@/components/command-palette";
 
 const socials = [
   {
@@ -136,6 +137,14 @@ export default async function MainLayout(props: {
             ))}
           />
 
+          <CommandPalette
+            links={[
+              ...navLinks,
+              { href: "/uses", label: "Uses" },
+              { href: "/colophon", label: "Colophon" },
+            ]}
+          />
+
           <main>
             <RouteTransition>{children}</RouteTransition>
           </main>
@@ -156,7 +165,12 @@ export default async function MainLayout(props: {
                   aria-label="Site navigation"
                   className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
                 >
-                  {navLinks.map((x, i) => (
+                  {[
+                    ...navLinks,
+                    //footer-tier pages, not worth menu real estate
+                    { href: "/uses", label: "Uses" },
+                    { href: "/colophon", label: "Colophon" },
+                  ].map((x, i) => (
                     <div key={i} className="col-span-1">
                       <Link
                         href={x.href}

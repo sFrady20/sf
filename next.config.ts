@@ -5,6 +5,19 @@ const config: NextConfig = {
   experimental: {
     mdxRs: true,
   },
+  //ask chromium browsers to send their color scheme so the ssr theme guess
+  //is right on first paint. critical-ch makes the very first request retry
+  //with the hint attached. other browsers just fall back to the inline script
+  headers: async () => [
+    {
+      source: "/:path*",
+      headers: [
+        { key: "Accept-CH", value: "Sec-CH-Prefers-Color-Scheme" },
+        { key: "Critical-CH", value: "Sec-CH-Prefers-Color-Scheme" },
+        { key: "Vary", value: "Sec-CH-Prefers-Color-Scheme" },
+      ],
+    },
+  ],
   turbopack: {
     rules: {
       "*.svg": {

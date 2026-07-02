@@ -7,6 +7,7 @@ import Link from "next/link";
 import { HeroWordmark } from "@/components/hero-wordmark";
 import { categories } from "@/data/projects";
 import { experienceList } from "@/data/experience";
+import { yearsOfExperience } from "@/vars";
 import { Marquee, ProjectCategorySection, ProjectShowcase } from "./components";
 
 //areas of practice, pulled from the project + experience history
@@ -55,11 +56,52 @@ const companyItems = [
   "Visible",
 ];
 
+//structured data so search engines know who lives here
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Steven Frady",
+  url: "https://www.stevenfrady.com",
+  jobTitle: "Creative Full-Stack Developer",
+  email: "mailto:sfrady20@gmail.com",
+  image: "https://www.stevenfrady.com/portrait.png",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Fairfax",
+    addressRegion: "VA",
+  },
+  sameAs: [
+    "https://github.com/sFrady20",
+    "https://x.com/slowjamsteve",
+    "https://www.linkedin.com/in/stevenfrady",
+    "https://dribbble.com/sfrady20",
+    "https://peerlist.io/sfrady20",
+    "https://soundcloud.com/sultan-zabu",
+  ],
+  knowsAbout: skillItems,
+};
+
 export default async function HomePage() {
-  const years = new Date().getFullYear() - 2013 - 1;
+  const years = yearsOfExperience();
+
+  //one list, one numbering. add/remove/reorder sections here and every index follows
+  const showcaseCategories = categories.filter(
+    (x) => !["tools"].includes(x.id),
+  );
+  const sectionIds = [
+    "experience",
+    ...showcaseCategories.map((x) => x.id),
+    "shaders",
+  ];
+  const num = (id: string) =>
+    (sectionIds.indexOf(id) + 1).toString().padStart(2, "0");
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <section className="relative flex flex-col justify-center pt-[100px] pb-[60px] md:min-h-svh">
         {/* <Shader
           frag={heroFrag}
@@ -80,10 +122,10 @@ export default async function HomePage() {
             <div>Fairfax, VA</div>
           </div>
           <p className="max-w-[620px] text-center text-xs md:text-sm lg:leading-relaxed font-title text-balance opacity-80">
-            I am a developer with over {years} years of experience, specializing
-            in web and mobile development. My work is focused on creating
-            user-centric solutions, with a commitment to continuous learning and
-            innovation in the tech field.
+            I'm a developer with {years}+ years across web and mobile apps,
+            design systems, games, and interactive installations. Most of my
+            time now goes to enterprise frontends, open-source tooling, and
+            daily GLSL shaders.
           </p>
           <div className="flex flex-row flex-wrap items-center justify-center gap-4">
             {/* <Badge
@@ -123,7 +165,7 @@ export default async function HomePage() {
           <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
             <div className="sticky top-[120px] flex flex-col gap-6">
               <div className="font-title text-xs uppercase tracking-widest opacity-50">
-                01 / the day jobs
+                {num("experience")} / the day jobs
               </div>
               <h2 className="text-2xl md:text-3xl font-title">Experience</h2>
               <p className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
@@ -157,18 +199,16 @@ export default async function HomePage() {
       <Marquee items={techItems} reverse />
 
       <ProjectShowcase>
-        {categories
-          .filter((x) => !["tools"].includes(x.id))
-          .map((x, i) => (
-            <ProjectCategorySection
-              key={x.id}
-              index={i + 1 + 1}
-              id={x.id}
-              title={x.title}
-              intro={x.intro}
-              projects={x.projects}
-            />
-          ))}
+        {showcaseCategories.map((x) => (
+          <ProjectCategorySection
+            key={x.id}
+            index={sectionIds.indexOf(x.id) + 1}
+            id={x.id}
+            title={x.title}
+            intro={x.intro}
+            projects={x.projects}
+          />
+        ))}
       </ProjectShowcase>
 
       <Marquee items={companyItems} />
@@ -181,7 +221,7 @@ export default async function HomePage() {
           <div className="container flex flex-row items-end justify-between pb-2">
             <div className="flex flex-col gap-2">
               <div className="font-title text-xs uppercase tracking-widest opacity-50">
-                05 / daily glsl
+                {num("shaders")} / daily glsl
               </div>
               <h2 className="text-2xl md:text-3xl font-title">Shaders</h2>
             </div>

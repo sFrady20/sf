@@ -13,6 +13,7 @@ import {
   HTMLAttributes,
 } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Badge } from "earthling-ui/badge";
 import { Button } from "earthling-ui/button";
@@ -89,15 +90,12 @@ function ProjectMedia(props: { project: ProjectData; className?: string }) {
   const { project: p, className } = props;
   return (
     <>
-      <img
+      <Image
         src={`/projects/${p.id}.webp`}
-        width={400}
-        height={400}
+        fill
+        sizes="(min-width: 1024px) 360px, 100vw"
         alt={`${p.label}`}
-        className={cn(
-          "absolute left-0 top-0 w-full h-full z-[1] object-cover",
-          className,
-        )}
+        className={cn("z-[1] object-cover", className)}
       />
       {p.hasVideo && (
         <video
@@ -105,6 +103,8 @@ function ProjectMedia(props: { project: ProjectData; className?: string }) {
           autoPlay
           playsInline
           loop
+          preload="metadata"
+          poster={`/projects/${p.id}.webp`}
           src={`/projects/${p.id}.webm`}
           className={cn(
             "absolute left-0 top-0 w-full h-full z-[2] object-cover",

@@ -4,6 +4,7 @@ import {
   ComponentPropsWithoutRef,
   ElementRef,
   forwardRef,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -46,6 +47,16 @@ export const MusicButton = forwardRef<
     if (isPlaying)
       setProgress(Math.round((song.seek() / song.duration()) * 100) / 100);
   });
+
+  //command palette can toggle playback from anywhere
+  useEffect(() => {
+    const onToggle = () => {
+      if (song.playing()) song.pause();
+      else song.play();
+    };
+    window.addEventListener("sf26:music-toggle", onToggle);
+    return () => window.removeEventListener("sf26:music-toggle", onToggle);
+  }, [song]);
 
   return (
     <Tooltip>

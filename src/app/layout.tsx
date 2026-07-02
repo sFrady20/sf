@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { Viewport } from "next/types";
 import { cn } from "@/utils/cn";
 import { fonts } from "@/utils/fonts";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { GoogleAnalytics } from "@/components/analytics";
 import { ThemeProvider } from "@/components/theme-provider";
 import {
@@ -16,12 +16,12 @@ import {
   resolveThemeClass,
   type CustomTheme,
 } from "@/lib/theme";
+import { yearsOfExperience } from "@/vars";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.stevenfrady.com"),
   title: "Steven Frady - Creative Full-Stack Developer",
-  description:
-    "I am a developer with over 10 years of experience, specializing in web and mobile development. My work is focused on creating user-centric solutions, with a commitment to continuous learning and innovation in the tech field.",
+  description: `Creative full-stack developer with ${yearsOfExperience()}+ years across web and mobile apps, design systems, shaders, and interactive installations. Based in Fairfax, VA.`,
 };
 
 export const viewport: Viewport = {
@@ -66,11 +66,14 @@ export default async function App(props: { children?: ReactNode }) {
     if (raw) custom = { ...DEFAULT_CUSTOM, ...JSON.parse(raw) };
   } catch {}
 
-  //server best-guess class (system defaults to dark; the script corrects it)
+  //chromium sends its color scheme as a client hint; everyone else gets the
+  //dark default and the inline script corrects it before paint
+  const hinted = (await headers()).get("sec-ch-prefers-color-scheme");
+
   const htmlClass = resolveThemeClass({
     selection,
     date: new Date(),
-    prefersDark: true,
+    prefersDark: hinted ? hinted === "dark" : true,
   });
 
   //flash-free custom theme: emit its derived vars as a scoped stylesheet rule

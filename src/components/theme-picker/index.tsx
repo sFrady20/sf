@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Button } from "earthling-ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "earthling-ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "earthling-ui/toggle-group";
@@ -68,6 +68,7 @@ export function ThemePicker() {
   const { selection, custom, setTheme, setCustom } = useTheme();
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<"list" | "custom">("list");
+  const reduce = useReducedMotion();
 
   const baseValue = ["light", "dark", "system"].includes(selection)
     ? selection
@@ -94,9 +95,9 @@ export function ThemePicker() {
           <AnimatePresence initial={false} mode="popLayout">
             <motion.i
               key={iconFor(selection)}
-              initial={{ rotate: -90, opacity: 0 }}
+              initial={{ rotate: reduce ? 0 : -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
+              exit={{ rotate: reduce ? 0 : 90, opacity: 0 }}
               className={cn(
                 iconFor(selection),
                 "text-lg col-start-1 row-start-1",

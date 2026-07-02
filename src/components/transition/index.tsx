@@ -2,7 +2,7 @@
 
 import { ReactNode, useContext, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 /**
@@ -30,6 +30,8 @@ function FrozenRouter({ children }: { children: ReactNode }) {
 export function RouteTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const ref = useRef<HTMLDivElement>(null);
+  //css kill switch can't reach motion's raf loop, so handle it here
+  const reduce = useReducedMotion();
 
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -40,16 +42,22 @@ export function RouteTransition({ children }: { children: ReactNode }) {
         animate={"animate"}
         exit={"exit"}
         variants={{
-          initial: { opacity: 0, scale: 0.99 },
+          initial: { opacity: 0, scale: reduce ? 1 : 0.99 },
           animate: {
             opacity: 1,
             scale: 1,
-            transition: { duration: 0.36, when: "beforeChildren" },
+            transition: {
+              duration: reduce ? 0 : 0.36,
+              when: "beforeChildren",
+            },
           },
           exit: {
             opacity: 0,
-            scale: 0.99,
-            transition: { duration: 0.36, when: "afterChildren" },
+            scale: reduce ? 1 : 0.99,
+            transition: {
+              duration: reduce ? 0 : 0.36,
+              when: "afterChildren",
+            },
           },
         }}
         onAnimationComplete={() => {
