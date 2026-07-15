@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { shaderData } from "@/data/shaders";
+import { toolRoutes } from "@/data/tools";
 
 const base = "https://www.stevenfrady.com";
 
@@ -7,11 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
     "/shaders",
-    "/tools",
-    "/tools/palette",
-    "/tools/metadata",
-    "/tools/convert",
-    "/tools/shader-fn-lib",
     "/blog",
     "/uses",
     "/colophon",
@@ -19,6 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${base}${path}`,
     changeFrequency: "monthly",
     priority: path === "" ? 1 : 0.6,
+  }));
+
+  //every tool page, incl. the per-transform/pair/generator seo routes
+  const tools: MetadataRoute.Sitemap = toolRoutes.map((path) => ({
+    url: `${base}${path}`,
+    changeFrequency: "monthly",
+    priority: path === "/tools" ? 0.6 : 0.5,
   }));
 
   //every published shader page
@@ -30,5 +33,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticRoutes, ...shaderRoutes];
+  return [...staticRoutes, ...tools, ...shaderRoutes];
 }

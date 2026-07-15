@@ -1,38 +1,37 @@
-﻿import { Button } from "earthling-ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  CVT_ActionButton,
-  CVT_Input,
-  CVT_Options,
-  CVT_Preview,
-  CVT_Provider,
-} from "./components";
+import { ToolShell } from "../shell";
+import { ImageConverter } from "./components";
+import { conversionPairs } from "./formats";
 
 export const metadata: Metadata = {
-  title: "",
-  description: "",
+  title: "Free Online Image Converter - Steven Frady",
+  description:
+    "Convert images between PNG, JPG, WebP, and AVIF online for free. Fast, private, no signup — files are converted on the fly and never stored.",
+  keywords:
+    "image converter, convert png, convert jpg, convert webp, convert avif, online image conversion",
+  alternates: { canonical: "https://www.stevenfrady.com/tools/convert" },
 };
 
 export default async function () {
   return (
-    <CVT_Provider>
-      <div className="py-[100px] md:pt-[132px] flex-1">
-        <div className="container flex flex-col">
-          <div>
-            <Button material={"ghost"} className="gap-2 -ml-4" asChild>
-              <Link href="/tools">
-                <i className="icon-[ri--arrow-left-line]" />
-                <div>More tools</div>
-              </Link>
-            </Button>
-          </div>
-          <CVT_Input>Choose File</CVT_Input>
-          <CVT_Preview />
-          <CVT_Options />
-          <CVT_ActionButton />
+    <ToolShell>
+      <ImageConverter />
+
+      <div className="flex flex-col gap-3 mt-12">
+        <div className="text-sm opacity-70">Popular conversions</div>
+        <div className="flex flex-row flex-wrap gap-2">
+          {conversionPairs.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/tools/convert/${p.slug}`}
+              className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
+            >
+              {p.from.label} → {p.to.label}
+            </Link>
+          ))}
         </div>
       </div>
-    </CVT_Provider>
+    </ToolShell>
   );
 }

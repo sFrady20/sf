@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "@/components/theme-provider";
 import { BASE_THEMES, NAMED_THEMES } from "@/lib/theme";
 import { shaderData } from "@/data/shaders";
+import { allTools } from "@/data/tools";
 import { cn } from "@/utils/cn";
 
 export type PaletteLink = { href: string; label: string };
@@ -54,6 +55,14 @@ export function CommandPalette({ links }: { links: PaletteLink[] }) {
       group: "Navigate",
       keywords: l.href,
       run: () => router.push(l.href),
+    }));
+    const tools: Command[] = allTools.map((t) => ({
+      id: `tool-${t.href}`,
+      label: t.title,
+      icon: t.icon,
+      group: "Tools",
+      keywords: `${t.keywords} ${t.href}`,
+      run: () => router.push(t.href),
     }));
     const themes: Command[] = [...BASE_THEMES, ...NAMED_THEMES].map((t) => ({
       id: `theme-${t.id}`,
@@ -102,7 +111,7 @@ export function CommandPalette({ links }: { links: PaletteLink[] }) {
         run: () => window.open("https://resume.stevenfrady.com", "_blank"),
       },
     ];
-    return [...nav, ...themes, ...actions];
+    return [...nav, ...tools, ...themes, ...actions];
   }, [links, router, setTheme]);
 
   const filtered = useMemo(() => {

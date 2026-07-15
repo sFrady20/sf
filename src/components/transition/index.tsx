@@ -1,9 +1,10 @@
 "use client";
 
-import { ReactNode, useContext, useRef } from "react";
+import { ReactNode, useContext, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { clearSwappedPath, isSwappedPath } from "@/utils/swap-url";
 
 /**
  * freezes the router context for the exiting subtree so the OLD page keeps
@@ -33,10 +34,23 @@ export function RouteTransition({ children }: { children: ReactNode }) {
   //css kill switch can't reach motion's raf loop, so handle it here
   const reduce = useReducedMotion();
 
+  //tools swap their url in place (swapUrl) as the user flips their switcher.
+  //those pathname changes are not navigations - keep the key stable so the
+  //page doesn't remount (which would reset tool state) or animate
+  const [lastPathname, setLastPathname] = useState(pathname);
+  const [navKey, setNavKey] = useState(pathname);
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    if (!isSwappedPath(pathname)) {
+      setNavKey(pathname);
+      clearSwappedPath();
+    }
+  }
+
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
-        key={pathname}
+        key={navKey}
         ref={ref}
         initial={"initial"}
         animate={"animate"}
