@@ -142,11 +142,7 @@ export function ImageResizer() {
               <Field label="Fit">
                 <Select value={fit} onChange={(e) => setFit(e.target.value)}>
                   {fits.map((f) => (
-                    <option
-                      key={f.slug}
-                      value={f.slug}
-                      className="text-background"
-                    >
+                    <option key={f.slug} value={f.slug}>
                       {f.label}
                     </option>
                   ))}
@@ -158,11 +154,7 @@ export function ImageResizer() {
                   onChange={(e) => setFormat(e.target.value)}
                 >
                   {formats.map((f) => (
-                    <option
-                      key={f.slug}
-                      value={f.slug}
-                      className="text-background"
-                    >
+                    <option key={f.slug} value={f.slug}>
                       {f.label}
                     </option>
                   ))}

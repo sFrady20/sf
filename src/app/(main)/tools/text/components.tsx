@@ -7,13 +7,24 @@ import {
 import { swapUrl } from "@/utils/swap-url";
 import { Button } from "earthling-ui/button";
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { Field, Panel, PanelHeader, Select, ToolHeader } from "../ui";
-import { CodeArea } from "./code-area";
 import {
   getTextTransform,
   textTransformGroups,
   textTransforms,
 } from "./transforms";
+
+//codemirror is client-only and heavy-ish, keep it out of the shared chunks
+const CodeEditor = dynamic(
+  () => import("./code-editor").then((m) => m.CodeEditor),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex-1 min-h-[300px] bg-[#011627] animate-pulse" />
+    ),
+  },
+);
 
 //one component serves every /tools/text/[transform] page,
 //the route just seeds the switcher
@@ -50,11 +61,7 @@ export function TextTool(props: { initialSlug: string }) {
                 {textTransforms
                   .filter((t) => t.group === group)
                   .map((t) => (
-                    <option
-                      key={t.slug}
-                      value={t.slug}
-                      className="text-background"
-                    >
+                    <option key={t.slug} value={t.slug}>
                       {t.label}
                     </option>
                   ))}
@@ -82,7 +89,7 @@ export function TextTool(props: { initialSlug: string }) {
               </Button>
             )}
           </PanelHeader>
-          <CodeArea
+          <CodeEditor
             autoFocus
             value={input}
             onChange={setInput}
@@ -119,7 +126,7 @@ export function TextTool(props: { initialSlug: string }) {
               </div>
             </div>
           ) : (
-            <CodeArea
+            <CodeEditor
               readOnly
               value={result.output}
               placeholder="Result appears here…"

@@ -58,7 +58,7 @@ export function GeneratorTool(props: { initialSlug: string }) {
             }}
           >
             {generators.map((g) => (
-              <option key={g.slug} value={g.slug} className="text-background">
+              <option key={g.slug} value={g.slug}>
                 {g.label}
               </option>
             ))}

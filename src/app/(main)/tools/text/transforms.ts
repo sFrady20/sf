@@ -1,5 +1,7 @@
 //pure text transforms, one entry = one seo page at /tools/text/[slug]
 
+import type { EditorLanguage } from "./code-editor";
+
 export type TextTransform = {
   slug: string;
   label: string;
@@ -9,8 +11,8 @@ export type TextTransform = {
   group: string;
   placeholder?: string;
   //syntax highlight hints, otherwise auto-detect handles it
-  inputLanguage?: string;
-  outputLanguage?: string;
+  inputLanguage?: EditorLanguage;
+  outputLanguage?: EditorLanguage;
   apply: (input: string) => string;
 };
 
@@ -308,7 +310,7 @@ export const textTransforms: TextTransform[] = [
     keywords: "html encode, escape html, html entities",
     group: "Data Formats",
     placeholder: "<div>hello & welcome</div>",
-    inputLanguage: "xml",
+    inputLanguage: "html",
     apply: (x) =>
       x
         .replace(/&/g, "&amp;")
@@ -326,7 +328,7 @@ export const textTransforms: TextTransform[] = [
     keywords: "html decode, unescape html, decode html entities",
     group: "Data Formats",
     placeholder: "&lt;div&gt;hello &amp; welcome&lt;/div&gt;",
-    outputLanguage: "xml",
+    outputLanguage: "html",
     apply: (x) =>
       x
         .replace(/&lt;/g, "<")

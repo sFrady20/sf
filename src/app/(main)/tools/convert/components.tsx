@@ -89,11 +89,7 @@ export function ImageConverter(props: {
                 {imageFormats
                   .filter((f) => f.slug !== fromSlug)
                   .map((f) => (
-                    <option
-                      key={f.slug}
-                      value={f.slug}
-                      className="text-background"
-                    >
+                    <option key={f.slug} value={f.slug}>
                       {f.label}
                     </option>
                   ))}

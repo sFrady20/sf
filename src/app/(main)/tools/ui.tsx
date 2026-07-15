@@ -71,7 +71,9 @@ export function Select(props: ComponentProps<"select">) {
     <span className={cn("relative inline-flex", className)}>
       <select
         {...rest}
-        className="h-9 appearance-none rounded-md border border-foreground/15 bg-foreground/5 hover:bg-foreground/10 cursor-pointer pl-3 pr-8 text-sm outline-none focus-visible:border-foreground/40 transition-colors"
+        //the native popup paints itself, so options and group labels need an
+        //opaque bg+fg pair of their own or they inherit into invisibility
+        className="h-9 appearance-none rounded-md border border-foreground/15 bg-foreground/5 hover:bg-foreground/10 cursor-pointer pl-3 pr-8 text-sm outline-none focus-visible:border-foreground/40 transition-colors [&_option]:bg-background [&_option]:text-foreground [&_optgroup]:bg-background [&_optgroup]:text-foreground [&_optgroup]:font-semibold"
       >
         {children}
       </select>
