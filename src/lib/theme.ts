@@ -77,6 +77,22 @@ export const NAMED_THEMES: ThemeMeta[] = [
     fg: "oklch(0.82 0.17 150)",
     accent: "oklch(0.75 0.2 150)",
   },
+  {
+    id: "night",
+    label: "Night",
+    icon: "icon-[ri--moon-cloudy-fill]",
+    bg: "oklch(0.09 0.035 275)",
+    fg: "oklch(0.88 0.03 285)",
+    accent: "oklch(0.7 0.12 285)",
+  },
+  {
+    id: "rain",
+    label: "Rain",
+    icon: "icon-[ri--rainy-fill]",
+    bg: "oklch(0.28 0.02 250)",
+    fg: "oklch(0.87 0.015 240)",
+    accent: "oklch(0.68 0.08 240)",
+  },
 ];
 
 export type Holiday = {
@@ -108,10 +124,9 @@ export const THEME_CLASS_NAMES = [
   "theme-light",
   "theme-dark",
   "theme-alien",
-  "theme-synthwave",
-  "theme-ember",
   "theme-matrix",
-  "theme-vapor",
+  "theme-night",
+  "theme-rain",
   "theme-gold",
   "theme-custom",
   "theme-holiday-valentine",

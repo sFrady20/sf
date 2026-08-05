@@ -3,7 +3,7 @@
 @plugin "@iconify/tailwind4";
 
 /* theme classes are applied dynamically (js + cookies), so safelist them all */
-@source inline("theme-light theme-dark theme-alien theme-synthwave theme-ember theme-matrix theme-vapor theme-gold theme-custom theme-holiday-valentine theme-holiday-independence theme-holiday-halloween theme-holiday-christmas");
+@source inline("theme-light theme-dark theme-alien theme-matrix theme-night theme-rain theme-gold theme-custom theme-holiday-valentine theme-holiday-independence theme-holiday-halloween theme-holiday-christmas");
 
 /*
  * Theme configuration (migrated from tailwind.config.ts)
@@ -360,40 +360,6 @@
 
 /* heavy themes — expressive, more liberties taken */
 
-@utility theme-synthwave {
-  --color-background: oklch(0.18 0.06 300);
-  --color-foreground: oklch(0.9 0.05 320);
-  --color-surface: oklch(0.23 0.06 300);
-  --color-outline: oklch(0.9 0.05 320);
-  --color-primary: oklch(0.7 0.2 330);
-  --color-primary-foreground: oklch(0.18 0.06 300);
-  --color-secondary: oklch(0.72 0.13 220);
-  --color-secondary-foreground: oklch(0.18 0.06 300);
-  --color-tertiary: oklch(0.72 0.13 220);
-  --color-tertiary-foreground: oklch(0.18 0.06 300);
-  --color-neutral: oklch(0.33 0.05 300);
-  --color-neutral-foreground: oklch(0.92 0.04 320);
-  --color-muted: oklch(0.28 0.04 300);
-  --color-muted-foreground: oklch(0.65 0.05 320);
-}
-
-@utility theme-ember {
-  --color-background: oklch(0.17 0.03 40);
-  --color-foreground: oklch(0.9 0.04 70);
-  --color-surface: oklch(0.22 0.03 40);
-  --color-outline: oklch(0.9 0.04 70);
-  --color-primary: oklch(0.68 0.19 50);
-  --color-primary-foreground: oklch(0.17 0.03 40);
-  --color-secondary: oklch(0.62 0.18 25);
-  --color-secondary-foreground: oklch(0.98 0.02 60);
-  --color-tertiary: oklch(0.62 0.18 25);
-  --color-tertiary-foreground: oklch(0.98 0.02 60);
-  --color-neutral: oklch(0.32 0.03 40);
-  --color-neutral-foreground: oklch(0.92 0.03 70);
-  --color-muted: oklch(0.27 0.02 40);
-  --color-muted-foreground: oklch(0.66 0.04 60);
-}
-
 @utility theme-matrix {
   --color-background: oklch(0.15 0.02 150);
   --color-foreground: oklch(0.85 0.15 150);
@@ -411,21 +377,38 @@
   --color-muted-foreground: oklch(0.6 0.08 150);
 }
 
-@utility theme-vapor {
-  --color-background: oklch(0.22 0.06 310);
-  --color-foreground: oklch(0.92 0.04 340);
-  --color-surface: oklch(0.27 0.06 310);
-  --color-outline: oklch(0.92 0.04 340);
-  --color-primary: oklch(0.78 0.12 350);
-  --color-primary-foreground: oklch(0.22 0.06 310);
-  --color-secondary: oklch(0.8 0.1 200);
-  --color-secondary-foreground: oklch(0.22 0.06 310);
-  --color-tertiary: oklch(0.8 0.1 200);
-  --color-tertiary-foreground: oklch(0.22 0.06 310);
-  --color-neutral: oklch(0.36 0.05 310);
-  --color-neutral-foreground: oklch(0.93 0.04 340);
-  --color-muted: oklch(0.31 0.04 310);
-  --color-muted-foreground: oklch(0.68 0.05 340);
+@utility theme-night {
+  --color-background: oklch(0.09 0.035 275);
+  --color-foreground: oklch(0.88 0.03 285);
+  --color-surface: oklch(0.13 0.04 275);
+  --color-outline: oklch(0.88 0.03 285);
+  --color-primary: oklch(0.7 0.12 285);
+  --color-primary-foreground: oklch(0.09 0.035 275);
+  --color-secondary: oklch(0.74 0.07 250);
+  --color-secondary-foreground: oklch(0.09 0.035 275);
+  --color-tertiary: oklch(0.74 0.07 250);
+  --color-tertiary-foreground: oklch(0.09 0.035 275);
+  --color-neutral: oklch(0.21 0.04 275);
+  --color-neutral-foreground: oklch(0.9 0.03 285);
+  --color-muted: oklch(0.15 0.035 275);
+  --color-muted-foreground: oklch(0.6 0.04 280);
+}
+
+@utility theme-rain {
+  --color-background: oklch(0.28 0.02 250);
+  --color-foreground: oklch(0.87 0.015 240);
+  --color-surface: oklch(0.33 0.02 250);
+  --color-outline: oklch(0.87 0.015 240);
+  --color-primary: oklch(0.68 0.08 240);
+  --color-primary-foreground: oklch(0.2 0.02 250);
+  --color-secondary: oklch(0.45 0.03 250);
+  --color-secondary-foreground: oklch(0.9 0.015 240);
+  --color-tertiary: oklch(0.45 0.03 250);
+  --color-tertiary-foreground: oklch(0.9 0.015 240);
+  --color-neutral: oklch(0.4 0.02 250);
+  --color-neutral-foreground: oklch(0.9 0.015 240);
+  --color-muted: oklch(0.35 0.02 250);
+  --color-muted-foreground: oklch(0.65 0.02 245);
 }
 
 @utility theme-gold {

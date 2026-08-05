@@ -15,6 +15,7 @@ import { ThemePicker } from "@/components/theme-picker";
 import maskStyles from "./mask.module.css";
 import { RouteTransition } from "@/components/transition";
 import { CommandPalette } from "@/components/command-palette";
+import { ThemeEffect } from "@/components/theme-effect";
 
 const socials = [
   {
@@ -145,120 +146,123 @@ export default async function MainLayout(props: {
             ]}
           />
 
-          <main>
-            <RouteTransition>{children}</RouteTransition>
-          </main>
+          {/* per-theme canvas effect wraps the scrolling content, chrome stays outside */}
+          <ThemeEffect>
+            <main>
+              <RouteTransition>{children}</RouteTransition>
+            </main>
 
-          {modal}
+            {modal}
 
-          <footer className="py-[100px] bg-foreground/5">
-            <div className="container flex flex-col gap-10">
-              <div className="grid grid-cols-6 gap-4 gap-y-10 w-full">
-                <div className="col-span-6 xl:col-span-3 h-full flex flex-col gap-4">
-                  <Frady className={"w-[100px] h-[30px]"} />
-                  <p className="opacity-60 text-sm">
-                    Des. and Dev. by Steven Frady
-                  </p>
-                  <div className="text-xs">© {new Date().getFullYear()}</div>
-                </div>
-                <nav
-                  aria-label="Site navigation"
-                  className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
-                >
-                  {[
-                    ...navLinks,
-                    //footer-tier pages, not worth menu real estate
-                    { href: "/uses", label: "Uses" },
-                    { href: "/colophon", label: "Colophon" },
-                  ].map((x, i) => (
-                    <div key={i} className="col-span-1">
-                      <Link
-                        href={x.href}
-                        className="hover:underline text-sm font-title"
-                      >
-                        {x.label}
-                      </Link>
-                    </div>
-                  ))}
-                </nav>
-                <nav
-                  aria-label="External links"
-                  className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
-                >
-                  {[
-                    {
-                      link: "https://www.linkedin.com/in/stevenfrady/",
-                      label: "LinkedIn",
-                    },
-                    {
-                      link: "https://x.com/slowjamsteve",
-                      label: "X (Formerly Twitter)",
-                    },
-                    {
-                      link: "https://peerlist.io/sfrady20",
-                      label: "Peerlist",
-                    },
-                    {
-                      link: "https://github.com/sFrady20",
-                      label: "Github",
-                    },
-                    {
-                      link: "https://dribbble.com/sfrady20",
-                      label: "Dribbble",
-                    },
-                    {
-                      link: "https://soundcloud.com/sultan-zabu",
-                      label: "SoundCloud",
-                    },
-                    {
-                      link: "https://www.slowjam.dj/",
-                      label: "SlowJamSteve",
-                    },
-                    {
-                      link: "https://linq.dj/@slowjamsteve",
-                      label: "LINQ",
-                    },
-                  ].map((x, i) => (
-                    <div key={i} className="col-span-1">
-                      <Link
-                        href={x.link}
-                        className="hover:underline text-sm font-title"
-                        target="_blank"
-                      >
-                        {x.label}
-                      </Link>
-                    </div>
-                  ))}
-                </nav>
-                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1 opacity-60">
-                  <Link
-                    href={"mailto:sfrady20@gmail.com"}
-                    className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
-                    target="_blank"
+            <footer className="py-[100px] bg-foreground/5">
+              <div className="container flex flex-col gap-10">
+                <div className="grid grid-cols-6 gap-4 gap-y-10 w-full">
+                  <div className="col-span-6 xl:col-span-3 h-full flex flex-col gap-4">
+                    <Frady className={"w-[100px] h-[30px]"} />
+                    <p className="opacity-60 text-sm">
+                      Des. and Dev. by Steven Frady
+                    </p>
+                    <div className="text-xs">© {new Date().getFullYear()}</div>
+                  </div>
+                  <nav
+                    aria-label="Site navigation"
+                    className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
                   >
-                    <i className="icon-[ri--mail-fill]" />
-                    <div>Email me</div>
-                  </Link>
-                  <Link
-                    href={"https://resume.stevenfrady.com"}
-                    className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
-                    target="_blank"
+                    {[
+                      ...navLinks,
+                      //footer-tier pages, not worth menu real estate
+                      { href: "/uses", label: "Uses" },
+                      { href: "/colophon", label: "Colophon" },
+                    ].map((x, i) => (
+                      <div key={i} className="col-span-1">
+                        <Link
+                          href={x.href}
+                          className="hover:underline text-sm font-title"
+                        >
+                          {x.label}
+                        </Link>
+                      </div>
+                    ))}
+                  </nav>
+                  <nav
+                    aria-label="External links"
+                    className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1"
                   >
-                    <i className="icon-[ri--download-cloud-fill]" />
-                    <div>Resume</div>
-                  </Link>
-                  <Link
-                    href={"https://venmo.com/?txn=pay&recipients=sfrady"}
-                    className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
-                    target="_blank"
-                  >
-                    <i className="icon-[ri--cup-fill]" />
-                    <div>Buy me a coffee</div>
-                  </Link>
+                    {[
+                      {
+                        link: "https://www.linkedin.com/in/stevenfrady/",
+                        label: "LinkedIn",
+                      },
+                      {
+                        link: "https://x.com/slowjamsteve",
+                        label: "X (Formerly Twitter)",
+                      },
+                      {
+                        link: "https://peerlist.io/sfrady20",
+                        label: "Peerlist",
+                      },
+                      {
+                        link: "https://github.com/sFrady20",
+                        label: "Github",
+                      },
+                      {
+                        link: "https://dribbble.com/sfrady20",
+                        label: "Dribbble",
+                      },
+                      {
+                        link: "https://soundcloud.com/sultan-zabu",
+                        label: "SoundCloud",
+                      },
+                      {
+                        link: "https://www.slowjam.dj/",
+                        label: "SlowJamSteve",
+                      },
+                      {
+                        link: "https://linq.dj/@slowjamsteve",
+                        label: "LINQ",
+                      },
+                    ].map((x, i) => (
+                      <div key={i} className="col-span-1">
+                        <Link
+                          href={x.link}
+                          className="hover:underline text-sm font-title"
+                          target="_blank"
+                        >
+                          {x.label}
+                        </Link>
+                      </div>
+                    ))}
+                  </nav>
+                  <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1 opacity-60">
+                    <Link
+                      href={"mailto:sfrady20@gmail.com"}
+                      className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
+                      target="_blank"
+                    >
+                      <i className="icon-[ri--mail-fill]" />
+                      <div>Email me</div>
+                    </Link>
+                    <Link
+                      href={"https://resume.stevenfrady.com"}
+                      className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
+                      target="_blank"
+                    >
+                      <i className="icon-[ri--download-cloud-fill]" />
+                      <div>Resume</div>
+                    </Link>
+                    <Link
+                      href={"https://venmo.com/?txn=pay&recipients=sfrady"}
+                      className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
+                      target="_blank"
+                    >
+                      <i className="icon-[ri--cup-fill]" />
+                      <div>Buy me a coffee</div>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          </footer>
+            </footer>
+          </ThemeEffect>
         </TooltipProvider>
       </AppProvider>
     </CastSenderProvider>
