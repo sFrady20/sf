@@ -31,9 +31,7 @@ const fits = [
 
 export function ImageResizer() {
   const [file, setFile] = useState<File | null>(null);
-  const [natural, setNatural] = useState<{ w: number; h: number } | null>(
-    null,
-  );
+  const [natural, setNatural] = useState<{ w: number; h: number } | null>(null);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [locked, setLocked] = useState(true);

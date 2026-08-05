@@ -1,18 +1,15 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import {
-  ComponentProps,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ComponentProps, ReactNode, useEffect, useMemo, useState } from "react";
 
 //shared control vocabulary for every tool page - one panel language,
 //fixed-height headers, consistent inputs
 
-export function ToolHeader(props: { title: ReactNode; description: ReactNode }) {
+export function ToolHeader(props: {
+  title: ReactNode;
+  description: ReactNode;
+}) {
   const { title, description } = props;
   return (
     <div className="flex flex-col gap-2">
@@ -104,6 +101,22 @@ export function Field(props: { label: ReactNode; children: ReactNode }) {
       <span className="opacity-60 whitespace-nowrap">{label}</span>
       {children}
     </label>
+  );
+}
+
+//seo prose that sits under a tool - quiet styling, plain copy. lives inside
+//the client tools so it tracks whatever's selected, and still lands in the
+//server-rendered html for crawlers
+export function ToolProse(props: { children: ReactNode; className?: string }) {
+  return (
+    <article
+      className={cn(
+        "mt-12 max-w-[65ch] flex flex-col gap-3 text-sm leading-relaxed opacity-80 [&_h2]:font-title [&_h2]:font-bold [&_h2]:text-base [&_h2]:opacity-100 [&_h2]:mt-3 [&_code]:bg-foreground/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:font-mono [&_code]:text-[0.85em]",
+        props.className,
+      )}
+    >
+      {props.children}
+    </article>
   );
 }
 

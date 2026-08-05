@@ -175,7 +175,9 @@ export const textTransforms: TextTransform[] = [
       "Free online tool to collapse repeated spaces and tabs into single spaces.",
     keywords: "remove extra spaces, collapse whitespace, clean text",
     group: "Whitespace & Lines",
-    apply: byLine((lines) => lines.map((l) => l.replace(/[ \t]+/g, " ").trim())),
+    apply: byLine((lines) =>
+      lines.map((l) => l.replace(/[ \t]+/g, " ").trim()),
+    ),
   },
   {
     slug: "remove-line-breaks",
@@ -235,7 +237,8 @@ export const textTransforms: TextTransform[] = [
     title: "JSON Formatter & Prettifier",
     description:
       "Free online JSON formatter. Validate and pretty-print JSON with 2-space indentation, right in your browser.",
-    keywords: "json formatter, json prettifier, json beautifier, json validator",
+    keywords:
+      "json formatter, json prettifier, json beautifier, json validator",
     group: "Data Formats",
     placeholder: '{"paste":"your json here"}',
     inputLanguage: "json",
@@ -263,8 +266,7 @@ export const textTransforms: TextTransform[] = [
       "Free online Base64 encoder. Convert text (including unicode) to Base64, right in your browser.",
     keywords: "base64 encode, base64 converter, text to base64",
     group: "Data Formats",
-    apply: (x) =>
-      btoa(String.fromCharCode(...new TextEncoder().encode(x))),
+    apply: (x) => btoa(String.fromCharCode(...new TextEncoder().encode(x))),
   },
   {
     slug: "base64-decode",

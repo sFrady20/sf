@@ -5,11 +5,19 @@ import {
   CopyToClipboardIcon,
 } from "@/components/copy-to-clipboard";
 import { Slider } from "@/components/slider";
+import { Toggle } from "@/components/toggle";
 import { cn } from "@/utils/cn";
 import { swapUrl } from "@/utils/swap-url";
 import { Button } from "earthling-ui/button";
 import { useEffect, useState } from "react";
-import { Field, Panel, PanelHeader, Select, ToolHeader } from "../ui";
+import {
+  Field,
+  Panel,
+  PanelHeader,
+  Select,
+  ToolHeader,
+  ToolProse,
+} from "../ui";
 import { GeneratorOptions, generators, getGenerator } from "./generators";
 
 const defaultsFor = (slug: string): GeneratorOptions =>
@@ -86,25 +94,45 @@ export function GeneratorTool(props: { initialSlug: string }) {
                   min={opt.min}
                   max={opt.max}
                   value={`${options[opt.key]}`}
-                  onChange={(e) =>
-                    setOption(opt.key, parseInt(e.target.value))
-                  }
+                  onChange={(e) => setOption(opt.key, parseInt(e.target.value))}
                   className="w-[120px] flex-none"
                 />
-                <span className="font-mono text-sm tabular-nums w-[3ch] text-right">
+                <span className="font-mono text-sm tabular-nums w-[4ch] text-right">
                   {options[opt.key]}
                 </span>
+                {opt.presets && (
+                  <span className="flex flex-row gap-1 ml-1">
+                    {opt.presets.map((p) => (
+                      <button
+                        key={p}
+                        type="button"
+                        //preventDefault keeps the wrapping label from
+                        //re-firing the click at the slider
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setOption(opt.key, p);
+                        }}
+                        className={cn(
+                          "text-[11px] font-mono tabular-nums rounded-full px-2.5 py-1 cursor-pointer transition",
+                          options[opt.key] === p
+                            ? "bg-foreground text-background"
+                            : "bg-foreground/10 hover:bg-foreground/20",
+                        )}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </span>
+                )}
               </Field>
             ) : (
               <label
                 key={opt.key}
                 className="flex flex-row items-center gap-2 text-sm cursor-pointer"
               >
-                <input
-                  type="checkbox"
+                <Toggle
                   checked={!!options[opt.key]}
                   onChange={(e) => setOption(opt.key, e.target.checked)}
-                  className="accent-current"
                 />
                 <span className="font-mono">{opt.label}</span>
               </label>
@@ -132,7 +160,7 @@ export function GeneratorTool(props: { initialSlug: string }) {
         </PanelHeader>
         {results.length === 0 ? (
           <div className="p-8 text-center text-sm opacity-50">
-            Enable at least one character set to generate.
+            Enable at least one option to generate.
           </div>
         ) : (
           <div className="flex flex-col divide-y divide-foreground/[0.06]">
@@ -173,6 +201,14 @@ export function GeneratorTool(props: { initialSlug: string }) {
           </div>
         )}
       </Panel>
+
+      {/* follows the generator select */}
+      {generator.about && (
+        <ToolProse className="mt-4">
+          <h2>How it works</h2>
+          <p>{generator.about}</p>
+        </ToolProse>
+      )}
     </div>
   );
 }

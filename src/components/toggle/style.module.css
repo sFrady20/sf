@@ -1,0 +1,73 @@
+@reference "../../globals.css";
+
+/*
+a two-position fader, not a checkbox. off is a muted block resting left,
+on inverts the whole track and the thumb punches through to the background.
+same squish and flat fill language as the slider next door.
+*/
+
+.container {
+  @apply relative w-10 h-5 rounded-md flex-none;
+
+  transition: transform 0.1s ease-out;
+}
+.container:active {
+  transform: scaleY(1.2);
+}
+
+/* track */
+.container::before {
+  @apply bg-foreground/10 absolute inset-0 rounded-md pointer-events-none;
+  content: "";
+  transition: background-color 0.2s ease;
+}
+.container:hover::before {
+  @apply bg-foreground/20;
+}
+.container:has(.input:checked)::before {
+  @apply bg-foreground;
+}
+
+/* thumb - translate % is relative to its own width, so the stretch below
+   stays anchored to whichever side it's parked on */
+.container::after {
+  @apply bg-foreground/40 absolute rounded pointer-events-none;
+  content: "";
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: 1rem;
+  translate: 0 0;
+  transition:
+    translate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    width 0.2s ease,
+    background-color 0.2s ease;
+}
+.container:hover::after {
+  @apply bg-foreground/60;
+}
+.container:has(.input:checked)::after {
+  @apply bg-background;
+  translate: calc(2.5rem - 6px - 100%) 0;
+}
+
+/* holding it down stretches the thumb toward where it's about to go */
+.container:has(.input:active)::after {
+  width: 1.45rem;
+}
+
+.container:has(.input:focus-visible) {
+  @apply ring-2 ring-foreground/40 ring-offset-2 ring-offset-background;
+}
+
+.input {
+  @apply absolute inset-0 w-full h-full opacity-0 cursor-pointer m-0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .container::before,
+  .container::after {
+    transition-duration: 0.01s;
+  }
+}

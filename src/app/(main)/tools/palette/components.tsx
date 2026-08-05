@@ -9,6 +9,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
 } from "react";
 import { Code } from "@/components/code";
 import { Slider } from "@/components/slider";
@@ -21,7 +22,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Button } from "earthling-ui/button";
 import { immer } from "zustand/middleware/immer";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { swapUrl } from "@/utils/swap-url";
+import { parsePaletteParam, toPaletteParam } from "./param";
 import {
   CopyToClipboard,
   CopyToClipboardIcon,
@@ -77,9 +79,9 @@ const localPaletteToolStore = create(
       (get, set) => ({
         savedPalettes: [],
       }),
-      { name: "sf-palette-tool" }
-    )
-  )
+      { name: "sf-palette-tool" },
+    ),
+  ),
 );
 
 const PaletteToolContext = createContext({
@@ -89,38 +91,44 @@ const PaletteToolContext = createContext({
   localStore: localPaletteToolStore,
 });
 
-export const PaletteProvider = function (props: {
-  children?: ReactNode;
-  defaultPalette?: number[][];
-}) {
-  const { defaultPalette: defaultPaletteProp, children } = props;
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
+export const PaletteProvider = function (props: { children?: ReactNode }) {
+  const { children } = props;
 
   const defaults = useMemo(() => {
-    const defaultValues = defaultPaletteProp || defaultPalette;
-
     const uniforms = {
       palette: {
-        value: defaultValues.map(([...x]) => new Vector3(...x)),
+        value: defaultPalette.map(([...x]) => new Vector3(...x)),
       },
     };
 
-    const palette = [...defaultValues];
-
-    return { palette, uniforms };
+    return { palette: [...defaultPalette], uniforms };
   }, []);
 
   const [palette, updatePalette] = useImmer(defaults.palette);
 
+  //land with ?p= -> hydrate. read client-side so the page can go static
   useEffect(() => {
-    // Create a new URLSearchParams instance from the current params
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("p", JSON.stringify(palette));
-    const newURL = `${pathname}?${decodeURIComponent(params.toString())}`;
-    router.replace(newURL, { scroll: false });
-  }, [palette, searchParams]);
+    const raw = new URLSearchParams(window.location.search).get("p");
+    const parsed = parsePaletteParam(raw);
+    if (parsed) updatePalette(() => parsed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  //the address bar mirrors the palette so it's always shareable. swapUrl is
+  //native replaceState - the old router.replace here made every slider tick
+  //a navigation - and the debounce keeps drags off the history api limit
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    const timer = setTimeout(
+      () => swapUrl(`/tools/palette?p=${toPaletteParam(palette)}`),
+      150,
+    );
+    return () => clearTimeout(timer);
+  }, [palette]);
 
   return (
     <PaletteToolContext.Provider
@@ -144,7 +152,7 @@ export const PaletteEditor = function () {
 
   const uniforms = useMemo(
     () => ({ ...uniformsCtx, resolution: { value: new Vector2(100, 100) } }),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -229,7 +237,7 @@ const PaletteExample = function (props: { frag: string }) {
 
   const uniforms = useMemo(
     () => ({ ...uniformsCtx, resolution: { value: new Vector2(100, 100) } }),
-    []
+    [],
   );
 
   return (
@@ -256,7 +264,7 @@ export const PaletteExport = function () {
   const { palette } = useContext(PaletteToolContext);
 
   const code = `// https://www.stevenfrady.com/tools/palette?p=${JSON.stringify(
-    palette
+    palette,
   )}\nvec3 palette(float t){
   vec3 a=vec3(${palette[0][0]},${palette[0][1]},${palette[0][2]});
   vec3 b=vec3(${palette[1][0]},${palette[1][1]},${palette[1][2]});
@@ -342,7 +350,7 @@ const SavedPalette = function (props: {
       resolution: { value: new Vector2(100, 100) },
       palette: { value: palette.map((x) => new Vector3(x[0], x[1], x[2])) },
     }),
-    []
+    [],
   );
 
   return (

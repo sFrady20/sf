@@ -43,7 +43,10 @@ const editorTheme = EditorView.theme(
       color: "#4b6479",
       paddingLeft: "8px",
     },
-    ".cm-activeLineGutter": { backgroundColor: "transparent", color: "#7c9cb5" },
+    ".cm-activeLineGutter": {
+      backgroundColor: "transparent",
+      color: "#7c9cb5",
+    },
     ".cm-placeholder": { color: "#5f7e97" },
   },
   { dark: true },
@@ -60,7 +63,10 @@ const editorHighlights = syntaxHighlighting(
     { tag: t.comment, color: "#637777", fontStyle: "italic" },
     { tag: [t.punctuation, t.separator, t.bracket], color: "#d6deeb" },
     { tag: [t.definitionKeyword, t.modifier], color: "#c792ea" },
-    { tag: [t.function(t.variableName), t.function(t.propertyName)], color: "#82aaff" },
+    {
+      tag: [t.function(t.variableName), t.function(t.propertyName)],
+      color: "#82aaff",
+    },
   ]),
 );
 
@@ -94,8 +100,7 @@ export function CodeEditor(props: {
   language?: EditorLanguage;
   autoFocus?: boolean;
 }) {
-  const { value, onChange, readOnly, placeholder, language, autoFocus } =
-    props;
+  const { value, onChange, readOnly, placeholder, language, autoFocus } = props;
 
   const hostRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);

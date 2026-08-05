@@ -13,6 +13,7 @@ import {
   prettySize,
   Select,
   ToolHeader,
+  ToolProse,
 } from "../ui";
 import { getFormat, getFormatByMime, imageFormats } from "./formats";
 
@@ -154,6 +155,23 @@ export function ImageConverter(props: {
           </div>
         </Panel>
       </div>
+
+      {/* follows the selects and whatever file gets dropped in */}
+      {from && (
+        <ToolProse className="mt-4">
+          <h2>
+            About {from.label} and {to.label}
+          </h2>
+          <p>{from.about}</p>
+          <p>{to.about}</p>
+          <p>
+            {to.lossy
+              ? `Converting ${from.label} to ${to.label} is lossy — use the quality slider to trade file size against fidelity.`
+              : `Converting ${from.label} to ${to.label} is lossless — pixels come through exactly as they were.`}{" "}
+            Files are converted on the fly and never stored.
+          </p>
+        </ToolProse>
+      )}
     </div>
   );
 }

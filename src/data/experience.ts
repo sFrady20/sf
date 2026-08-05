@@ -48,7 +48,7 @@ export const experienceList = [
       "https://media.licdn.com/dms/image/C560BAQGrAioIRG6gVQ/company-logo_100_100/0/1656677471716?e=1687392000&v=beta&t=KXr_h3XxM1Chyb0pQVR53vxtCUHlYU--8yRTWttSlTI",
   },
   {
-    years: [2023, "Present"],
+    years: [2024, "Present"],
     place: "Rugged Logic",
     position: "Senior Frontend Developer · Full-time",
     location: "Chantilly, VA",

@@ -87,8 +87,8 @@ export function ToolsIndex() {
         <div className="flex flex-col gap-2">
           <h1 className="font-title font-bold text-3xl md:text-4xl">Tools</h1>
           <p className="opacity-70 text-sm max-w-[600px]">
-            Free utilities for developers and designers. Everything runs on
-            this site — no signups, no uploads kept, no nonsense.
+            Free utilities for developers and designers. Everything runs on this
+            site — no signups, no uploads kept, no nonsense.
           </p>
         </div>
         <div className="flex flex-row items-center gap-3 bg-foreground/5 focus-within:bg-foreground/10 border rounded-full px-5 max-w-[480px] transition">

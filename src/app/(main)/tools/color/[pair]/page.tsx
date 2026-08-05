@@ -2,52 +2,52 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ToolShell } from "../../shell";
-import { ImageConverter } from "../components";
-import { conversionPairs, getPair } from "../formats";
+import { ColorConverter } from "../components";
+import { colorPairs, getColorPair } from "../spaces";
 
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return conversionPairs.map((p) => ({ pair: p.slug }));
+  return colorPairs.map((p) => ({ pair: p.slug }));
 }
 
 export async function generateMetadata(props: {
   params: Promise<{ pair: string }>;
 }): Promise<Metadata> {
   const { pair: slug } = await props.params;
-  const pair = getPair(slug);
+  const pair = getColorPair(slug);
   if (!pair) return {};
 
   return {
-    title: `Convert ${pair.from.label} to ${pair.to.label} Online - Steven Frady`,
-    description: `Free online ${pair.from.label} to ${pair.to.label} converter. Fast, private, no signup — files are converted on the fly and never stored.`,
-    keywords: `${pair.from.slug} to ${pair.to.slug}, convert ${pair.from.slug} to ${pair.to.slug}, ${pair.from.label.toLowerCase()} to ${pair.to.label.toLowerCase()} converter, image converter`,
+    title: `${pair.from.label} to ${pair.to.label} Converter - Steven Frady`,
+    description: `Free online ${pair.from.label} to ${pair.to.label} color converter. Paste a ${pair.from.label} color and get the ${pair.to.label} value instantly — everything runs in your browser.`,
+    keywords: `${pair.from.slug} to ${pair.to.slug}, convert ${pair.from.slug} to ${pair.to.slug}, ${pair.from.slug} to ${pair.to.slug} converter, ${pair.from.slug}a to ${pair.to.slug}, color converter, alpha, transparency`,
     alternates: {
-      canonical: `https://www.stevenfrady.com/tools/convert/${slug}`,
+      canonical: `https://www.stevenfrady.com/tools/color/${slug}`,
     },
   };
 }
 
 export default async function (props: { params: Promise<{ pair: string }> }) {
   const { pair: slug } = await props.params;
-  const pair = getPair(slug);
+  const pair = getColorPair(slug);
   if (!pair) notFound();
 
   return (
     <ToolShell>
-      {/* the converter renders its own prose, so it follows the selects */}
-      <ImageConverter initialFrom={pair.from.slug} initialTo={pair.to.slug} />
+      {/* the converter renders its own prose, so it follows the dropdowns */}
+      <ColorConverter initialFrom={pair.from.slug} initialTo={pair.to.slug} />
 
       {/* internal links keep every pair page one hop away */}
       <div className="flex flex-col gap-3 mt-12">
         <div className="text-sm opacity-70">Other conversions</div>
         <div className="flex flex-row flex-wrap gap-2">
-          {conversionPairs
+          {colorPairs
             .filter((p) => p.slug !== slug)
             .map((p) => (
               <Link
                 key={p.slug}
-                href={`/tools/convert/${p.slug}`}
+                href={`/tools/color/${p.slug}`}
                 className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
               >
                 {p.from.label} → {p.to.label}

@@ -97,9 +97,7 @@ export function TextTool(props: { initialSlug: string }) {
             language={transform.inputLanguage}
           />
         </Panel>
-        <Panel
-          className={result.error ? "border-red-500/40" : undefined}
-        >
+        <Panel className={result.error ? "border-red-500/40" : undefined}>
           <PanelHeader
             label="Output"
             meta={

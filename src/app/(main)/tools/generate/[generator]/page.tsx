@@ -36,6 +36,7 @@ export default async function (props: {
 
   return (
     <ToolShell>
+      {/* the tool renders its own prose, so it follows the generator select */}
       <GeneratorTool initialSlug={slug} />
     </ToolShell>
   );

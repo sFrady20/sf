@@ -13,11 +13,7 @@ import { Field, ImageDrop, Panel, PanelHeader, ToolHeader } from "../ui";
 import { getIconPreset, iconPresets } from "./presets";
 
 //contain-fit the source into a transparent square, padding = maskable safe zone
-const renderIcon = async (
-  img: HTMLImageElement,
-  size: number,
-  padding = 0,
-) => {
+const renderIcon = async (img: HTMLImageElement, size: number, padding = 0) => {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = size;
   const ctx = canvas.getContext("2d")!;
@@ -165,10 +161,7 @@ export function IconSetTool() {
 
       {previews.length > 0 && (
         <Panel>
-          <PanelHeader
-            label="Preview"
-            meta={`${preset.files.length} files`}
-          >
+          <PanelHeader label="Preview" meta={`${preset.files.length} files`}>
             <Button
               material="outline"
               size="sm"
