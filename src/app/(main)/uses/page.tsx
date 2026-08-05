@@ -37,8 +37,8 @@ export default function UsesPage() {
           </div>
           <h1 className="text-2xl md:text-3xl font-title">Uses</h1>
           <p className="text-sm md:text-md leading-relaxed opacity-80 text-balance">
-            The languages, frameworks, and tools I work with day to day, on
-            this site and off.
+            The languages, frameworks, and tools I work with day to day, on this
+            site and off.
           </p>
         </div>
 
@@ -69,6 +69,16 @@ export default function UsesPage() {
               earthling-ui
             </Link>
             , my own component library, shared across projects
+          </Row>
+          <Row label="Canvas effects">
+            <Link
+              href="https://canvasui.dev"
+              target="_blank"
+              className="underline"
+            >
+              canvas-ui
+            </Link>
+            , html-in-canvas components with WebGL effects running over live DOM
           </Row>
 
           <SectionTitle>Studio</SectionTitle>

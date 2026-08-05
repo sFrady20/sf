@@ -30,9 +30,8 @@ export default function ColophonPage() {
           </div>
           <h1 className="text-2xl md:text-3xl font-title">Colophon</h1>
           <p className="text-sm md:text-md leading-relaxed opacity-80 text-balance">
-            Everything on this site is custom — the components, the shaders,
-            the theme system, and the music. This page lists what it's built
-            with.
+            Everything on this site is custom — the components, the shaders, the
+            theme system, and the music. This page lists what it's built with.
           </p>
         </div>
 
@@ -40,9 +39,7 @@ export default function ColophonPage() {
           <Row label="Framework">
             Next.js (App Router), React, and TypeScript
           </Row>
-          <Row label="Styling">
-            Tailwind CSS v4, configured entirely in CSS
-          </Row>
+          <Row label="Styling">Tailwind CSS v4, configured entirely in CSS</Row>
           <Row label="Components">
             <Link
               href="https://github.com/sFrady20/earthling-ui"
@@ -70,6 +67,18 @@ export default function ColophonPage() {
             a cookie-based theme system with named themes, a custom theme
             editor, and holiday themes that activate automatically on their
             dates
+          </Row>
+          <Row label="Theme effects">
+            <Link
+              href="https://canvasui.dev"
+              target="_blank"
+              className="underline"
+            >
+              canvas-ui
+            </Link>
+            , which renders live HTML inside a canvas so every theme can carry
+            its own WebGL effect — a force field, drifting clouds, rain on
+            glass. Browsers without the API get the plain page
           </Row>
           <Row label="Casting">
             shader pages can be cast to a TV through a custom Chromecast

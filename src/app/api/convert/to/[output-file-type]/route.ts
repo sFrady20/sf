@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import sharp from "sharp";
+import sharp, { type Sharp } from "sharp";
 
 const outputs: Record<
   string,
-  { mime: string; encode: (img: sharp.Sharp, quality?: number) => sharp.Sharp }
+  { mime: string; encode: (img: Sharp, quality?: number) => Sharp }
 > = {
   png: { mime: "image/png", encode: (img) => img.png() },
   jpg: {
