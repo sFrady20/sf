@@ -22,6 +22,37 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.stevenfrady.com"),
   title: "Steven Frady - Creative Full-Stack Developer",
   description: `Creative full-stack developer with ${yearsOfExperience()}+ years across web and mobile apps, design systems, shaders, and interactive installations. Based in Fairfax, VA.`,
+  //identity rides along on every page, tools included
+  authors: [{ name: "Steven Frady", url: "https://www.stevenfrady.com" }],
+  creator: "Steven Frady",
+  openGraph: { siteName: "Steven Frady", type: "website" },
+};
+
+//machine-readable identity for search engines - attaches the person to
+//every page without a pixel of ui
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Steven Frady",
+  url: "https://www.stevenfrady.com",
+  jobTitle: "Creative Full-Stack Developer",
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "WebGL",
+    "GLSL shaders",
+    "Three.js",
+    "interactive installations",
+    "design systems",
+  ],
+  sameAs: [
+    "https://github.com/sFrady20",
+    "https://x.com/slowjamsteve",
+    "https://www.linkedin.com/in/stevenfrady",
+    "https://soundcloud.com/slowjamsteve",
+    "https://www.slowjam.dj/",
+  ],
 };
 
 export const viewport: Viewport = {
@@ -96,6 +127,10 @@ export default async function App(props: { children?: ReactNode }) {
       >
         {/* runs before paint to resolve `system` to OS light/dark, no flash */}
         <script dangerouslySetInnerHTML={{ __html: antiFlashScript() }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         {customCss && <style dangerouslySetInnerHTML={{ __html: customCss }} />}
         <ThemeProvider initialSelection={selection} initialCustom={custom}>
           {children}

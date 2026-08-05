@@ -210,7 +210,7 @@ export default async function MainLayout(props: {
                         label: "Dribbble",
                       },
                       {
-                        link: "https://soundcloud.com/sultan-zabu",
+                        link: "https://soundcloud.com/slowjamsteve",
                         label: "SoundCloud",
                       },
                       {

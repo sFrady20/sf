@@ -20,6 +20,20 @@ export function ToolShell(props: { children?: ReactNode; wide?: boolean }) {
           </Button>
         </div>
         {children}
+
+        {/* the quiet part of the funnel - one sentence, no banner */}
+        <div className="mt-16 border-t border-foreground/10 pt-5 text-sm opacity-60 hover:opacity-90 transition-opacity">
+          A free tool by{" "}
+          <Link href="/" className="underline hover:no-underline">
+            Steven Frady
+          </Link>
+          , a creative developer building apps, shaders, and interactive
+          installations.{" "}
+          <Link href="/#apps" className="underline hover:no-underline">
+            See the work
+          </Link>
+          .
+        </div>
       </div>
     </div>
   );

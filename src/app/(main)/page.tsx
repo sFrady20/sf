@@ -76,7 +76,7 @@ const personJsonLd = {
     "https://www.linkedin.com/in/stevenfrady",
     "https://dribbble.com/sfrady20",
     "https://peerlist.io/sfrady20",
-    "https://soundcloud.com/sultan-zabu",
+    "https://soundcloud.com/slowjamsteve",
   ],
   knowsAbout: skillItems,
 };
