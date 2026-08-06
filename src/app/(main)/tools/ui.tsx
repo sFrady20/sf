@@ -125,6 +125,59 @@ export const prettySize = (bytes: number) =>
     ? `${(bytes / 1024).toFixed(1)} KB`
     : `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 
+//like ImageDrop but for files that don't preview - icon instead of thumbnail
+export function FileDrop(props: {
+  file: File | null;
+  onFile: (file: File | null) => void;
+  accept: string;
+  icon: string;
+  hint: string;
+  meta?: ReactNode;
+  className?: string;
+}) {
+  const { file, onFile, accept, icon, hint, meta, className } = props;
+
+  //remount the input after every pick so re-selecting the same file fires
+  const [inputKey, setInputKey] = useState(0);
+
+  return (
+    <div className={cn("relative", className)}>
+      <input
+        key={inputKey}
+        type="file"
+        accept={accept}
+        aria-label={hint}
+        className="absolute inset-0 opacity-0 cursor-pointer z-10"
+        onChange={(e) => {
+          onFile(e.target.files?.[0] ?? null);
+          setInputKey((k) => k + 1);
+        }}
+      />
+      {file ? (
+        <div className="flex flex-row items-center gap-4 rounded-xl border border-foreground/10 bg-foreground/[0.04] hover:bg-foreground/[0.08] transition-colors p-3 h-full">
+          <div className="w-14 h-14 rounded-lg border border-foreground/10 bg-foreground/5 flex-none flex items-center justify-center">
+            <i className={cn(icon, "text-2xl opacity-60")} />
+          </div>
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <div className="text-sm truncate">{file.name}</div>
+            <div className="text-xs opacity-50 tabular-nums">
+              {meta ?? `${file.type || "unknown"} · ${prettySize(file.size)}`}
+            </div>
+          </div>
+          <div className="ml-auto text-xs opacity-50 whitespace-nowrap max-md:hidden">
+            Click to replace
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-foreground/20 bg-foreground/[0.03] hover:bg-foreground/[0.07] hover:border-foreground/30 transition-colors px-6 py-10 h-full">
+          <i className={cn(icon, "text-2xl opacity-50")} />
+          <div className="text-sm opacity-70">{hint}</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 //drop target that becomes a compact file row once something's loaded
 export function ImageDrop(props: {
   file: File | null;

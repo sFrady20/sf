@@ -1,31 +1,31 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ToolShell } from "../shell";
-import { ImageConverter } from "./components";
-import { conversionPairs } from "./formats";
+import { AudioConverter } from "./components";
+import { audioPairs } from "./formats";
 
 export const metadata: Metadata = {
-  title: "Free Online Image Converter - Steven Frady",
+  title: "Free Online Audio Converter - Steven Frady",
   description:
-    "Convert images between PNG, JPG, WebP, and AVIF online for free. Fast, private, no signup — files are converted on the fly and never stored.",
+    "Convert audio between MP3, WAV, AIFF, FLAC, OGG, M4A, and Opus, or extract audio from MP4, MOV, WebM, and MKV video. Runs in your browser — files never uploaded.",
   keywords:
-    "image converter, convert png, convert jpg, convert webp, convert avif, online image conversion",
-  alternates: { canonical: "https://www.stevenfrady.com/tools/convert" },
+    "audio converter, convert mp3, convert wav, aiff to wav, convert flac, mp4 to mp3, extract audio from video, online audio conversion",
+  alternates: { canonical: "https://www.stevenfrady.com/tools/audio" },
 };
 
 export default async function () {
   return (
     <ToolShell>
       {/* the pair links ride in as a prop so the article lands under them */}
-      <ImageConverter
+      <AudioConverter
         related={
           <div className="flex flex-col gap-3 mt-4">
             <div className="text-sm opacity-70">Popular conversions</div>
             <div className="flex flex-row flex-wrap gap-2">
-              {conversionPairs.map((p) => (
+              {audioPairs.map((p) => (
                 <Link
                   key={p.slug}
-                  href={`/tools/convert/${p.slug}`}
+                  href={`/tools/audio/${p.slug}`}
                   className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
                 >
                   {p.from.label} → {p.to.label}

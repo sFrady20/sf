@@ -4,7 +4,7 @@ import { Slider } from "@/components/slider";
 import { downloadFile } from "@/utils/download-file";
 import { swapUrl } from "@/utils/swap-url";
 import { Button } from "earthling-ui/button";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   Field,
   ImageDrop,
@@ -21,6 +21,8 @@ import { getFormat, getFormatByMime, imageFormats } from "./formats";
 export function ImageConverter(props: {
   initialFrom?: string;
   initialTo?: string;
+  //pair link chips from the page, rendered between the tool and the article
+  related?: ReactNode;
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [fromSlug, setFromSlug] = useState(props.initialFrom ?? "");
@@ -155,6 +157,8 @@ export function ImageConverter(props: {
           </div>
         </Panel>
       </div>
+
+      {props.related}
 
       {/* follows the selects and whatever file gets dropped in */}
       {from && (

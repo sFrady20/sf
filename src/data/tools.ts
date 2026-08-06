@@ -1,3 +1,4 @@
+import { audioPairs } from "@/app/(main)/tools/audio/formats";
 import { basePairs } from "@/app/(main)/tools/base/bases";
 import { colorPairs } from "@/app/(main)/tools/color/spaces";
 import { conversionPairs } from "@/app/(main)/tools/convert/formats";
@@ -210,6 +211,27 @@ export const toolCategories: ToolCategory[] = [
     ],
   },
   {
+    id: "audio",
+    label: "Audio & Video",
+    icon: "icon-[ri--music-2-line]",
+    tools: [
+      {
+        href: "/tools/audio",
+        title: "Audio Converter",
+        description:
+          "Convert audio between MP3, WAV, AIFF, FLAC, OGG, M4A, and Opus — or extract audio from video. Runs in your browser.",
+        icon: "icon-[ri--file-music-line]",
+        keywords:
+          "audio converter, mp3 to wav, wav to mp3, aiff to wav, flac to mp3, mp4 to mp3, extract audio from video, ffmpeg " +
+          audioPairs.map((p) => p.slug).join(" "),
+        variants: audioPairs.map((p) => ({
+          href: `/tools/audio/${p.slug}`,
+          label: `${p.from.label} → ${p.to.label}`,
+        })),
+      },
+    ],
+  },
+  {
     id: "generators",
     label: "Generators",
     icon: "icon-[ri--shuffle-line]",
@@ -268,6 +290,7 @@ export const allTools = toolCategories.flatMap((c) => c.tools);
 export const toolRoutes: string[] = [
   "/tools",
   "/tools/convert",
+  "/tools/audio",
   "/tools/color",
   "/tools/cron",
   "/tools/base",
@@ -282,6 +305,7 @@ export const toolRoutes: string[] = [
   ...textTransforms.map((t) => `/tools/text/${t.slug}`),
   ...generators.map((g) => `/tools/generate/${g.slug}`),
   ...conversionPairs.map((p) => `/tools/convert/${p.slug}`),
+  ...audioPairs.map((p) => `/tools/audio/${p.slug}`),
   ...colorPairs.map((p) => `/tools/color/${p.slug}`),
   ...cronPresets.map((p) => `/tools/cron/${p.slug}`),
   ...basePairs.map((p) => `/tools/base/${p.slug}`),

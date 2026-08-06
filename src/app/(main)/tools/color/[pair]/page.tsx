@@ -35,26 +35,30 @@ export default async function (props: { params: Promise<{ pair: string }> }) {
 
   return (
     <ToolShell>
-      {/* the converter renders its own prose, so it follows the dropdowns */}
-      <ColorConverter initialFrom={pair.from.slug} initialTo={pair.to.slug} />
-
-      {/* internal links keep every pair page one hop away */}
-      <div className="flex flex-col gap-3 mt-12">
-        <div className="text-sm opacity-70">Other conversions</div>
-        <div className="flex flex-row flex-wrap gap-2">
-          {colorPairs
-            .filter((p) => p.slug !== slug)
-            .map((p) => (
-              <Link
-                key={p.slug}
-                href={`/tools/color/${p.slug}`}
-                className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
-              >
-                {p.from.label} → {p.to.label}
-              </Link>
-            ))}
-        </div>
-      </div>
+      {/* the converter renders its own prose, so it follows the dropdowns.
+          the pair links ride in as a prop so the article lands under them */}
+      <ColorConverter
+        initialFrom={pair.from.slug}
+        initialTo={pair.to.slug}
+        related={
+          <div className="flex flex-col gap-3 mt-4">
+            <div className="text-sm opacity-70">Other conversions</div>
+            <div className="flex flex-row flex-wrap gap-2">
+              {colorPairs
+                .filter((p) => p.slug !== slug)
+                .map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/tools/color/${p.slug}`}
+                    className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
+                  >
+                    {p.from.label} → {p.to.label}
+                  </Link>
+                ))}
+            </div>
+          </div>
+        }
+      />
     </ToolShell>
   );
 }

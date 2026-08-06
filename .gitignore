@@ -43,3 +43,5 @@ next-env.d.ts
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+# ffmpeg.wasm core, copied from node_modules on postinstall
+/public/ffmpeg

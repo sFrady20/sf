@@ -2,54 +2,57 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ToolShell } from "../../shell";
-import { BaseConverter } from "../components";
-import { basePairs, getBasePair } from "../bases";
+import { AudioConverter } from "../components";
+import { audioPairs, getAudioPair } from "../formats";
 
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return basePairs.map((p) => ({ pair: p.slug }));
+  return audioPairs.map((p) => ({ pair: p.slug }));
 }
 
 export async function generateMetadata(props: {
   params: Promise<{ pair: string }>;
 }): Promise<Metadata> {
   const { pair: slug } = await props.params;
-  const pair = getBasePair(slug);
+  const pair = getAudioPair(slug);
   if (!pair) return {};
 
+  const extract = pair.from.inputOnly;
   return {
-    title: `${pair.from.label} to ${pair.to.label} Converter - Steven Frady`,
-    description: `Free online ${pair.from.label.toLowerCase()} to ${pair.to.label.toLowerCase()} converter. Paste a number and get the conversion instantly — any size, right in your browser.`,
-    keywords: `${pair.from.slug} to ${pair.to.slug}, convert ${pair.from.slug} to ${pair.to.slug}, ${pair.from.slug} to ${pair.to.slug} converter, number base converter`,
+    title: extract
+      ? `Extract ${pair.to.label} Audio from ${pair.from.label} Online - Steven Frady`
+      : `Convert ${pair.from.label} to ${pair.to.label} Online - Steven Frady`,
+    description: `Free online ${pair.from.label} to ${pair.to.label} converter. Runs entirely in your browser — fast, private, no signup, files never uploaded.`,
+    keywords: `${pair.from.slug} to ${pair.to.slug}, convert ${pair.from.slug} to ${pair.to.slug}, ${pair.from.label.toLowerCase()} to ${pair.to.label.toLowerCase()} converter, audio converter${extract ? ", extract audio from video" : ""}`,
     alternates: {
-      canonical: `https://www.stevenfrady.com/tools/base/${slug}`,
+      canonical: `https://www.stevenfrady.com/tools/audio/${slug}`,
     },
   };
 }
 
 export default async function (props: { params: Promise<{ pair: string }> }) {
   const { pair: slug } = await props.params;
-  const pair = getBasePair(slug);
+  const pair = getAudioPair(slug);
   if (!pair) notFound();
 
   return (
     <ToolShell>
-      {/* the converter renders its own prose, so it follows the dropdowns.
+      {/* the converter renders its own prose, so it follows the selects.
           the pair links ride in as a prop so the article lands under them */}
-      <BaseConverter
+      <AudioConverter
         initialFrom={pair.from.slug}
         initialTo={pair.to.slug}
         related={
           <div className="flex flex-col gap-3 mt-4">
             <div className="text-sm opacity-70">Other conversions</div>
             <div className="flex flex-row flex-wrap gap-2">
-              {basePairs
+              {audioPairs
                 .filter((p) => p.slug !== slug)
                 .map((p) => (
                   <Link
                     key={p.slug}
-                    href={`/tools/base/${p.slug}`}
+                    href={`/tools/audio/${p.slug}`}
                     className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
                   >
                     {p.from.label} → {p.to.label}

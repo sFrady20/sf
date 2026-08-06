@@ -11,7 +11,8 @@ export function ToolShell(props: { children?: ReactNode; wide?: boolean }) {
       <div
         className={`container flex flex-col ${wide ? "" : "max-w-[1000px]"}`}
       >
-        <div>
+        {/* mb-9 matches the 36px the palette page gets from its mdx h2 margin */}
+        <div className="mb-9">
           <Button material={"ghost"} className="gap-2 -ml-4" asChild>
             <Link href="/tools">
               <i className="icon-[ri--arrow-left-line]" />

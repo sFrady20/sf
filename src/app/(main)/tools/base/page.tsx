@@ -19,18 +19,6 @@ export default async function () {
     <ToolShell>
       <BaseConverter />
 
-      <ToolProse>
-        <h2>About the four bases</h2>
-        {numberBases.map((b) => (
-          <p key={b.slug}>{b.about}</p>
-        ))}
-        <p>
-          Conversion uses BigInt, so numbers of any size — a 256-bit hash, a
-          database id — convert without losing precision, entirely in your
-          browser.
-        </p>
-      </ToolProse>
-
       <div className="flex flex-col gap-3 mt-12">
         <div className="text-sm opacity-70">Popular conversions</div>
         <div className="flex flex-row flex-wrap gap-2">
@@ -45,6 +33,18 @@ export default async function () {
           ))}
         </div>
       </div>
+
+      <ToolProse>
+        <h2>About the four bases</h2>
+        {numberBases.map((b) => (
+          <p key={b.slug}>{b.about}</p>
+        ))}
+        <p>
+          Conversion uses BigInt, so numbers of any size — a 256-bit hash, a
+          database id — convert without losing precision, entirely in your
+          browser.
+        </p>
+      </ToolProse>
     </ToolShell>
   );
 }

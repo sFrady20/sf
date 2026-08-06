@@ -6,7 +6,7 @@ import {
 } from "@/components/copy-to-clipboard";
 import { cn } from "@/utils/cn";
 import { swapUrl } from "@/utils/swap-url";
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { Panel, PanelHeader, ToolHeader, ToolProse } from "../ui";
 import {
   FIELD_DEFS,
@@ -39,7 +39,11 @@ const absFmt = new Intl.DateTimeFormat(undefined, {
 });
 
 //one component serves /tools/cron and every /tools/cron/[preset] page
-export function CronTool(props: { initialExpression?: string }) {
+export function CronTool(props: {
+  initialExpression?: string;
+  //preset link chips from the page, rendered between the tool and the article
+  related?: ReactNode;
+}) {
   const [input, setInput] = useState(props.initialExpression ?? "*/5 * * * *");
   const result = parseCron(input);
   const preset = findPresetByExpression(input);
@@ -205,6 +209,8 @@ export function CronTool(props: { initialExpression?: string }) {
           </div>
         )}
       </Panel>
+
+      {props.related}
 
       {showProse && result.ok && (
         <ToolProse className="mt-4">

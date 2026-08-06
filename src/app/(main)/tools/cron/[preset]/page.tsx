@@ -35,26 +35,29 @@ export default async function (props: { params: Promise<{ preset: string }> }) {
 
   return (
     <ToolShell>
-      {/* the tool renders its own prose, so it follows the expression */}
-      <CronTool initialExpression={preset.expression} />
-
-      {/* internal links keep every preset page one hop away */}
-      <div className="flex flex-col gap-3 mt-12">
-        <div className="text-sm opacity-70">Other schedules</div>
-        <div className="flex flex-row flex-wrap gap-2">
-          {cronPresets
-            .filter((p) => p.slug !== slug)
-            .map((p) => (
-              <Link
-                key={p.slug}
-                href={`/tools/cron/${p.slug}`}
-                className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
-              >
-                {p.label}
-              </Link>
-            ))}
-        </div>
-      </div>
+      {/* the tool renders its own prose, so it follows the expression.
+          the preset links ride in as a prop so the article lands under them */}
+      <CronTool
+        initialExpression={preset.expression}
+        related={
+          <div className="flex flex-col gap-3 mt-4">
+            <div className="text-sm opacity-70">Other schedules</div>
+            <div className="flex flex-row flex-wrap gap-2">
+              {cronPresets
+                .filter((p) => p.slug !== slug)
+                .map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/tools/cron/${p.slug}`}
+                    className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
+                  >
+                    {p.label}
+                  </Link>
+                ))}
+            </div>
+          </div>
+        }
+      />
     </ToolShell>
   );
 }

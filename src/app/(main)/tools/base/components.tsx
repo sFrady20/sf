@@ -7,7 +7,7 @@ import {
 import { cn } from "@/utils/cn";
 import { swapUrl } from "@/utils/swap-url";
 import { Button } from "earthling-ui/button";
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   Field,
   Panel,
@@ -28,6 +28,8 @@ import {
 export function BaseConverter(props: {
   initialFrom?: string;
   initialTo?: string;
+  //pair link chips from the page, rendered between the tool and the article
+  related?: ReactNode;
 }) {
   const [fromSlug, setFromSlug] = useState(props.initialFrom ?? "decimal");
   const [toSlug, setToSlug] = useState(props.initialTo ?? "hex");
@@ -267,6 +269,8 @@ export function BaseConverter(props: {
           })}
         </div>
       </Panel>
+
+      {props.related}
 
       {showProse && (
         <ToolProse className="mt-4">

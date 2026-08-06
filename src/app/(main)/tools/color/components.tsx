@@ -7,7 +7,7 @@ import {
 import { cn } from "@/utils/cn";
 import { swapUrl } from "@/utils/swap-url";
 import { Button } from "earthling-ui/button";
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import {
   Field,
   Panel,
@@ -28,6 +28,8 @@ import {
 export function ColorConverter(props: {
   initialFrom?: string;
   initialTo?: string;
+  //pair link chips from the page, rendered between the tool and the article
+  related?: ReactNode;
 }) {
   const [fromSlug, setFromSlug] = useState(props.initialFrom ?? "hex");
   const [toSlug, setToSlug] = useState(props.initialTo ?? "rgb");
@@ -287,6 +289,8 @@ export function ColorConverter(props: {
           })}
         </div>
       </Panel>
+
+      {props.related}
 
       {showProse && (
         <ToolProse className="mt-4">

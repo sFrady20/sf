@@ -19,18 +19,6 @@ export default async function () {
     <ToolShell>
       <ColorConverter />
 
-      <ToolProse>
-        <h2>About the four formats</h2>
-        {colorSpaces.map((s) => (
-          <p key={s.slug}>{s.about}</p>
-        ))}
-        <p>
-          Conversion runs entirely in your browser — nothing is uploaded — and
-          alpha carries through every format, from 8-digit hex to{" "}
-          <code>oklch(… / 0.5)</code>.
-        </p>
-      </ToolProse>
-
       <div className="flex flex-col gap-3 mt-12">
         <div className="text-sm opacity-70">Popular conversions</div>
         <div className="flex flex-row flex-wrap gap-2">
@@ -45,6 +33,18 @@ export default async function () {
           ))}
         </div>
       </div>
+
+      <ToolProse>
+        <h2>About the four formats</h2>
+        {colorSpaces.map((s) => (
+          <p key={s.slug}>{s.about}</p>
+        ))}
+        <p>
+          Conversion runs entirely in your browser — nothing is uploaded — and
+          alpha carries through every format, from 8-digit hex to{" "}
+          <code>oklch(… / 0.5)</code>.
+        </p>
+      </ToolProse>
     </ToolShell>
   );
 }

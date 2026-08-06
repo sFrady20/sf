@@ -19,6 +19,21 @@ export default async function () {
     <ToolShell>
       <CronTool />
 
+      <div className="flex flex-col gap-3 mt-12">
+        <div className="text-sm opacity-70">Common schedules</div>
+        <div className="flex flex-row flex-wrap gap-2">
+          {cronPresets.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/tools/cron/${p.slug}`}
+              className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
+            >
+              {p.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
       <ToolProse>
         <h2>Cron syntax in thirty seconds</h2>
         <p>
@@ -40,21 +55,6 @@ export default async function () {
           see above are what a real cron daemon would do.
         </p>
       </ToolProse>
-
-      <div className="flex flex-col gap-3 mt-12">
-        <div className="text-sm opacity-70">Common schedules</div>
-        <div className="flex flex-row flex-wrap gap-2">
-          {cronPresets.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/tools/cron/${p.slug}`}
-              className="text-xs bg-foreground/5 hover:bg-foreground/15 border rounded-full px-3 py-1.5 transition"
-            >
-              {p.label}
-            </Link>
-          ))}
-        </div>
-      </div>
     </ToolShell>
   );
 }
