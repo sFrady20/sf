@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import { useTheme } from "@/components/theme-provider";
+import { useMediaQuery } from "usehooks-ts";
 import { Liquid, supportsHtmlInCanvas } from "@/components/canvasui/Liquid";
 import { Blaze } from "@/components/canvasui/Blaze";
 import { Clouds } from "@/components/canvasui/Clouds";
@@ -63,6 +64,10 @@ export function ThemeEffect(props: { children?: ReactNode }) {
   const { children } = props;
   const { custom } = useTheme();
   const theme = useResolvedTheme();
+  //bigger screens can take a bigger show
+  const desktop = useMediaQuery("(min-width: 768px)", {
+    initializeWithValue: false,
+  });
 
   //no api, no effect - the site stays exactly as it was
   const supported = useSyncExternalStore(
@@ -102,8 +107,14 @@ export function ThemeEffect(props: { children?: ReactNode }) {
           hoverRadius={520}
           tint={0.08}
           grain={0.15}
-          rippleIntensity={0.12}
-          refraction={26}
+          //clicks hit harder on desktop - wider, further, more push
+          rippleIntensity={desktop ? 0.18 : 0.12}
+          rippleWidth={desktop ? 0.08 : 0.045}
+          rippleSpeed={desktop ? 0.65 : 0.5}
+          rippleDuration={desktop ? 2.2 : 1.6}
+          rippleMaxRadius={desktop ? 1.4 : 0.85}
+          impactRadius={desktop ? 0.26 : 0.16}
+          refraction={desktop ? 36 : 26}
         >
           {inner}
         </ForceField>
@@ -175,20 +186,21 @@ export function ThemeEffect(props: { children?: ReactNode }) {
         </Clouds>
       );
 
-    //rain on the window, wipe it with the cursor
+    //rain on the window, wipe it with the cursor. heavy vignette and a
+    //cold tint keep it moody
     case "rain":
       return (
         <Droplets
           className={cls}
-          intensity={0.55}
-          speed={0.8}
+          intensity={0.6}
+          speed={0.7}
           scale={0.45}
           refraction={0.25}
-          blur={0.15}
-          vignette={0.2}
+          blur={0.25}
+          vignette={0.45}
           staticDrops={0.3}
-          tint={[0.6, 0.7, 0.85]}
-          tintStrength={0.15}
+          tint={[0.45, 0.55, 0.75]}
+          tintStrength={0.3}
         >
           {inner}
         </Droplets>

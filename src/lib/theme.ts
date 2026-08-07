@@ -89,9 +89,9 @@ export const NAMED_THEMES: ThemeMeta[] = [
     id: "rain",
     label: "Rain",
     icon: "icon-[ri--rainy-fill]",
-    bg: "oklch(0.28 0.02 250)",
-    fg: "oklch(0.87 0.015 240)",
-    accent: "oklch(0.68 0.08 240)",
+    bg: "oklch(0.21 0.025 250)",
+    fg: "oklch(0.84 0.015 240)",
+    accent: "oklch(0.64 0.07 240)",
   },
 ];
 
