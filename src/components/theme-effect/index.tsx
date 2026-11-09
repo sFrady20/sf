@@ -78,13 +78,11 @@ export function ThemeEffect(props: { children?: ReactNode }) {
 
   if (!supported || !theme) return <>{children}</>;
 
-  //the wrapper becomes the viewport and content scrolls inside it
-  const cls = "h-svh w-full";
+  //the wrapper becomes the viewport and content scrolls inside it. the bg
+  //lives out here, the effect paints it under the shaders itself
+  const cls = "h-svh w-full bg-background";
 
-  //the capture only includes what's inside the canvas, and body's bg isn't.
-  //without an opaque bg here the effect output is transparent everywhere
-  //except text, and the unwarped dom shows through from underneath
-  const inner = <div className="min-h-full bg-background">{children}</div>;
+  const inner = <div className="min-h-full">{children}</div>;
 
   switch (theme) {
     //teal energy shield, hex lattice charges near the cursor and

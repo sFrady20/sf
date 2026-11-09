@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { MAX_DPR } from "./quality";
+import { paintCapture, watchNested } from "./nested";
 
 export interface DropletsOptions {
   /** How much rain falls, from a light drizzle to a downpour (0 to 1.25). */
@@ -87,6 +88,7 @@ const DEFAULTS: Required<DropletsOptions> = {
 type PaintableCanvas = HTMLCanvasElement & {
   onpaint?: (() => void) | null;
   requestPaint?: () => void;
+  content?: string;
 };
 
 type ElementImageContext = CanvasRenderingContext2D & {
@@ -336,10 +338,13 @@ export function supportsHtmlInCanvas(): boolean {
   if (typeof document === "undefined") return false;
   const probe = document.createElement("canvas") as PaintableCanvas;
   const ctx = probe.getContext("2d") as ElementImageContext | null;
+  //only reflects when the api's really on, the method checks lie
+  probe.setAttribute("content", "drawable");
   return Boolean(
     ctx &&
     typeof ctx.drawElementImage === "function" &&
-    typeof probe.requestPaint === "function",
+    typeof probe.requestPaint === "function" &&
+    probe.content === "drawable",
   );
 }
 
@@ -368,13 +373,13 @@ export function createDroplets(
   );
 
   let contentDirty = false;
+  const stopNested = htmlInCanvas ? watchNested(source, content) : () => {};
   let wake = () => {};
 
   if (htmlInCanvas) {
     paintable.onpaint = () => {
       try {
-        sourceCtx!.reset();
-        sourceCtx!.drawElementImage!(content, 0, 0);
+        paintCapture(sourceCtx!, source, content);
         contentDirty = true;
         wake();
       } catch {}
@@ -710,9 +715,15 @@ export function createDroplets(
     pointer.seen = false;
   }
 
+  //scrolling isn't a change as far as paint's concerned
+  function onContentScroll() {
+    if (htmlInCanvas) paintable.requestPaint!();
+    start();
+  }
+
   listenTarget.addEventListener("pointermove", onPointerMove);
   listenTarget.addEventListener("pointerleave", onPointerLeave);
-  content.addEventListener("scroll", start, { passive: true });
+  content.addEventListener("scroll", onContentScroll, { passive: true });
 
   return {
     setOptions(next) {
@@ -737,7 +748,7 @@ export function createDroplets(
       motionQuery.removeEventListener("change", onMotionChange);
       listenTarget.removeEventListener("pointermove", onPointerMove);
       listenTarget.removeEventListener("pointerleave", onPointerLeave);
-      content.removeEventListener("scroll", start);
+      content.removeEventListener("scroll", onContentScroll);
       gl!.deleteTexture(contentTexture);
       for (const texture of trailTextures) gl!.deleteTexture(texture);
       for (const framebuffer of trailFramebuffers)
@@ -749,6 +760,7 @@ export function createDroplets(
       gl!.deleteShader(trailShader);
       gl!.deleteBuffer(quad);
       if (htmlInCanvas) paintable.onpaint = null;
+      stopNested();
     },
   };
 }
@@ -805,8 +817,8 @@ export function Droplets({
     <div className={className} style={{ position: "relative", ...style }}>
       <canvas
         ref={sourceRef}
-        // @ts-expect-error experimental html-in-canvas attribute
-        layoutsubtree="true"
+        //157 spelling
+        content="drawable"
         suppressHydrationWarning
         style={
           native
@@ -817,6 +829,9 @@ export function Droplets({
         {native ? (
           <div
             ref={contentRef}
+            // @ts-expect-error html-in-canvas paint root
+            drawable=""
+            data-canvasui-content=""
             style={{
               position: "relative",
               width: "100%",
