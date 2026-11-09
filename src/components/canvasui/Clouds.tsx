@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { MAX_DPR } from "./quality";
+import { paintCapture, watchNested } from "./nested";
 
 export interface CloudsOptions {
   scale?: number;
@@ -43,6 +44,7 @@ export interface CloudsInstance {
 type PaintableCanvas = HTMLCanvasElement & {
   requestPaint?: () => void;
   onpaint: (() => void) | null;
+  content?: string;
 };
 
 type ElementImageContext = CanvasRenderingContext2D & {
@@ -263,10 +265,13 @@ export function supportsHtmlInCanvas(): boolean {
   if (typeof document === "undefined") return false;
   const probe = document.createElement("canvas") as PaintableCanvas;
   const ctx = probe.getContext("2d") as ElementImageContext | null;
+  //only reflects when the api's really on, the method checks lie
+  probe.setAttribute("content", "drawable");
   return Boolean(
     ctx &&
     typeof ctx.drawElementImage === "function" &&
-    typeof probe.requestPaint === "function",
+    typeof probe.requestPaint === "function" &&
+    probe.content === "drawable",
   );
 }
 
@@ -295,13 +300,13 @@ export function createClouds(
   );
 
   let contentDirty = false;
+  const stopNested = htmlInCanvas ? watchNested(source, content) : () => {};
   let wake = () => {};
 
   if (htmlInCanvas) {
     paintable.onpaint = () => {
       try {
-        sourceCtx!.reset();
-        sourceCtx!.drawElementImage!(content, 0, 0);
+        paintCapture(sourceCtx!, source, content);
         contentDirty = true;
         wake();
       } catch {}
@@ -720,9 +725,15 @@ export function createClouds(
     hasPointer = false;
   }
 
+  //scrolling isn't a change as far as paint's concerned
+  function onContentScroll() {
+    if (htmlInCanvas) paintable.requestPaint!();
+    start();
+  }
+
   content.addEventListener("pointermove", onPointerMove, { passive: true });
   content.addEventListener("pointerleave", onPointerLeave, { passive: true });
-  content.addEventListener("scroll", start, { passive: true });
+  content.addEventListener("scroll", onContentScroll, { passive: true });
 
   let themeTimer = 0;
   function onThemeShift() {
@@ -765,8 +776,9 @@ export function createClouds(
       motionQuery.removeEventListener("change", onMotionChange);
       content.removeEventListener("pointermove", onPointerMove);
       content.removeEventListener("pointerleave", onPointerLeave);
-      content.removeEventListener("scroll", start);
+      content.removeEventListener("scroll", onContentScroll);
       if (htmlInCanvas) paintable.onpaint = null;
+      stopNested();
       gl!.deleteTexture(fieldTexture);
       gl!.deleteTexture(contentTexture);
       gl!.deleteTexture(windTextures[0]);
@@ -838,8 +850,8 @@ export function Clouds({
     <div className={className} style={{ position: "relative", ...style }}>
       <canvas
         ref={sourceRef}
-        // @ts-expect-error experimental html-in-canvas attribute
-        layoutsubtree="true"
+        //157 spelling
+        content="drawable"
         suppressHydrationWarning
         style={
           native
@@ -850,6 +862,9 @@ export function Clouds({
         {native ? (
           <div
             ref={contentRef}
+            // @ts-expect-error html-in-canvas paint root
+            drawable=""
+            data-canvasui-content=""
             style={{
               position: "relative",
               width: "100%",

@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { MAX_DPR } from "./quality";
+import { paintCapture, watchNested } from "./nested";
 
 export type ForceFieldShape = "hexagon" | "triangle" | "square";
 
@@ -178,6 +179,7 @@ const DEFAULTS: Required<Omit<ForceFieldOptions, "onHit">> & {
 type PaintableCanvas = HTMLCanvasElement & {
   onpaint?: (() => void) | null;
   requestPaint?: () => void;
+  content?: string;
 };
 
 type ElementImageContext = CanvasRenderingContext2D & {
@@ -583,10 +585,13 @@ export function supportsHtmlInCanvas(): boolean {
   if (typeof document === "undefined") return false;
   const probe = document.createElement("canvas") as PaintableCanvas;
   const ctx = probe.getContext("2d") as ElementImageContext | null;
+  //only reflects when the api's really on, the method checks lie
+  probe.setAttribute("content", "drawable");
   return Boolean(
     ctx &&
     typeof ctx.drawElementImage === "function" &&
-    typeof probe.requestPaint === "function",
+    typeof probe.requestPaint === "function" &&
+    probe.content === "drawable",
   );
 }
 
@@ -633,6 +638,7 @@ export function createForceField(
   );
 
   let contentDirty = false;
+  const stopNested = htmlInCanvas ? watchNested(source, content) : () => {};
   let pageLum = 0;
   let wake = () => {};
 
@@ -663,8 +669,7 @@ export function createForceField(
   if (htmlInCanvas) {
     paintable.onpaint = () => {
       try {
-        sourceCtx!.reset();
-        sourceCtx!.drawElementImage!(content, 0, 0);
+        paintCapture(sourceCtx!, source, content);
         contentDirty = true;
         wake();
       } catch {}
@@ -1141,6 +1146,8 @@ export function createForceField(
   motionQuery.addEventListener("change", onMotionChange);
   function onScroll() {
     lastInput = performance.now();
+    //scrolling isn't a change as far as paint's concerned
+    if (htmlInCanvas) paintable.requestPaint!();
     start();
   }
   content.addEventListener("scroll", onScroll, { passive: true });
@@ -1222,6 +1229,7 @@ export function createForceField(
       }
       gl!.deleteBuffer(quad);
       if (htmlInCanvas) paintable.onpaint = null;
+      stopNested();
     },
   };
 }
@@ -1278,8 +1286,8 @@ export function ForceField({
     <div className={className} style={{ position: "relative", ...style }}>
       <canvas
         ref={sourceRef}
-        // @ts-expect-error experimental html-in-canvas attribute
-        layoutsubtree="true"
+        //157 spelling
+        content="drawable"
         suppressHydrationWarning
         style={
           native
@@ -1290,6 +1298,9 @@ export function ForceField({
         {native ? (
           <div
             ref={contentRef}
+            // @ts-expect-error html-in-canvas paint root
+            drawable=""
+            data-canvasui-content=""
             style={{
               position: "relative",
               width: "100%",

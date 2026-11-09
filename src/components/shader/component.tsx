@@ -86,6 +86,8 @@ export const Shader = function (props: ShaderProps) {
         setContainerEl(r);
         containerRef(r);
       }}
+      //the black would sit on top of the shader in a theme effect
+      data-canvasui-clear=""
       {...rest}
       className={cn("bg-black relative", className)}
       onPointerMove={(e) => {
