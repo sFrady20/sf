@@ -78,7 +78,7 @@ export default async function MainLayout(props: {
                 >
                   <Link href={"/"}>
                     <Image
-                      src={"/avatar.webp"}
+                      src={"/headshot.webp"}
                       width={32}
                       height={32}
                       className="rounded-full"

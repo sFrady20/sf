@@ -83,8 +83,6 @@ const tile = (name, size) => {
 const shortcuts = {
   shaders: "sparkling-2-line",
   tools: "tools-line",
-  palette: "palette-line",
-  uses: "macbook-line",
 };
 
 await mkdir(pub, { recursive: true });
