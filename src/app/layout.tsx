@@ -26,6 +26,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Steven Frady", url: "https://www.stevenfrady.com" }],
   creator: "Steven Frady",
   openGraph: { siteName: "Steven Frady", type: "website" },
+  //favicon.ico, icon.svg, apple-icon.png get picked up by filename, this just
+  //stops ios from naming the home screen icon after the whole page title
+  applicationName: "SF26",
+  appleWebApp: { capable: true, title: "SF26" },
 };
 
 //machine-readable identity for search engines - attaches the person to

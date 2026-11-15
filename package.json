@@ -58,6 +58,7 @@
     "postinstall": "node scripts/copy-ffmpeg-core.mjs",
     "build": "next build",
     "dev": "next dev",
+    "icons": "bun scripts/generate-icons.mjs",
     "lint": "next lint",
     "start": "next start"
   },
